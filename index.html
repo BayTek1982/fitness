@@ -1,0 +1,1899 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bayazit Fitness-Schule</title>
+<meta name="theme-color" content="#06080c">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--r:18px;--mono:"JetBrains Mono",ui-monospace,monospace;--sans:Inter,system-ui,-apple-system,sans-serif}
+:root[data-theme=dark]{--bg:#06080c;--bg2:#0a0e14;--card:#0f141c;--card2:#131a24;--vid:#0a0f16;--line:#1c2632;--line2:#2b3746;--text:#e8eef5;--muted:#8796a8;--fig:#e8eef5;--fig2:#5f6d7e;--grid:rgba(255,255,255,.035);--ground:#3a4757;--shadow:0 10px 30px rgba(0,0,0,.35)}
+:root[data-theme=light]{--bg:#eef2f6;--bg2:#e5eaf0;--card:#ffffff;--card2:#f6f8fb;--vid:#fbfcfe;--line:#dbe2ea;--line2:#c3cdd9;--text:#0e1620;--muted:#5a6878;--fig:#1a2533;--fig2:#9fadbd;--grid:rgba(0,0,0,.05);--ground:#a7b3c1;--shadow:0 8px 24px rgba(20,40,70,.08)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+body{min-height:100vh;background-image:radial-gradient(900px 400px at 85% -10%,rgba(47,210,122,.07),transparent),radial-gradient(700px 400px at -10% 10%,rgba(59,158,255,.07),transparent)}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 16px;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.logo{display:flex;align-items:center;gap:10px;min-width:0}
+.logo .mk{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,#2fd27a,#3b9eff);color:#06110b;font:800 16px var(--mono);flex:none}
+.logo b{display:block;font:800 10px var(--mono);letter-spacing:.14em;color:var(--muted)}
+.logo span{display:block;font:800 16px var(--sans);letter-spacing:-.01em;white-space:nowrap}
+.theme{display:flex;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px;flex:none}
+.theme button{font:700 11px var(--mono);padding:6px 9px;border-radius:999px;color:var(--muted);white-space:nowrap}
+.theme button.on{background:var(--text);color:var(--bg)}
+.wrap{display:flex;max-width:1280px;margin:0 auto}
+#side{display:none}
+#view{flex:1;min-width:0;padding:18px 16px 60px}
+.kick{font:800 10.5px var(--mono);letter-spacing:.14em;color:var(--acc,var(--muted))}
+.hero{padding:10px 2px 18px}
+.hero h1{font:800 clamp(34px,8vw,54px)/1.02 var(--sans);letter-spacing:-.03em;margin:8px 0 10px}
+.hero p{color:var(--muted);font-size:15px;line-height:1.55;max-width:640px}
+.stats{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 12px}
+.stats span{font:600 11px var(--mono);color:var(--muted);background:var(--card);border:1px solid var(--line);padding:6px 10px;border-radius:999px}
+.stats b{color:var(--text)}
+.bar{height:6px;background:var(--line);border-radius:9px;overflow:hidden;flex:1}
+.bar i{display:block;height:100%;background:var(--acc,#2fd27a);border-radius:9px;transition:width .4s}
+.bar.big{height:8px;max-width:640px}
+.bento{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.tile{position:relative;overflow:hidden;text-align:left;display:flex;flex-direction:column;gap:8px;padding:16px;min-height:170px;border-radius:var(--r);background:linear-gradient(160deg,color-mix(in srgb,var(--acc) 14%,var(--card)),var(--card) 60%);border:1px solid color-mix(in srgb,var(--acc) 28%,var(--line));box-shadow:var(--shadow);transition:transform .15s,border-color .15s}
+.tile:hover{transform:translateY(-2px);border-color:var(--acc)}
+.tile::after{content:"";position:absolute;right:-30px;top:-30px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--acc) 30%,transparent),transparent 70%)}
+.tile.wide{grid-column:span 2}
+.tile .ic{font-size:34px;width:56px;height:56px;display:grid;place-items:center;border-radius:16px;background:color-mix(in srgb,var(--acc) 18%,transparent);border:1px solid color-mix(in srgb,var(--acc) 35%,transparent)}
+.tile .tt{font:800 14px var(--mono);letter-spacing:.06em;color:var(--acc)}
+.tile .ds{font-size:13px;line-height:1.45;color:var(--muted);flex:1}
+.tile .pr{display:flex;align-items:center;gap:8px}
+.tile .pn{font:700 11px var(--mono);color:var(--muted)}
+.tile .go{font:800 12px var(--mono);color:var(--acc)}
+.note{margin-top:22px;font-size:12px;color:var(--muted);line-height:1.5;padding:12px 14px;border:1px dashed var(--line2);border-radius:12px}
+.crumbs{margin-bottom:12px}
+.back{font:700 12px var(--mono);color:var(--muted);padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:var(--card)}
+.back:hover{color:var(--text)}
+.ahead{display:flex;gap:14px;align-items:center;padding:16px;border-radius:var(--r);background:linear-gradient(150deg,color-mix(in srgb,var(--acc) 16%,var(--card)),var(--card));border:1px solid color-mix(in srgb,var(--acc) 30%,var(--line));margin-bottom:14px}
+.ahead .ic{font-size:38px;width:64px;height:64px;flex:none;display:grid;place-items:center;border-radius:18px;background:color-mix(in srgb,var(--acc) 18%,transparent)}
+.ahead h1{font:800 26px var(--sans);letter-spacing:-.02em;margin:4px 0}
+.ahead p{color:var(--muted);font-size:14px}
+.lessons{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.lcard{text-align:left;display:flex;flex-direction:column;gap:4px;padding:10px;border-radius:16px;background:var(--card);border:1px solid var(--line);transition:border-color .15s,transform .15s}
+.lcard:hover{border-color:var(--acc);transform:translateY(-2px)}
+.lcard .thumb{width:100%;aspect-ratio:10/7;border-radius:10px;border:1px solid var(--line);margin-bottom:6px;display:block}
+.lcard .lk{font:800 10px var(--mono);letter-spacing:.12em;color:var(--acc)}
+.lcard .lk b{color:#2fd27a}
+.lcard .lt{font-weight:700;font-size:15px;line-height:1.25}
+.lcard .ls{font-size:12px;color:var(--muted);line-height:1.35}
+.lcard .lv{margin-top:4px;align-self:flex-start;font:700 9.5px var(--mono);padding:3px 7px;border-radius:999px;border:1px solid var(--line2);color:var(--muted)}
+.lcard.done{border-color:color-mix(in srgb,#2fd27a 45%,var(--line))}
+.lhead h1{font:800 clamp(26px,6vw,36px)/1.1 var(--sans);letter-spacing:-.02em;margin:6px 0 4px}
+.lhead p{color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 14px}
+.chip{font:600 11px var(--mono);padding:5px 9px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--muted)}
+.chip.acc{color:var(--acc);border-color:color-mix(in srgb,var(--acc) 45%,var(--line))}
+.player{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+.screen{position:relative}
+#cv{display:block;width:100%;aspect-ratio:10/7;cursor:pointer;background:var(--vid)}
+.bigplay{position:absolute;inset:0;margin:auto;width:66px;height:66px;border-radius:50%;background:var(--acc);color:#08111a;font-size:24px;box-shadow:0 8px 30px color-mix(in srgb,var(--acc) 50%,transparent)}
+.ctrl{display:flex;align-items:center;gap:8px;padding:10px 12px;border-top:1px solid var(--line);flex-wrap:wrap}
+.cb{width:38px;height:38px;border-radius:12px;background:var(--card2);border:1px solid var(--line);font-size:15px;flex:none}
+.cb#play{background:var(--acc);color:#08111a;border-color:transparent;font-weight:800}
+#scrub{flex:1;min-width:120px;accent-color:var(--acc);height:28px}
+.time{font:600 11px var(--mono);color:var(--muted);min-width:78px;text-align:right}
+.speed{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.speed button{font:700 11px var(--mono);padding:8px 9px;color:var(--muted)}
+.speed button.on{background:var(--acc);color:#08111a}
+.stepbtns{display:flex;gap:6px;padding:0 12px 10px;flex-wrap:wrap}
+.stepbtns button{min-width:36px;height:32px;border-radius:9px;font:800 12px var(--mono);border:1px solid var(--line);color:var(--muted);background:var(--card2)}
+.stepbtns button.past{color:var(--text);border-color:color-mix(in srgb,var(--acc) 40%,var(--line))}
+.stepbtns button.on{background:var(--acc);color:#08111a;border-color:transparent}
+.steptxt{padding:12px 14px 16px;border-top:1px solid var(--line);background:var(--card2);min-height:96px}
+.sn{font:800 10.5px var(--mono);letter-spacing:.14em;color:var(--acc);margin-bottom:6px}
+.steptxt p{font-size:15.5px;line-height:1.5}
+.boxes{display:grid;grid-template-columns:1fr;gap:10px;margin-top:14px}
+.box{padding:14px;border-radius:16px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--bc)}
+.box h3{font:800 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--bc);margin-bottom:6px}
+.box p{font-size:14px;line-height:1.5;color:var(--text)}
+.b1{--bc:#3b9eff}.b2{--bc:#2fd27a}.b3{--bc:#f5c542}.b4{--bc:#ff4d6d}
+.pnav{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.pnav button{text-align:left;padding:12px 14px;border-radius:14px;background:var(--card);border:1px solid var(--line);font-weight:700;font-size:14px}
+.pnav button.nx{text-align:right}
+.pnav small{display:block;font:800 10px var(--mono);letter-spacing:.12em;color:var(--muted);margin-bottom:3px}
+.quizbox{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;box-shadow:var(--shadow);max-width:760px}
+.qtop{display:flex;justify-content:space-between;margin-bottom:8px}
+.qcv{display:block;width:100%;aspect-ratio:10/7;border-radius:12px;border:1px solid var(--line);margin:14px 0 4px}
+.quizbox h2{font:700 19px/1.35 var(--sans);margin:14px 0 12px}
+.opts{display:grid;gap:8px}
+.opts button{text-align:left;padding:13px 14px;border-radius:12px;background:var(--card2);border:1px solid var(--line);font-size:15px;font-weight:500}
+.opts button:hover:not(:disabled){border-color:var(--acc)}
+.opts button.right{background:color-mix(in srgb,#2fd27a 18%,var(--card2));border-color:#2fd27a}
+.opts button.wrong{background:color-mix(in srgb,#ff4d6d 18%,var(--card2));border-color:#ff4d6d}
+.fb{margin-top:12px;padding:14px;border-radius:14px;border:1px solid}
+.fb.ok{border-color:#2fd27a;background:color-mix(in srgb,#2fd27a 8%,transparent)}
+.fb.no{border-color:#ff4d6d;background:color-mix(in srgb,#ff4d6d 8%,transparent)}
+.fb p{margin:6px 0 10px;font-size:14px;line-height:1.5}
+.fbb{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.primary{background:var(--acc);color:#08111a;font-weight:800;padding:11px 16px;border-radius:12px}
+.ghost{border:1px solid var(--line2);padding:11px 14px;border-radius:12px;font-weight:600}
+.end{text-align:center}
+.end .score{font:800 76px var(--mono);color:var(--acc);margin:8px 0 0}
+.end .score small{font-size:28px;color:var(--muted)}
+.end .msg{font-size:20px;font-weight:700}
+.muted{color:var(--muted);margin:4px 0 14px}
+.end h3{font:800 12px var(--mono);letter-spacing:.08em;margin:12px 0 8px;color:var(--muted)}
+.rep{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:14px}
+.rep button{display:flex;gap:6px;align-items:center;padding:9px 12px;border-radius:999px;border:1px solid var(--acc);font-weight:600;font-size:13px}
+.end .fbb{justify-content:center}
+@media (min-width:760px){
+  .bento{grid-template-columns:repeat(3,1fr)}
+  .tile{min-height:200px}
+  .lessons{grid-template-columns:repeat(3,1fr)}
+  .boxes{grid-template-columns:1fr 1fr}
+  .tile.quiz{grid-column:span 1}
+}
+@media (min-width:1040px){
+  #side{display:block;width:270px;flex:none;position:sticky;top:57px;height:calc(100vh - 57px);overflow:auto;padding:16px 10px 30px 16px;border-right:1px solid var(--line)}
+  #view{padding:24px 28px 80px}
+  .search input{width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--text);font:500 13px var(--sans);outline:none}
+  .search input:focus{border-color:#2fd27a}
+  .sg{margin-top:14px}
+  .sh{font:800 10.5px var(--mono);letter-spacing:.1em;color:var(--acc);padding:4px 6px}
+  .si{display:flex;justify-content:space-between;width:100%;text-align:left;padding:7px 10px;border-radius:9px;font-size:13px;color:var(--muted)}
+  .si:hover{background:var(--card);color:var(--text)}
+  .si.on{background:color-mix(in srgb,var(--acc) 16%,var(--card));color:var(--text);box-shadow:inset 3px 0 0 var(--acc)}
+  .si b{color:#2fd27a}
+  .player{max-width:860px}
+}
+@media (max-width:380px){.theme button{padding:6px 7px;font-size:10px}.logo span{font-size:14px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="logo"><div class="mk">F</div><div><b>BAYAZIT</b><span>Fitness-Schule</span></div></div>
+  <div class="theme" role="group" aria-label="Darstellung">
+    <button data-m="dark" title="Dunkel">☾ Dunkel</button><button data-m="light" title="Hell">☀ Hell</button><button data-m="auto" title="Automatisch">◐ Auto</button>
+  </div>
+</header>
+<div class="wrap"><aside id="side"></aside><main id="view"></main></div>
+<script>
+/* ===== Bayazit Fitness-Schule – Daten ===== */
+const G = 248;
+function ik(x, y, b) { return { ik: [x, y], b: b === undefined ? 1 : b }; }
+function ST(x, o) { return Object.assign({ x: x, y: 153, t: 180, a1: [0, 0], a2: [0, 0], l1: ik(x - 2, G), l2: ik(x + 4, G) }, o || {}); }
+
+const AREAS = [
+  { id: 'grund', t: 'Grundlagen', ic: '🧭', c: '#3b9eff', d: 'Aufwärmen, Atmung, Haltung und wie Training wirkt' },
+  { id: 'ober', t: 'Oberkörper', ic: '💪', c: '#ff8a3d', d: 'Brust, Schultern, Arme und Rücken' },
+  { id: 'beine', t: 'Beine & Po', ic: '🦵', c: '#2fd27a', d: 'Kraft von unten – die größten Muskeln' },
+  { id: 'rumpf', t: 'Rumpf & Bauch', ic: '🎯', c: '#b07cff', d: 'Die stabile Mitte für jede Bewegung' },
+  { id: 'cardio', t: 'Ausdauer & Dehnen', ic: '🔥', c: '#ff4d6d', d: 'Herz, Kondition und Beweglichkeit' },
+  { id: 'plan', t: 'Trainingspläne', ic: '📅', c: '#f5c542', d: 'Pläne, Puls und richtig steigern' }
+];
+
+/* gemeinsame Posen */
+const SQ_A = ST(200);
+const SQ_B = { x: 172, y: 205, t: 140, a1: [85, 90], a2: [88, 90], l1: ik(198, G), l2: ik(204, G) };
+const PL = { x: 189, y: 221, t: 100, a1: [0, 90], a2: [2, 90], l1: ik(86, 238), l2: ik(90, 238), ft1: 20, ft2: 20 };
+const PU_T = { x: 183, y: 198, t: 113, a1: ik(250, G, -1), a2: ik(256, G, -1), l1: ik(88, 236), l2: ik(92, 236), ft1: 25, ft2: 25 };
+const PU_B = { x: 191, y: 230, t: 94, a1: ik(250, G, -1), a2: ik(256, G, -1), l1: ik(88, 236), l2: ik(92, 236), ft1: 25, ft2: 25 };
+const KP_A = { x: 177, y: 214, t: 129, a1: ik(230, G, -1), a2: ik(234, G, -1), l1: [-50, -125], l2: [-50, -118] };
+const KP_B = { x: 187, y: 236, t: 101, a1: ik(230, G, -1), a2: ik(234, G, -1), l1: [-79, -128], l2: [-79, -121] };
+const BR_A = { x: 200, y: 238, t: -90, a1: [90, 90], a2: [92, 90], l1: ik(238, G), l2: ik(242, G) };
+const BR_B = { x: 206, y: 206, t: -68, a1: [92, 92], a2: [94, 92], l1: ik(238, G), l2: ik(242, G) };
+const HJ_A = { fv: 1, x: 200, y: 153, t: 180, a1: [-8, -4], a2: [8, 4], l1: [-2, -2], l2: [2, 2] };
+const HJ_J = { fv: 1, x: 200, y: 138, t: 180, a1: [-90, -100], a2: [90, 100], l1: [-8, -8], l2: [8, 8] };
+const HJ_B = { fv: 1, x: 200, y: 155, t: 180, a1: [-150, -165], a2: [150, 165], l1: [-16, -16], l2: [16, 16] };
+
+const LESSONS = [
+/* ================= GRUNDLAGEN ================= */
+{ id: 'aufwaermen', b: 'grund', t: 'Richtig aufwärmen', s: 'Puls hoch, Gelenke bereit', m: 'Ganzer Körper, Herz-Kreislauf', lvl: 'Einsteiger',
+  props: { mat: [120, 290] },
+  poses: { S: ST(200), M1: ST(200, { a2: [170, 175], a1: [-25, -15], l2: [75, 0] }), M2: ST(200, { a1: [170, 175], a2: [-25, -15], l1: [75, 0] }),
+           Q: { x: 186, y: 190, t: 155, a1: [80, 85], a2: [82, 85], l1: ik(198, G), l2: ik(204, G) } },
+  seg: 0.7,
+  steps: [
+    { p: ['S'], txt: 'Warum aufwärmen? Muskeln, Sehnen und Gelenke werden besser durchblutet – du bist leistungsfähiger und beugst Verletzungen vor.', lab: [['5–10 Minuten', 'head', 60, -10]] },
+    { p: ['S', 'M1', 'S', 'M2'], pt: ['MARSCHIEREN'], hi: ['th1', 'th2'], txt: 'Starte mit lockerem Marschieren auf der Stelle und schwinge die Arme mit. Der Puls steigt langsam an.', lab: [['Knie hoch', 'kne2', 45, -10]] },
+    { p: ['S', 'Q'], pt: ['MOBILISIEREN'], txt: 'Danach die Gelenke mobilisieren: Arme kreisen, Hüfte kreisen und ein paar lockere, halbe Kniebeugen.', lab: [['Gelenke bewegen', 'kne2', 50, -20]] },
+    { p: ['S', 'M1', 'S', 'M2'], pt: ['ÜBUNGSNAH'], txt: 'Zum Schluss 1–2 Übungen aus deinem Training ganz leicht ausführen. Wenn du leicht schwitzt, bist du bereit.', lab: [['Leicht schwitzen = gut', 'head', 70, -6]] }
+  ],
+  info: ['Aufwärmen bereitet Kreislauf, Muskeln und Gelenke auf die Belastung vor.',
+         'Erst allgemein (Marschieren, Hampelmann), dann Gelenke mobilisieren, dann übungsnah – insgesamt 5–10 Minuten.',
+         'Warme Muskeln sind elastischer und reagieren schneller. Das Verletzungsrisiko sinkt, die Leistung steigt.',
+         'Lange, statische Dehnungen gehören eher ans Ende. Vor dem Training lieber dynamisch bewegen.'] },
+
+{ id: 'atmung', b: 'grund', t: 'Richtig atmen', s: 'Ausatmen bei Anstrengung', m: 'Zwerchfell, Rumpf', lvl: 'Einsteiger',
+  props: { mat: [120, 290] },
+  poses: { A: SQ_A, B: SQ_B, P: PL },
+  steps: [
+    { p: ['A'], txt: 'Beim Krafttraining gilt eine einfache Regel: In der leichten Phase einatmen, in der anstrengenden Phase ausatmen.', lab: [['Atmung = Kraft', 'head', 60, -8]] },
+    { p: ['A', 'B'], br: 1, pt: ['RUNTER · EINATMEN', 'HOCH · AUSATMEN'], txt: 'Bei der Kniebeuge: Beim Runtergehen ruhig durch die Nase einatmen – der Bauch füllt sich mit Luft.' },
+    { p: ['A', 'B'], br: 1, hi: ['tr'], pt: ['RUNTER · EINATMEN', 'HOCH · AUSATMEN'], txt: 'Beim Hochdrücken durch den Mund ausatmen. So bleibt der Rumpf stabil und du hältst die Luft nicht an.', lab: [['Rumpf fest', 'mid', 55, -10]] },
+    { p: ['P'], hold: 20, br: 1, pt: ['RUHIG WEITERATMEN'], txt: 'Bei Halteübungen wie dem Unterarmstütz gleichmäßig weiteratmen – niemals die Luft anhalten.', lab: [['Nicht pressen', 'head', 10, -45]] }
+  ],
+  info: ['Die richtige Atmung versorgt die Muskeln mit Sauerstoff und stabilisiert den Rumpf.',
+         'Leichte Phase (z. B. runter) = einatmen. Anstrengende Phase (z. B. hoch) = ausatmen.',
+         'Wer die Luft anhält und presst, lässt den Blutdruck stark ansteigen – das ist unnötig und belastend.',
+         'Zähl im Kopf mit: 2 Sekunden runter (ein), 1 Sekunde hoch (aus). So findest du einen Rhythmus.'] },
+
+{ id: 'haltung', b: 'grund', t: 'Neutrale Wirbelsäule', s: 'Der gerade Rücken schützt', m: 'Rückenstrecker, Bauch', lvl: 'Einsteiger',
+  props: { mat: [120, 290] },
+  poses: { S: ST(200), H: { x: 180, y: 160, t: 112, a1: [0, 0], a2: [2, 0], l1: ik(198, G), l2: ik(204, G) },
+           R: { x: 180, y: 160, t: 106, cv: -16, a1: [0, 0], a2: [2, 0], l1: ik(198, G), l2: ik(204, G) } },
+  steps: [
+    { p: ['S'], ok: 1, ln: [['head', 'hip']], txt: 'Neutrale Wirbelsäule heißt: Der Rücken hat seine natürliche, leichte S-Form – nicht rund und nicht ins Hohlkreuz gedrückt.', lab: [['Kopf in Verlängerung', 'head', 70, -6], ['Brust offen', 'shd', 60, 20]] },
+    { p: ['S', 'H'], txt: 'Beim Vorbeugen kommt die Bewegung aus der Hüfte. Der Po geht nach hinten, der Rücken bleibt lang.', arr: [[196, 128, 160, 150, -10]], lab: [['Hüfte nach hinten', 'hip', -75, 25]] },
+    { p: ['H'], ok: 1, hi: ['tr'], ln: [['head', 'hip']], txt: 'Richtig: Kopf, Rücken und Becken bilden eine Linie. Die Bauchmuskeln sind leicht angespannt.', lab: [['Rücken gerade', 'mid', 0, -45]] },
+    { p: ['R'], bad: 1, txt: 'Falsch: Ein runder Rücken belastet die Bandscheiben stark – vor allem, wenn du etwas Schweres hebst.', lab: [['Runder Rücken', 'mid', -10, -50]] },
+    { p: ['S', 'H'], txt: 'Diese Haltung brauchst du bei Kniebeugen, beim Heben von Kisten und sogar beim Schuhebinden.' }
+  ],
+  info: ['Die neutrale Wirbelsäule ist die natürliche, leicht geschwungene Form deines Rückens.',
+         'Kopf in Verlängerung der Wirbelsäule, Brust offen, Bauch leicht fest. Beim Vorbeugen aus der Hüfte klappen.',
+         'In dieser Stellung verteilen sich Kräfte gleichmäßig – Bandscheiben und Bänder werden geschont.',
+         'Teste es mit einem Besenstiel am Rücken: Hinterkopf, Schulterblätter und Po berühren ihn.'] },
+
+{ id: 'saetze', b: 'grund', t: 'Sätze & Wiederholungen', s: 'Die Sprache des Trainings', m: 'Trainingsplanung', lvl: 'Einsteiger', scene: 'sets',
+  steps: [
+    { txt: 'Eine Wiederholung (Wdh.) ist eine komplette Bewegung – zum Beispiel einmal runter und wieder hoch.' },
+    { txt: 'Mehrere Wiederholungen am Stück ergeben einen Satz. Hier: 12 Wiederholungen = 1 Satz.' },
+    { txt: 'Zwischen den Sätzen machst du eine Pause, meist 60–90 Sekunden. So erholt sich der Muskel teilweise.' },
+    { txt: 'Im Trainingsplan schreibt man das kurz: 3 × 12 = 3 Sätze mit je 12 Wiederholungen.' },
+    { txt: 'Je nach Ziel ändern sich die Zahlen. Die letzten 2 Wiederholungen sollen anstrengend sein – aber noch sauber.' }
+  ],
+  info: ['Wiederholungen und Sätze beschreiben, wie viel du trainierst.',
+         '„3 × 12“ heißt: 12 Wiederholungen am Stück, Pause, das Ganze dreimal.',
+         'Wenige schwere Wiederholungen bauen eher Maximalkraft auf, viele leichte eher Kraftausdauer.',
+         'Schreib dir deine Zahlen auf. So siehst du schwarz auf weiß, wie du besser wirst.'] },
+
+{ id: 'regeneration', b: 'grund', t: 'Regeneration', s: 'Muskeln wachsen in der Pause', m: 'Ganzer Körper', lvl: 'Einsteiger', scene: 'superkomp',
+  steps: [
+    { txt: 'Training ist ein Reiz: Direkt danach bist du müde – deine Leistungsfähigkeit sinkt kurz unter das Ausgangsniveau.' },
+    { txt: 'In der Pause repariert der Körper alles. Schlaf, Eiweiß und genug Trinken helfen dabei.' },
+    { txt: 'Danach baut er sogar etwas mehr auf als vorher – das nennt man Superkompensation.' },
+    { txt: 'Trainierst du erneut auf diesem Hoch, steigt deine Leistung Stufe für Stufe.' },
+    { txt: 'Trainierst du immer zu früh, rutschst du tiefer – das ist Übertraining. Gönn einer Muskelgruppe meist etwa 48 Stunden Pause.' }
+  ],
+  info: ['Regeneration ist die Erholungsphase nach dem Training – hier passiert die eigentliche Anpassung.',
+         'Gut erholt bist du, wenn kein starker Muskelkater mehr da ist und du dich wieder kräftig fühlst.',
+         'Ohne Pausen kein Fortschritt: Der Körper braucht Zeit, um stärker zu werden.',
+         '7–9 Stunden Schlaf sind der beste „Trainingspartner“. Aktive Pausen wie Spazierengehen sind erlaubt.'] },
+
+/* ================= OBERKÖRPER ================= */
+{ id: 'liegestuetz', b: 'ober', t: 'Liegestütz', s: 'Der Klassiker für Brust und Arme', m: 'Brust, Trizeps, vordere Schulter, Rumpf', lvl: 'Mittel',
+  props: { mat: [70, 310] },
+  poses: { T: PU_T, B: PU_B, S: { x: 186, y: 226, t: 108, a1: ik(250, G, -1), a2: ik(256, G, -1), l1: ik(88, 236), l2: ik(92, 236), ft1: 25, ft2: 25 } },
+  steps: [
+    { p: ['T'], ln: [['head', 'ank1']], txt: 'Hände etwas breiter als schulterbreit aufsetzen, Arme gestreckt. Der Körper bildet vom Kopf bis zu den Fersen eine Linie.', lab: [['Hände unter Schultern', 'hnd2', 30, -60], ['Körper wie ein Brett', 'hip', -40, -45]] },
+    { p: ['T', 'B'], pt: ['RUNTER', 'HOCH'], txt: 'Kontrolliert nach unten sinken, bis die Brust fast den Boden berührt. Die Ellbogen zeigen schräg nach hinten.', arr: [[290, 150, 290, 210, 0]], lab: [['Ellbogen ~45°', 'elb2', -10, -40]] },
+    { p: ['B'], ang: ['elb2'], txt: 'Ganz unten ist der Ellbogenwinkel deutlich kleiner als 90°. Bauch und Po bleiben fest angespannt.' },
+    { p: ['T', 'B'], hi: ['ar1', 'ar2', 'tr'], pt: ['RUNTER · EINATMEN', 'HOCH · AUSATMEN'], txt: 'Kraftvoll hochdrücken. Es arbeiten Brustmuskel, Trizeps und vordere Schulter.', lab: [['Brust & Trizeps', 'shd', 20, -55]] },
+    { p: ['S'], bad: 1, txt: 'Typischer Fehler: Die Hüfte hängt durch. Lieber auf die Knie wechseln und dafür sauber trainieren.', lab: [['Hüfte hängt', 'hip', -20, 30]] }
+  ],
+  info: ['Der Liegestütz ist eine Druckübung mit dem eigenen Körpergewicht.',
+         'Hände schulterbreit, Körper gerade, runter bis kurz über den Boden, Ellbogen etwa 45° vom Körper.',
+         'Trainiert Brust, Trizeps, Schultern und als Bonus den ganzen Rumpf.',
+         'Schaffst du noch keinen sauberen Liegestütz? Starte mit der Knie-Variante oder mit den Händen auf einer Bank.'] },
+
+{ id: 'knieliegestuetz', b: 'ober', t: 'Knie-Liegestütz', s: 'Der perfekte Einstieg', m: 'Brust, Trizeps, Schulter', lvl: 'Einsteiger',
+  props: { mat: [100, 310] },
+  poses: { A: KP_A, B: KP_B },
+  steps: [
+    { p: ['A'], ln: [['head', 'kne1']], txt: 'Knie auf eine weiche Unterlage, Füße in der Luft. Kopf, Rücken und Oberschenkel bilden eine Linie.', lab: [['Knie auf der Matte', 'kne2', -20, -40], ['Linie bis zum Knie', 'mid', -30, -50]] },
+    { p: ['A', 'B'], pt: ['RUNTER', 'HOCH'], txt: 'Die Brust langsam Richtung Boden senken. Die Hüfte bewegt sich mit – nicht abknicken.', arr: [[270, 150, 275, 205, 0]] },
+    { p: ['B'], ang: ['elb2'], txt: 'Unten kurz halten und wieder hochdrücken. Die Hände bleiben fest am Boden.' },
+    { p: ['A', 'B'], hi: ['ar1', 'ar2'], pt: ['RUNTER · EINATMEN', 'HOCH · AUSATMEN'], txt: 'Ziel: 3 × 12 saubere Wiederholungen. Dann bist du bereit für den normalen Liegestütz.', lab: [['3 × 12', 'head', 30, -40]] }
+  ],
+  info: ['Die leichtere Variante des Liegestützes – du stützt dich auf den Knien ab.',
+         'Knie auf der Matte, Körper gerade bis zu den Knien, Hände unter den Schultern.',
+         'Weniger Körpergewicht lastet auf den Armen. So lernst du die Technik ohne Überforderung.',
+         'Mach die Bewegung langsam: 3 Sekunden runter, 1 Sekunde hoch – das baut schnell Kraft auf.'] },
+
+{ id: 'dips', b: 'ober', t: 'Dips am Stuhl', s: 'Starke Rückseite der Arme', m: 'Trizeps, Brust, vordere Schulter', lvl: 'Mittel',
+  props: { bench: [104, 200, 62], mat: [190, 300] },
+  poses: { A: { x: 180, y: 198, t: 180, a1: ik(162, 200, -1), a2: ik(166, 200, -1), l1: ik(252, G), l2: ik(258, G) },
+           B: { x: 184, y: 236, t: 175, a1: ik(162, 200, -1), a2: ik(166, 200, -1), l1: ik(252, G), l2: ik(258, G) } },
+  steps: [
+    { p: ['A'], txt: 'Hände an die Kante eines stabilen Stuhls oder einer Bank, Finger zeigen nach vorn. Die Beine stehen angewinkelt vor dir.', lab: [['Stabiler Stuhl', 'hnd2', -55, -40], ['Finger nach vorn', 'hnd2', 50, -25]] },
+    { p: ['A', 'B'], pt: ['RUNTER', 'HOCH'], txt: 'Den Körper senken, indem du die Ellbogen nach hinten beugst. Der Rücken bleibt nah an der Bank.', arr: [[215, 150, 215, 205, 0]] },
+    { p: ['B'], ang: ['elb2'], txt: 'Etwa bis 90° im Ellbogen runtergehen – tiefer belastet die Schultern unnötig.' },
+    { p: ['A', 'B'], hi: ['ar1', 'ar2'], pt: ['RUNTER · EINATMEN', 'HOCH · AUSATMEN'], txt: 'Mit den Armen hochdrücken, nicht mit den Beinen. Gestreckte Beine machen die Übung schwerer.', lab: [['Trizeps', 'elb2', -50, -20]] }
+  ],
+  info: ['Dips sind eine Druckübung, bei der du dich hinter dem Körper abstützt.',
+         'Hände an der Kante, Ellbogen nach hinten beugen, bis etwa 90°, dann hochdrücken.',
+         'Der Trizeps macht rund zwei Drittel deines Oberarms aus – Dips formen ihn besonders gut.',
+         'Achte darauf, dass der Stuhl nicht wegrutschen kann – am besten an eine Wand stellen.'] },
+
+{ id: 'klimmzug', b: 'ober', t: 'Klimmzug', s: 'Die Königsübung für den Rücken', m: 'Großer Rückenmuskel, Bizeps, Unterarme', lvl: 'Fortgeschritten',
+  props: { bar: 24, noground: 1 },
+  poses: { H: { x: 200, y: 172, t: 180, a1: ik(198, 26, -1), a2: ik(204, 26, -1), l1: [5, -55], l2: [8, -50] },
+           U: { x: 201, y: 128, t: 178, a1: ik(198, 26, -1), a2: ik(204, 26, -1), l1: [5, -55], l2: [8, -50] } },
+  steps: [
+    { p: ['H'], txt: 'Stange etwas breiter als schulterbreit greifen, Handflächen zeigen nach vorn. Aus dem ruhigen Hang starten.', lab: [['Obergriff', 'hnd2', 55, 10], ['Ruhiger Hang', 'hip', 60, 0]] },
+    { p: ['H', 'U'], pt: ['HOCH', 'RUNTER'], txt: 'Schulterblätter zuerst nach unten ziehen, dann den Körper nach oben ziehen, bis das Kinn über der Stange ist.', arr: [[275, 170, 275, 90, 0]], lab: [['Kinn über Stange', 'head', 70, -6]] },
+    { p: ['U'], hi: ['tr', 'ar1', 'ar2'], txt: 'Oben arbeiten vor allem der große Rückenmuskel und der Bizeps. Brust Richtung Stange schieben.', lab: [['Rücken & Bizeps', 'mid', 65, 0]] },
+    { p: ['H', 'U'], pt: ['HOCH · AUSATMEN', 'RUNTER · EINATMEN'], txt: 'Langsam und kontrolliert wieder ablassen – ohne Schwung. Noch zu schwer? Mit Gummiband oder nur langsamem Ablassen üben.' }
+  ],
+  info: ['Beim Klimmzug ziehst du dein ganzes Körpergewicht an einer Stange nach oben.',
+         'Breiter Obergriff, aus dem Hang ohne Schwung hochziehen, bis das Kinn über der Stange ist.',
+         'Eine der besten Übungen für einen breiten, starken Rücken und gesunde Schultern.',
+         'Einstieg: 3 × 20 Sekunden Hängen, dann langsames Ablassen von oben (Negativ-Klimmzüge).'] },
+
+{ id: 'schulterdruecken', b: 'ober', t: 'Schulterdrücken', s: 'Kraft über Kopf', m: 'Schultern, Trizeps, oberer Rücken', lvl: 'Mittel',
+  props: { db: 1, mat: [120, 290] },
+  poses: { A: ST(200, { a1: [22, 176], a2: [18, 178] }), B: ST(200, { a1: [176, 180], a2: [178, 180] }) },
+  steps: [
+    { p: ['A'], txt: 'Aufrecht stehen, Kurzhanteln (oder Wasserflaschen) auf Schulterhöhe. Bauch und Po leicht anspannen.', lab: [['Hanteln auf Schulterhöhe', 'hnd2', 70, -10]] },
+    { p: ['A', 'B'], pt: ['HOCH', 'RUNTER'], txt: 'Die Gewichte senkrecht nach oben drücken, bis die Arme fast gestreckt sind.', arr: [[255, 100, 255, 30, 0]] },
+    { p: ['B'], hi: ['ar1', 'ar2'], txt: 'Oben nicht ins Hohlkreuz fallen – der Rumpf bleibt stabil, der Blick nach vorn.', lab: [['Kein Hohlkreuz', 'mid', 55, 10], ['Schultern', 'shd', -60, -10]] },
+    { p: ['A', 'B'], pt: ['HOCH · AUSATMEN', 'RUNTER · EINATMEN'], txt: 'Langsam zurück auf Schulterhöhe. Lieber leichteres Gewicht und saubere Technik.' }
+  ],
+  info: ['Schulterdrücken ist eine Druckübung nach oben für die Schultermuskulatur.',
+         'Gewichte auf Schulterhöhe, senkrecht nach oben drücken, langsam zurück – Rumpf bleibt fest.',
+         'Starke Schultern helfen im Alltag, etwa beim Einräumen von Regalen oder Tragen über Kopf.',
+         'Keine Hanteln? Volle 1,5-Liter-Flaschen oder ein Rucksack mit Büchern funktionieren auch.'] },
+
+/* ================= BEINE & PO ================= */
+{ id: 'kniebeuge', b: 'beine', t: 'Kniebeuge', s: 'Die Königin der Beinübungen', m: 'Vordere Oberschenkel, Po, Rumpf', lvl: 'Einsteiger',
+  props: { mat: [120, 290] },
+  poses: { A: SQ_A, B: SQ_B, C: { x: 172, y: 205, t: 128, cv: -14, a1: [60, 40], a2: [62, 40], l1: ik(198, G), l2: ik(204, G) } },
+  steps: [
+    { p: ['A'], txt: 'Ausgangsstellung: Füße etwa schulterbreit, Fußspitzen leicht nach außen. Brust aufrecht, Blick nach vorn.', lab: [['Füße schulterbreit', 'toe2', 55, -14], ['Brust aufrecht', 'shd', 60, -10]] },
+    { p: ['A', 'B'], pt: ['RUNTER', 'HOCH'], txt: 'Die Hüfte nach hinten und unten schieben – als würdest du dich auf einen Stuhl setzen. Die Arme gehen nach vorn.', arr: [[190, 135, 150, 190, -14]], lab: [['Po nach hinten', 'hip', -75, -5]] },
+    { p: ['B'], ang: ['kne2'], txt: 'Unten sind die Oberschenkel etwa waagerecht. Die Knie zeigen in Richtung Fußspitzen, die Fersen bleiben am Boden.', lab: [['Fersen am Boden', 'ank1', -70, 0]] },
+    { p: ['A', 'B'], hi: ['th1', 'th2'], pt: ['RUNTER · EINATMEN', 'HOCH · AUSATMEN'], txt: 'Aus den Fersen kraftvoll nach oben drücken. Es arbeiten vor allem vordere Oberschenkel, Po und Rumpf.', lab: [['Oberschenkel & Po', 'kne2', 55, -30]] },
+    { p: ['C'], bad: 1, txt: 'Typischer Fehler: Der Rücken wird rund. Brust raus, Bauch fest – lieber weniger tief, dafür sauber.', lab: [['Runder Rücken', 'mid', -30, -45]] }
+  ],
+  info: ['Die Kniebeuge ist die wichtigste Grundübung für Beine und Po.',
+         'Füße schulterbreit, Po nach hinten, Knie Richtung Fußspitzen, Fersen am Boden, Rücken gerade.',
+         'Sie trainiert die größten Muskeln des Körpers und ist eine Alltagsbewegung – Hinsetzen und Aufstehen.',
+         'Unsicher? Stell einen Stuhl hinter dich und tippe ihn unten nur kurz mit dem Po an.'] },
+
+{ id: 'ausfallschritt', b: 'beine', t: 'Ausfallschritt', s: 'Ein Bein nach dem anderen', m: 'Oberschenkel, Po, Gleichgewicht', lvl: 'Einsteiger',
+  props: { mat: [110, 300] },
+  poses: { A: { x: 200, y: 160, t: 180, a1: [-15, 60], a2: [-15, 60], l1: ik(158, 240), l2: ik(240, G), ft1: 60 },
+           B: { x: 198, y: 200, t: 180, a1: [-15, 60], a2: [-15, 60], l1: ik(156, 240), l2: ik(240, G), ft1: 60 } },
+  steps: [
+    { p: ['A'], txt: 'Einen großen Schritt nach vorn machen. Die Hände an die Hüfte, der Oberkörper bleibt aufrecht.', lab: [['Großer Schritt', 'ank2', 30, -30], ['Oberkörper aufrecht', 'shd', 60, -10]] },
+    { p: ['A', 'B'], pt: ['RUNTER', 'HOCH'], txt: 'Senkrecht nach unten sinken, bis das hintere Knie knapp über dem Boden schwebt.', arr: [[145, 120, 145, 180, 0]] },
+    { p: ['B'], ang: ['kne2'], txt: 'Vorne bildet das Knie etwa einen rechten Winkel. Es bleibt über dem Fuß und kippt nicht nach innen.', lab: [['Knie knapp über Boden', 'kne1', -85, -70]] },
+    { p: ['A', 'B'], hi: ['th2', 'th1'], pt: ['RUNTER · EINATMEN', 'HOCH · AUSATMEN'], txt: 'Über die vordere Ferse hochdrücken. Danach die Seite wechseln – beide Beine gleich oft trainieren.' }
+  ],
+  info: ['Der Ausfallschritt trainiert jedes Bein einzeln und schult das Gleichgewicht.',
+         'Großer Schritt, senkrecht runter, vorderes Knie über dem Fuß, hinteres Knie knapp über dem Boden.',
+         'Gleicht Unterschiede zwischen rechtem und linkem Bein aus und stärkt die Stabilität im Knie.',
+         'Wackelig? Halte dich anfangs mit einer Hand an einer Wand oder Stuhllehne fest.'] },
+
+{ id: 'beckenheben', b: 'beine', t: 'Beckenheben', s: 'Glute Bridge für einen starken Po', m: 'Po, hintere Oberschenkel, unterer Rücken', lvl: 'Einsteiger',
+  props: { mat: [80, 300] },
+  poses: { A: BR_A, B: BR_B },
+  steps: [
+    { p: ['A'], txt: 'Auf den Rücken legen, Beine anwinkeln, Füße hüftbreit aufstellen. Die Arme liegen neben dem Körper.', lab: [['Füße aufgestellt', 'ank2', 50, -30], ['Arme am Boden', 'hnd2', -20, -40]] },
+    { p: ['A', 'B'], pt: ['HOCH', 'RUNTER'], txt: 'Über die Fersen das Becken nach oben schieben, bis Knie, Hüfte und Schultern eine Linie bilden.', arr: [[215, 240, 215, 185, 0]] },
+    { p: ['B'], hi: ['th1', 'th2'], ln: [['shd', 'kne2']], txt: 'Oben den Po 2 Sekunden fest anspannen. Nicht ins Hohlkreuz drücken – die Kraft kommt aus dem Po.', lab: [['Po anspannen', 'hip', -10, -55]] },
+    { p: ['A', 'B'], pt: ['HOCH · AUSATMEN', 'RUNTER · EINATMEN'], txt: 'Langsam ablegen und wiederholen. Profis heben dabei ein Bein in die Luft.' }
+  ],
+  info: ['Beim Beckenheben drückst du die Hüfte aus der Rückenlage nach oben.',
+         'Füße aufstellen, über die Fersen hochdrücken, oben eine Linie von Knie bis Schulter, Po anspannen.',
+         'Ein starker Po entlastet den unteren Rücken und die Knie – ideal bei viel Sitzen.',
+         'Fersen etwas weiter weg = mehr hintere Oberschenkel. Fersen näher = mehr Po.'] },
+
+{ id: 'wadenheben', b: 'beine', t: 'Wadenheben', s: 'Kräftige Unterschenkel', m: 'Wadenmuskulatur', lvl: 'Einsteiger',
+  props: { mat: [120, 290] },
+  poses: { A: ST(200, { ft1: 90, ft2: 90 }), B: ST(200, { y: 143, l1: ik(198, 238), l2: ik(204, 238), ft1: 48, ft2: 48 }) },
+  seg: 1.1,
+  steps: [
+    { p: ['A'], txt: 'Aufrecht und hüftbreit stehen. Zum Festhalten darfst du eine Hand an die Wand legen.', lab: [['Hüftbreit', 'toe2', 50, -14]] },
+    { p: ['A', 'B'], pt: ['HOCH', 'RUNTER'], txt: 'Langsam auf die Zehenspitzen drücken – so hoch es geht.', arr: [[245, 200, 245, 150, 0]] },
+    { p: ['B'], hi: ['sn1', 'sn2'], txt: 'Oben eine Sekunde halten. Jetzt arbeitet die Wade auf Hochtouren.', lab: [['Waden', 'kne2', 50, 20], ['Auf den Ballen', 'toe2', 50, -14]] },
+    { p: ['A', 'B'], pt: ['HOCH · AUSATMEN', 'RUNTER · EINATMEN'], txt: 'Langsam absenken. Profis stellen sich mit den Ballen auf eine Stufe und gehen unten tiefer.' }
+  ],
+  info: ['Wadenheben stärkt die Muskulatur an der Rückseite des Unterschenkels.',
+         'Hüftbreit stehen, langsam auf die Zehenspitzen, oben halten, langsam absenken.',
+         'Kräftige Waden stabilisieren die Sprunggelenke – wichtig beim Laufen, Springen und Treppensteigen.',
+         'Mach es beim Zähneputzen: 2 × 20 Wiederholungen am Tag, ganz nebenbei.'] },
+
+{ id: 'wandsitzen', b: 'beine', t: 'Wandsitzen', s: 'Der unsichtbare Stuhl', m: 'Vordere Oberschenkel, Po', lvl: 'Einsteiger',
+  props: { wall: 180 },
+  poses: { E: { x: 192, y: 170, t: 180, a1: [0, 0], a2: [2, 0], l1: ik(238, G), l2: ik(242, G) },
+           W: { x: 192, y: 202, t: 180, a1: [0, 0], a2: [2, 0], l1: ik(238, G), l2: ik(242, G) } },
+  steps: [
+    { p: ['E'], txt: 'Mit dem Rücken an eine Wand lehnen. Die Füße stehen etwa zwei Fußlängen vor der Wand.', lab: [['Rücken an der Wand', 'mid', 60, -10]] },
+    { p: ['E', 'W'], seg: 1.6, pt: ['RUNTERRUTSCHEN'], txt: 'An der Wand nach unten rutschen, bis die Oberschenkel waagerecht sind – wie auf einem Stuhl.', arr: [[290, 120, 290, 175, 0]] },
+    { p: ['W'], hold: 30, ang: ['kne2'], txt: 'Knie im rechten Winkel, direkt über den Fersen. Jetzt halten und ruhig weiteratmen.', lab: [['Knie über Ferse', 'ank2', 55, -20]] },
+    { p: ['W'], hold: 30, hi: ['th1', 'th2'], txt: 'Die Oberschenkel brennen? Gut so! Einsteiger: 3 × 20–30 Sekunden. Jede Woche ein paar Sekunden mehr.', lab: [['Oberschenkel', 'kne2', 40, -30]] }
+  ],
+  info: ['Wandsitzen ist eine Halteübung: Die Muskeln arbeiten, ohne dass du dich bewegst.',
+         'Rücken an die Wand, runterrutschen bis 90° im Knie, Knie über den Fersen, halten.',
+         'Trainiert die Oberschenkel sehr intensiv und schont dabei die Gelenke.',
+         'Zu schwer? Rutsch nicht ganz so tief – auch 120° im Knie trainieren schon gut.'] },
+
+/* ================= RUMPF ================= */
+{ id: 'plank', b: 'rumpf', t: 'Unterarmstütz', s: 'Plank – stark wie ein Brett', m: 'Gerader und schräger Bauch, Rücken, Schultern', lvl: 'Einsteiger',
+  props: { mat: [70, 320] },
+  poses: { P: PL, D: { x: 190, y: 238, t: 112, a1: [0, 90], a2: [2, 90], l1: ik(86, 238), l2: ik(90, 238), ft1: 20, ft2: 20 },
+           K: { x: 183, y: 198, t: 80, a1: [0, 90], a2: [2, 90], l1: ik(86, 238), l2: ik(90, 238), ft1: 20, ft2: 20 } },
+  steps: [
+    { p: ['P'], hold: 20, txt: 'Unterarme auf den Boden, Ellbogen genau unter den Schultern. Dann auf die Zehenspitzen gehen.', lab: [['Ellbogen unter Schulter', 'elb2', -80, -75]] },
+    { p: ['P'], hold: 20, ok: 1, ln: [['head', 'ank1']], txt: 'Kopf, Rücken, Po und Fersen bilden eine gerade Linie – wie ein Brett.', lab: [['Gerade Linie', 'hip', -20, -40]] },
+    { p: ['P'], hold: 20, hi: ['tr'], pt: ['RUHIG ATMEN'], txt: 'Bauch und Po fest anspannen und ruhig weiteratmen. Einsteiger: 3 × 20 Sekunden.', lab: [['Bauch fest', 'mid', 0, -45]] },
+    { p: ['D'], bad: 1, txt: 'Fehler 1: Die Hüfte hängt durch. Das belastet den unteren Rücken.', lab: [['Hüfte hängt', 'hip', -30, -40]] },
+    { p: ['K'], bad: 1, txt: 'Fehler 2: Der Po ragt nach oben. Das fühlt sich leichter an, trainiert aber kaum den Bauch.', lab: [['Po zu hoch', 'hip', -10, -40]] }
+  ],
+  info: ['Der Unterarmstütz ist eine Halteübung für die ganze Körpermitte.',
+         'Ellbogen unter den Schultern, Körper gerade, Bauch und Po fest, ruhig atmen.',
+         'Ein starker Rumpf schützt den Rücken und macht jede andere Übung stabiler.',
+         'Lieber 3 × 20 Sekunden perfekt als 1 Minute mit hängender Hüfte.'] },
+
+{ id: 'seitstuetz', b: 'rumpf', t: 'Seitstütz', s: 'Für die seitliche Bauchmuskulatur', m: 'Schräge Bauchmuskeln, Hüfte, Schulter', lvl: 'Mittel',
+  props: { mat: [70, 320] },
+  poses: { G: { x: 189, y: 221, t: 100, a1: [0, 90], a2: [178, 180], l1: ik(86, 238), l2: ik(86, 238), ft1: 20, ft2: 20 },
+           D: { x: 190, y: 236, t: 112, a1: [0, 90], a2: [178, 180], l1: ik(86, 238), l2: ik(86, 238), ft1: 20, ft2: 20 } },
+  steps: [
+    { p: ['G'], hold: 20, txt: 'Seitlich hinlegen, auf einen Unterarm stützen – der Ellbogen ist unter der Schulter. Die Füße liegen übereinander.', lab: [['Ellbogen unter Schulter', 'elb1', 10, -60], ['Füße übereinander', 'ank1', 30, -30]] },
+    { p: ['D', 'G'], pt: ['HÜFTE HOCH'], txt: 'Die Hüfte anheben, bis der Körper eine gerade, schräge Linie bildet. Der freie Arm zeigt nach oben.', arr: [[175, 245, 175, 205, 0]] },
+    { p: ['G'], hold: 20, hi: ['tr'], ln: [['head', 'ank1']], txt: 'Halten und ruhig atmen. Jetzt arbeiten vor allem die seitlichen Bauchmuskeln.', lab: [['Seitlicher Bauch', 'mid', -10, -50]] },
+    { p: ['G', 'D'], pt: ['HOCH', 'RUNTER'], txt: 'Variante: Die Hüfte langsam senken und wieder heben. Danach unbedingt die Seite wechseln.' }
+  ],
+  info: ['Der Seitstütz ist eine Halteübung, bei der du seitlich auf einem Unterarm liegst.',
+         'Ellbogen unter der Schulter, Hüfte hoch, Körper gerade von Kopf bis Fuß.',
+         'Stärkt die seitliche Rumpfmuskulatur – wichtig für einen stabilen Rücken beim Drehen und Tragen.',
+         'Zu schwer? Das untere Knie auf dem Boden lassen und die Hüfte von dort aus heben.'] },
+
+{ id: 'crunch', b: 'rumpf', t: 'Crunch', s: 'Der gerade Bauchmuskel', m: 'Gerader Bauchmuskel', lvl: 'Einsteiger',
+  props: { mat: [80, 300] },
+  poses: { A: { x: 200, y: 238, t: -90, a1: [95, 95], a2: [96, 95], l1: ik(242, G), l2: ik(246, G) },
+           B: { x: 200, y: 238, t: -115, a1: [112, 112], a2: [113, 112], l1: ik(242, G), l2: ik(246, G) } },
+  seg: 1.1,
+  steps: [
+    { p: ['A'], txt: 'Auf den Rücken legen, Beine anwinkeln, Füße auf den Boden. Die Arme zeigen Richtung Knie.', lab: [['Beine angewinkelt', 'kne2', 40, -30]] },
+    { p: ['A', 'B'], pt: ['HOCH', 'RUNTER'], txt: 'Den Oberkörper ein kleines Stück einrollen, bis die Schulterblätter vom Boden abheben.', arr: [[110, 215, 140, 190, 10]] },
+    { p: ['B'], hi: ['tr'], txt: 'Der untere Rücken bleibt am Boden. Zwischen Kinn und Brust passt ungefähr eine Faust.', lab: [['Unterer Rücken bleibt unten', 'hip', -10, -85], ['Bauch', 'mid', 70, -35]] },
+    { p: ['A', 'B'], pt: ['HOCH · AUSATMEN', 'RUNTER · EINATMEN'], txt: 'Langsam zurück. Hände hinter dem Kopf? Dann nie am Nacken ziehen.' }
+  ],
+  info: ['Der Crunch ist eine kleine Einrollbewegung für den geraden Bauchmuskel.',
+         'Rückenlage, Beine angewinkelt, nur die Schulterblätter abheben, unterer Rücken bleibt am Boden.',
+         'Gezieltes Bauchtraining – ohne die Hüftbeuger stark mitarbeiten zu lassen.',
+         'Qualität statt Schwung: langsam hoch, oben kurz halten, langsam runter.'] },
+
+{ id: 'birddog', b: 'rumpf', t: 'Bird-Dog', s: 'Balance und Rückenstabilität', m: 'Rückenstrecker, Po, Schultern, Bauch', lvl: 'Einsteiger',
+  props: { mat: [80, 320] },
+  poses: { A: { x: 170, y: 200, t: 114, a1: [0, 0], a2: [2, 0], l1: [0, -90], l2: [2, -90], ft1: -90, ft2: -90 },
+           B: { x: 170, y: 200, t: 114, a1: [0, 0], a2: [100, 100], l1: [-92, -92], l2: [2, -90], ft1: -92, ft2: -90 } },
+  seg: 1.4,
+  steps: [
+    { p: ['A'], txt: 'Vierfüßlerstand: Hände unter den Schultern, Knie unter der Hüfte, der Rücken ist gerade.', lab: [['Hände unter Schultern', 'hnd2', 50, -30], ['Knie unter Hüfte', 'kne1', -40, -30]] },
+    { p: ['A', 'B'], pt: ['STRECKEN', 'ZURÜCK'], txt: 'Gleichzeitig einen Arm nach vorn und das gegenüberliegende Bein nach hinten strecken.', arr: [[280, 140, 330, 140, 0], [110, 175, 60, 175, 0]] },
+    { p: ['B'], hold: 5, hi: ['ar2', 'fa2', 'th1', 'sn1'], ln: [['hnd2', 'ank1']], txt: 'Arm, Rücken und Bein bilden eine lange Linie. Das Becken bleibt waagerecht – nicht kippen.', lab: [['Lange Linie', 'mid', 0, -45]] },
+    { p: ['A', 'B'], pt: ['STRECKEN · AUSATMEN', 'ZURÜCK · EINATMEN'], txt: 'Langsam zurück und die Seite wechseln. 2–3 Sätze mit je 8 Wiederholungen pro Seite.' }
+  ],
+  info: ['Der Bird-Dog ist eine Gleichgewichtsübung im Vierfüßlerstand.',
+         'Rechter Arm und linkes Bein (und umgekehrt) strecken, Rücken gerade, Becken waagerecht.',
+         'Stärkt die tiefe Rückenmuskulatur – ideal bei Rückenschmerzen durch viel Sitzen.',
+         'Stell dir ein Glas Wasser auf dem Rücken vor – es darf nicht umfallen.'] },
+
+{ id: 'deadbug', b: 'rumpf', t: 'Dead Bug', s: 'Die „tote Käfer“-Übung', m: 'Tiefe Bauchmuskeln, Koordination', lvl: 'Mittel',
+  props: { mat: [80, 320] },
+  poses: { A: { x: 210, y: 238, t: -90, a1: [180, 180], a2: [178, 180], l1: [180, 90], l2: [178, 90], ft1: 180, ft2: 180 },
+           B: { x: 210, y: 238, t: -90, a1: [180, 180], a2: [-102, -102], l1: [105, 105], l2: [178, 90], ft1: 105, ft2: 180 },
+           C: { x: 210, y: 238, t: -90, a1: [-102, -102], a2: [178, 180], l1: [180, 90], l2: [105, 105], ft1: 180, ft2: 105 } },
+  seg: 1.3,
+  steps: [
+    { p: ['A'], txt: 'Auf den Rücken legen. Arme zur Decke strecken, Beine anheben – Knie über der Hüfte im rechten Winkel.', lab: [['Arme zur Decke', 'hnd2', 40, -10], ['Knie 90°', 'kne2', 40, -20]] },
+    { p: ['A', 'B', 'A', 'C'], pt: ['STRECKEN', 'ZURÜCK'], txt: 'Einen Arm nach hinten und das gegenüberliegende Bein nach vorn strecken – langsam und knapp über den Boden.', arr: [[120, 150, 75, 215, -20]] },
+    { p: ['B'], hold: 4, hi: ['tr'], txt: 'Wichtig: Der untere Rücken bleibt die ganze Zeit fest am Boden. Bauch nach innen ziehen.', lab: [['Rücken am Boden', 'hip', -30, -30]] },
+    { p: ['A', 'B', 'A', 'C'], pt: ['AUSATMEN', 'EINATMEN'], txt: 'Abwechselnd die Seiten wechseln. Beim Strecken ausatmen. 2–3 Sätze mit 6–10 pro Seite.' }
+  ],
+  info: ['Beim Dead Bug liegst du auf dem Rücken wie ein Käfer und streckst abwechselnd Arm und Bein.',
+         'Arme zur Decke, Knie 90°, gegenüberliegenden Arm und Bein strecken, Rücken bleibt am Boden.',
+         'Trainiert die tiefe Bauchmuskulatur und die Koordination – sehr rückenschonend.',
+         'Hebt sich der Rücken ab, streck das Bein nicht ganz so weit nach vorn.'] },
+
+{ id: 'mountain', b: 'rumpf', t: 'Mountain Climber', s: 'Bergsteigen im Liegen', m: 'Bauch, Schultern, Hüftbeuger, Herz-Kreislauf', lvl: 'Mittel',
+  props: { mat: [70, 320] },
+  poses: { T: PU_T, K1: Object.assign({}, PU_T, { l2: ik(205, 236) }), K2: Object.assign({}, PU_T, { l1: ik(200, 236) }) },
+  seg: 0.42,
+  steps: [
+    { p: ['T'], txt: 'Starte in der hohen Liegestützposition: Arme gestreckt, Hände unter den Schultern, Körper gerade.', lab: [['Hände unter Schultern', 'hnd2', 30, -60]] },
+    { p: ['T', 'K1'], seg: 1.0, pt: ['KNIE ZUR BRUST'], txt: 'Ein Knie Richtung Brust ziehen und wieder zurückstellen.', arr: [[110, 215, 175, 215, 0]], lab: [['Knie zur Brust', 'kne2', 20, 25]] },
+    { p: ['T', 'K1', 'T', 'K2'], pt: ['TEMPO!'], hi: ['tr', 'th1', 'th2'], txt: 'Jetzt im Wechsel und zügig – wie beim Bergsteigen. Die Hüfte bleibt unten, die Schultern über den Händen.' },
+    { p: ['T', 'K1', 'T', 'K2'], hold: 30, pt: ['30 SEKUNDEN'], txt: 'Ideal als Intervall: 30 Sekunden Vollgas, 30 Sekunden Pause. Das bringt Puls und Bauch auf Trab.' }
+  ],
+  info: ['Mountain Climber sind eine dynamische Rumpfübung mit Ausdauer-Effekt.',
+         'Hohe Liegestützposition, Knie abwechselnd zur Brust, Hüfte bleibt unten, Rücken gerade.',
+         'Verbindet Bauchtraining mit Herz-Kreislauf – der Puls steigt schnell an.',
+         'Erst langsam die Technik lernen, dann das Tempo steigern.'] },
+
+/* ================= AUSDAUER & DEHNEN ================= */
+{ id: 'hampelmann', b: 'cardio', t: 'Hampelmann', s: 'Jumping Jacks für den Puls', m: 'Herz-Kreislauf, Waden, Schultern', lvl: 'Einsteiger',
+  poses: { A: HJ_A, J: HJ_J, B: HJ_B },
+  seg: 0.32, view: 'Ansicht von vorn',
+  steps: [
+    { p: ['A'], txt: 'Aufrecht stehen, Füße zusammen, Arme seitlich am Körper.', lab: [['Ansicht von vorn', 'head', 80, -10]] },
+    { p: ['A', 'J', 'B', 'J'], seg: 0.6, pt: ['AUF', 'ZU'], txt: 'Mit einem Sprung die Beine grätschen und gleichzeitig die Arme seitlich über den Kopf führen.', arr: [[150, 110, 120, 50, 12], [250, 110, 280, 50, -12]] },
+    { p: ['A', 'J', 'B', 'J'], hi: ['sn1', 'sn2'], txt: 'Weich auf den Fußballen landen und zurückspringen. Die Knie bleiben leicht gebeugt.', lab: [['Weich landen', 'ank2', 55, -10]] },
+    { p: ['A', 'J', 'B', 'J'], hold: 45, pt: ['TEMPO'], txt: 'Perfekt zum Aufwärmen oder als Intervall: 30–60 Sekunden am Stück.' }
+  ],
+  info: ['Der Hampelmann ist eine einfache Sprungübung für den ganzen Körper.',
+         'Springen: Beine auseinander und Arme hoch, dann zurück – im gleichmäßigen Rhythmus.',
+         'Bringt schnell den Puls hoch und eignet sich ideal zum Aufwärmen.',
+         'Gelenkschonend: Statt zu springen, einfach abwechselnd ein Bein zur Seite setzen.'] },
+
+{ id: 'burpee', b: 'cardio', t: 'Burpee', s: 'Ganzkörper in einer Übung', m: 'Ganzer Körper, Herz-Kreislauf', lvl: 'Fortgeschritten',
+  props: { mat: [60, 320] },
+  poses: { S: ST(210), Q: { x: 190, y: 205, t: 120, a1: ik(232, G, -1), a2: ik(236, G, -1), l1: ik(208, G), l2: ik(212, G) },
+           P: { x: 169, y: 198, t: 113, a1: ik(230, G, -1), a2: ik(236, G, -1), l1: ik(74, 236), l2: ik(78, 236), ft1: 25, ft2: 25 },
+           J: { x: 210, y: 140, t: 180, a1: [148, 158], a2: [145, 155], l1: [0, 0], l2: [3, 0], ft1: 55, ft2: 55 } },
+  seg: 0.75, D: 5,
+  steps: [
+    { p: ['S', 'Q'], pt: ['1 · HOCKE'], txt: 'Aus dem Stand in die Hocke gehen und die Hände vor den Füßen auf den Boden setzen.' },
+    { p: ['Q', 'P'], pt: ['2 · BEINE ZURÜCK'], txt: 'Die Beine nach hinten springen oder setzen – jetzt bist du in der Liegestützposition.', arr: [[200, 230, 110, 230, 0]] },
+    { p: ['P', 'Q', 'S', 'J'], pt: ['3 · SPRUNG'], txt: 'Füße wieder heranspringen, aufrichten und mit einem Strecksprung nach oben enden.', arr: [[290, 100, 290, 40, 0]] },
+    { p: ['S', 'Q', 'P', 'Q', 'S', 'J'], hi: ['tr', 'th1', 'th2', 'ar1', 'ar2'], pt: ['ALLES ZUSAMMEN'], txt: 'Der komplette Burpee. Einsteiger lassen den Sprung weg und setzen die Beine Schritt für Schritt zurück.' }
+  ],
+  info: ['Der Burpee verbindet Kniebeuge, Liegestützposition und Strecksprung.',
+         'Hocke – Beine zurück – Beine ran – Strecksprung. Rücken dabei stabil halten.',
+         'Trainiert fast alle Muskeln und treibt den Puls in kurzer Zeit stark nach oben.',
+         'Qualität vor Tempo: Lieber 5 saubere Burpees als 15 schlampige.'] },
+
+{ id: 'seilspringen', b: 'cardio', t: 'Seilspringen', s: 'Klein, leicht und effektiv', m: 'Waden, Herz-Kreislauf, Koordination', lvl: 'Mittel',
+  props: { rope: 1, mat: [130, 280] },
+  poses: { A: { x: 200, y: 150, t: 180, a1: [15, 70], a2: [20, 75], l1: ik(198, 240), l2: ik(204, 240), ft1: 55, ft2: 55 },
+           U: { x: 200, y: 140, t: 180, a1: [15, 70], a2: [20, 75], l1: ik(198, 230), l2: ik(204, 230), ft1: 55, ft2: 55 } },
+  seg: 0.32,
+  steps: [
+    { p: ['A'], txt: 'Seillänge prüfen: Stell dich in die Mitte, die Griffe reichen etwa bis unter die Achseln.', lab: [['Griffe ~ Achselhöhe', 'hnd2', 60, -10]] },
+    { p: ['A', 'U'], pt: ['HÜPFEN'], txt: 'Kleine Sprünge – nur 2–3 Zentimeter hoch. Die Ellbogen bleiben nah am Körper.', lab: [['Ellbogen am Körper', 'elb2', 60, 10]] },
+    { p: ['A', 'U'], hi: ['sn1', 'sn2'], txt: 'Das Seil kommt aus den Handgelenken, nicht aus den Armen. Auf den Fußballen landen.', lab: [['Fußballen', 'toe2', 50, -10], ['Handgelenke', 'hnd2', 60, -20]] },
+    { p: ['A', 'U'], hold: 60, pt: ['INTERVALL'], txt: 'Starte mit 30 Sekunden Springen und 30 Sekunden Pause. Langsam auf mehrere Minuten steigern.' }
+  ],
+  info: ['Seilspringen ist ein günstiges und sehr effektives Ausdauertraining.',
+         'Kleine Sprünge auf den Fußballen, Ellbogen am Körper, das Seil mit den Handgelenken drehen.',
+         'Trainiert Herz, Waden, Koordination und Schnelligkeit gleichzeitig.',
+         'Kein Seil? Einfach so tun als ob – das „Luftseilspringen“ wirkt fast genauso.'] },
+
+{ id: 'dehnung', b: 'cardio', t: 'Dehnung Beinrückseite', s: 'Lockere hintere Oberschenkel', m: 'Hintere Oberschenkel, Waden', lvl: 'Einsteiger',
+  props: { mat: [120, 290] },
+  poses: { S: ST(195), H: { x: 188, y: 162, t: 122, a1: ik(212, 200, -1), a2: ik(216, 200, -1), l1: ik(190, G), l2: ik(236, G), ft2: 140 } },
+  seg: 1.8,
+  steps: [
+    { p: ['S'], txt: 'Aufrecht stehen. Ein Bein eine halbe Fußlänge nach vorn stellen.', lab: [['Stand', 'head', 60, -10]] },
+    { p: ['S', 'H'], pt: ['LANGSAM VORBEUGEN'], txt: 'Die vordere Ferse aufsetzen, Zehen zeigen nach oben. Mit geradem Rücken aus der Hüfte nach vorn neigen.', lab: [['Zehen hoch', 'toe2', 40, -20]] },
+    { p: ['H'], hold: 30, hi: ['th2', 'sn2'], txt: 'Du spürst ein Ziehen hinten im Oberschenkel. 20–30 Sekunden halten und ruhig atmen.', lab: [['Hier zieht es', 'kne2', 40, 0], ['Rücken gerade', 'mid', 20, -50]] },
+    { p: ['H'], hold: 30, pt: ['NICHT WIPPEN'], txt: 'Nicht wippen und nicht in den Schmerz gehen. Danach die Seite wechseln.' }
+  ],
+  info: ['Statisches Dehnen der Muskulatur an der Rückseite des Oberschenkels.',
+         'Ferse vorn aufsetzen, Zehen hoch, gerader Rücken, aus der Hüfte vorbeugen, 20–30 Sekunden halten.',
+         'Verbessert die Beweglichkeit – wer viel sitzt, hat oft verkürzte hintere Oberschenkel.',
+         'Nach dem Training oder als eigene Einheit dehnen, nicht direkt vor Sprints oder Sprüngen.'] },
+
+{ id: 'hueftbeuger', b: 'cardio', t: 'Hüftbeuger-Dehnung', s: 'Gegen das Dauersitzen', m: 'Hüftbeuger, vordere Oberschenkel', lvl: 'Einsteiger',
+  props: { mat: [100, 300] },
+  poses: { K: { x: 196, y: 200, t: 180, a1: ik(236, 200, -1), a2: ik(240, 200, -1), l1: [-23, -90], l2: ik(246, G), ft1: -90 },
+           F: { x: 210, y: 206, t: 184, a1: ik(242, 206, -1), a2: ik(246, 206, -1), l1: [-41, -90], l2: ik(246, G), ft1: -90 } },
+  seg: 2,
+  steps: [
+    { p: ['K'], txt: 'In den Kniestand gehen: Ein Bein vorn aufgestellt, das hintere Knie liegt auf einer weichen Unterlage.', lab: [['Knie auf Matte', 'kne1', -50, -30]] },
+    { p: ['K', 'F'], pt: ['HÜFTE NACH VORN'], txt: 'Die Hüfte langsam nach vorn schieben. Den Po leicht anspannen – das verstärkt die Dehnung.', arr: [[175, 200, 225, 200, 0]] },
+    { p: ['F'], hold: 30, hi: ['th1'], txt: 'Vorne an der Hüfte des hinteren Beins zieht es. 20–30 Sekunden halten, aufrecht bleiben.', lab: [['Hier zieht es', 'hip', -70, 10]] },
+    { p: ['F'], hold: 30, pt: ['SEITE WECHSELN'], txt: 'Danach die Seite wechseln. Ideal nach langem Sitzen – zum Beispiel nach der Arbeit.' }
+  ],
+  info: ['Die Dehnung des Hüftbeugers im Kniestand.',
+         'Kniestand, Hüfte nach vorn schieben, Po anspannen, Oberkörper aufrecht, 20–30 Sekunden halten.',
+         'Beim Sitzen ist der Hüftbeuger ständig verkürzt – das kann den unteren Rücken belasten.',
+         'Arm der Knieseite nach oben strecken: So spürst du die Dehnung noch deutlicher.'] },
+
+/* ================= TRAININGSPLÄNE ================= */
+{ id: 'ganzkoerper', b: 'plan', t: 'Ganzkörper-Zirkel', s: 'Dein erster Trainingsplan', m: 'Ganzer Körper', lvl: 'Einsteiger', scene: 'circuit',
+  steps: [
+    { txt: 'Ein Zirkel besteht aus mehreren Übungen nacheinander – hier 5 Übungen für den ganzen Körper.' },
+    { txt: 'Jede Übung 40 Sekunden, dann 20 Sekunden Pause und weiter zur nächsten.' },
+    { txt: 'Nach allen 5 Übungen ist eine Runde geschafft. Einsteiger machen 3 Runden mit 1–2 Minuten Pause dazwischen.' },
+    { txt: 'Der ganze Ablauf: 5 Minuten aufwärmen, 3 Runden Zirkel, 5 Minuten Dehnen – fertig in etwa 25 Minuten.' }
+  ],
+  info: ['Ein Zirkeltraining reiht mehrere Übungen hintereinander – ohne Geräte, ideal für zu Hause.',
+         'Kniebeuge, Knie-Liegestütz, Beckenheben, Unterarmstütz, Hampelmann: je 40 s Übung, 20 s Pause.',
+         'Trainiert Kraft und Ausdauer gleichzeitig – in kurzer Zeit.',
+         '2–3-mal pro Woche mit mindestens einem Ruhetag dazwischen.'] },
+
+{ id: 'tabata', b: 'plan', t: 'HIIT & Tabata', s: 'Kurz, hart, effektiv', m: 'Herz-Kreislauf, ganzer Körper', lvl: 'Fortgeschritten', scene: 'intervals',
+  steps: [
+    { txt: 'HIIT heißt hochintensives Intervalltraining: kurze Vollgas-Phasen im Wechsel mit kurzen Pausen.' },
+    { txt: 'Tabata ist die bekannteste Form: 20 Sekunden Vollgas, 10 Sekunden Pause.' },
+    { txt: '8 Runden davon ergeben genau 4 Minuten – kurz, aber sehr anstrengend.' },
+    { txt: 'Gut geeignet: Burpees, Mountain Climber, Hampelmann oder Kniebeuge-Sprünge.' },
+    { txt: 'Einsteiger starten mit 20 Sekunden Belastung und 20 Sekunden Pause – und nur, wenn sie gesund sind.' }
+  ],
+  info: ['HIIT ist ein Training im Wechsel aus sehr intensiven Belastungen und kurzen Pausen.',
+         'Tabata: 8 Runden × (20 s Vollgas + 10 s Pause) = 4 Minuten.',
+         'Verbessert die Ausdauer in kurzer Zeit und verbraucht auch nach dem Training noch Energie.',
+         'Höchstens 2–3 HIIT-Einheiten pro Woche. Mit Herz-Kreislauf-Problemen vorher ärztlich abklären.'] },
+
+{ id: 'puls', b: 'plan', t: 'Puls & Trainingszonen', s: 'Wie hart trainierst du?', m: 'Herz-Kreislauf', lvl: 'Mittel', scene: 'zones',
+  steps: [
+    { txt: 'Eine grobe Faustformel für die maximale Herzfrequenz (HF max) lautet: 220 minus Lebensalter.' },
+    { txt: 'Daraus ergeben sich Trainingszonen – je nach Prozent der HF max.' },
+    { txt: 'Zone 2 (60–70 %) ist die Grundlagenausdauer: lange, lockere Einheiten. Hier sammelst du die meisten Minuten.' },
+    { txt: 'Zone 4 und 5 sind sehr intensiv – nur kurz, zum Beispiel bei Intervallen.' },
+    { txt: 'Ohne Pulsuhr hilft der Sprechtest: In Zone 2 kannst du dich noch in ganzen Sätzen unterhalten.' }
+  ],
+  info: ['Die Herzfrequenz zeigt, wie stark dein Körper gerade arbeitet.',
+         'HF max ≈ 220 − Alter. Zone 2 = 60–70 %, Zone 3 = 70–80 %, Zone 4 = 80–90 % der HF max.',
+         'Wer in den richtigen Zonen trainiert, wird ausdauernder, ohne sich zu überfordern.',
+         'Die Formel ist nur ein Schätzwert – die echte HF max kann deutlich abweichen.'] },
+
+{ id: 'progression', b: 'plan', t: 'Richtig steigern', s: 'Stufe für Stufe stärker', m: 'Trainingsplanung', lvl: 'Mittel', scene: 'stairs',
+  steps: [
+    { txt: 'Der Körper gewöhnt sich an jede Belastung. Damit du weiter Fortschritte machst, musst du langsam steigern.' },
+    { txt: 'Stufe für Stufe: erst mehr Wiederholungen, dann eine schwerere Variante.' },
+    { txt: '2-für-2-Regel: Schaffst du in zwei Trainings hintereinander 2 Wiederholungen mehr als geplant, wird gesteigert.' },
+    { txt: 'Stellschrauben: mehr Wiederholungen, langsameres Tempo, kürzere Pausen, mehr Sätze oder Zusatzgewicht.' },
+    { txt: 'Wichtig: Immer nur eine Sache auf einmal steigern – und die Technik bleibt sauber.' }
+  ],
+  info: ['Progression bedeutet, die Belastung nach und nach zu erhöhen.',
+         'Mehr Wiederholungen → schwerere Variante → mehr Sätze oder Gewicht. Immer nur ein Schritt.',
+         'Ohne neuen Reiz bleibt der Körper auf seinem Stand – mit Steigerung wird er stärker.',
+         'Führe ein kleines Trainingstagebuch – dann weißt du immer, wann es Zeit zum Steigern ist.'] },
+
+{ id: 'woche', b: 'plan', t: 'Wochenplan', s: 'Kraft, Ausdauer und Pausen', m: 'Trainingsplanung', lvl: 'Einsteiger', scene: 'week',
+  steps: [
+    { txt: 'Ein guter Wochenplan verteilt Kraft, Ausdauer und Erholung sinnvoll über die Woche.' },
+    { txt: 'Zweimal pro Woche Krafttraining für den ganzen Körper – mit mindestens einem Tag Pause dazwischen.' },
+    { txt: 'Dazu Ausdauer: Radfahren, Joggen, Schwimmen oder zügiges Gehen.' },
+    { txt: 'Ruhetage und lockere Bewegung gehören dazu. Dehnen passt gut an leichte Tage.' },
+    { txt: 'Die WHO empfiehlt Erwachsenen mindestens 150 Minuten moderate Ausdauer pro Woche und an 2 Tagen Krafttraining.' }
+  ],
+  info: ['Ein Wochenplan zeigt dir, wann du was trainierst.',
+         '2 × Kraft, 2–3 × Ausdauer, dazu Ruhetage – zum Beispiel Montag und Donnerstag Kraft.',
+         'Regelmäßigkeit schlägt Intensität: Lieber jede Woche dranbleiben als einmal übertreiben.',
+         'Trag deine Trainings wie Termine in den Kalender ein – dann finden sie auch statt.'] }
+];
+
+/* ===== Quizfragen ===== */
+const QUIZ = [
+  ['Wann solltest du bei einer Kraftübung ausatmen?', ['In der anstrengenden Phase', 'In der leichten Phase', 'Gar nicht – Luft anhalten', 'Nur in der Pause'], 'Ausatmen in der Kraftphase hält den Rumpf stabil und verhindert Pressatmung.', 'atmung'],
+  ['Wie lange sollte ein Aufwärmprogramm ungefähr dauern?', ['5–10 Minuten', '30 Sekunden', '45 Minuten', 'Gar nicht, ist unnötig'], '5–10 Minuten reichen, um Puls, Muskeln und Gelenke vorzubereiten.', 'aufwaermen'],
+  ['Was bedeutet „3 × 12“ im Trainingsplan?', ['3 Sätze mit je 12 Wiederholungen', '12 Sätze mit je 3 Wiederholungen', '3 Übungen in 12 Minuten', '12 Sekunden Pause'], 'Die erste Zahl sind die Sätze, die zweite die Wiederholungen pro Satz.', 'saetze'],
+  ['Was ist Superkompensation?', ['Der Körper baut nach der Erholung etwas mehr auf als vorher', 'Ein Nahrungsergänzungsmittel', 'Ein Fehler bei der Kniebeuge', 'Training ganz ohne Pause'], 'Nach Training und Erholung liegt die Leistung kurz über dem Ausgangsniveau.', 'regeneration'],
+  ['Wohin sollen die Knie bei der Kniebeuge zeigen?', ['In Richtung der Fußspitzen', 'Nach innen zueinander', 'Weit nach außen weg von den Füßen', 'Das ist egal'], 'Knie in Richtung Fußspitzen schont die Kniegelenke.', 'kniebeuge'],
+  ['Wo befinden sich beim Unterarmstütz die Ellbogen?', ['Genau unter den Schultern', 'Weit vor dem Kopf', 'Unter der Hüfte', 'Neben den Knien'], 'Ellbogen unter den Schultern entlastet das Schultergelenk.', 'plank'],
+  ['Welche Muskeln trainiert das Beckenheben vor allem?', ['Po und hintere Oberschenkel', 'Bizeps', 'Brustmuskel', 'Unterarme'], 'Beim Hochdrücken der Hüfte arbeitet vor allem der große Gesäßmuskel.', 'beckenheben'],
+  ['Was ist ein typischer Fehler beim Liegestütz?', ['Die Hüfte hängt durch', 'Der Körper bildet eine Linie', 'Die Hände sind schulterbreit', 'Ausatmen beim Hochdrücken'], 'Eine durchhängende Hüfte belastet den unteren Rücken.', 'liegestuetz'],
+  ['Welche Variante ist leichter als der normale Liegestütz?', ['Knie-Liegestütz', 'Liegestütz mit erhöhten Füßen', 'Einarmiger Liegestütz', 'Klatsch-Liegestütz'], 'Auf den Knien lastet weniger Körpergewicht auf den Armen.', 'knieliegestuetz'],
+  ['Welcher Muskel arbeitet bei Dips am Stuhl hauptsächlich?', ['Trizeps (Armstrecker)', 'Wade', 'Gerader Bauchmuskel', 'Hintere Oberschenkel'], 'Beim Strecken der Ellbogen arbeitet der Trizeps.', 'dips'],
+  ['Welcher Muskel ist beim Klimmzug der Hauptakteur?', ['Großer Rückenmuskel', 'Vorderer Oberschenkel', 'Wadenmuskel', 'Brustmuskel'], 'Der große Rückenmuskel (Latissimus) zieht die Arme nach unten – und dich nach oben.', 'klimmzug'],
+  ['Was streckst du beim Bird-Dog gleichzeitig?', ['Einen Arm und das gegenüberliegende Bein', 'Beide Arme', 'Arm und Bein derselben Seite', 'Nur den Kopf'], 'Diagonal strecken schult Gleichgewicht und Rückenstabilität.', 'birddog'],
+  ['Was gilt beim Dead Bug für den unteren Rücken?', ['Er bleibt am Boden', 'Er wird ins Hohlkreuz gedrückt', 'Er hebt ganz ab', 'Er wird rund nach oben gezogen'], 'Der Rücken bleibt fest am Boden – nur so arbeitet die tiefe Bauchmuskulatur.', 'deadbug'],
+  ['Was trainiert der Wandsitz vor allem?', ['Die vorderen Oberschenkel', 'Den Bizeps', 'Die Brust', 'Den Nacken'], 'Durch das Halten im 90°-Winkel arbeiten die Oberschenkel sehr intensiv.', 'wandsitzen'],
+  ['Wie lange sollte eine Muskelgruppe nach hartem Training etwa ruhen?', ['Etwa 48 Stunden', '5 Minuten', '2 Wochen', 'Gar nicht'], 'Rund 48 Stunden geben dem Muskel Zeit zur Anpassung.', 'regeneration'],
+  ['Wie lange dauert eine Tabata-Einheit (8 Runden 20 s / 10 s)?', ['4 Minuten', '8 Minuten', '20 Minuten', '2 Minuten'], '8 × 30 Sekunden = 240 Sekunden = 4 Minuten.', 'tabata'],
+  ['Wie viel moderate Ausdauer empfiehlt die WHO Erwachsenen pro Woche mindestens?', ['150 Minuten', '30 Minuten', '10 Stunden', '15 Minuten'], 'Mindestens 150 Minuten moderat – plus Krafttraining an 2 Tagen.', 'woche'],
+  ['Was besagt die 2-für-2-Regel?', ['Steigern, wenn du 2-mal hintereinander 2 Wdh. mehr schaffst', 'Nur 2 Tage pro Woche trainieren', '2 Minuten Pause nach jedem Satz', 'Jede Übung genau 2 Sätze'], 'So steigerst du dann, wenn du wirklich bereit bist.', 'progression'],
+  ['Wann ist langes statisches Dehnen am sinnvollsten?', ['Nach dem Training oder als eigene Einheit', 'Direkt vor einem Sprint', 'Mitten in einem Satz', 'Niemals'], 'Vor explosiven Belastungen lieber dynamisch aufwärmen.', 'dehnung'],
+  ['Welche Muskeln dehnt die Dehnung im Kniestand mit Hüfte nach vorn?', ['Den Hüftbeuger', 'Die Waden', 'Den Nacken', 'Die Unterarme'], 'Die Hüfte nach vorn zu schieben, streckt den Hüftbeuger des hinteren Beins.', 'hueftbeuger'],
+  ['Woran erkennst du eine neutrale Wirbelsäule?', ['Leichte S-Form – weder rund noch Hohlkreuz', 'Ganz runder Rücken', 'Starkes Hohlkreuz', 'Kopf weit im Nacken'], 'Die natürliche S-Form verteilt die Kräfte gleichmäßig.', 'haltung'],
+  ['Was macht einen Burpee aus?', ['Hocke, Liegestützposition und Strecksprung', 'Eine reine Dehnübung', 'Training nur für die Finger', 'Eine Übung im Sitzen'], 'Der Burpee verbindet drei Bewegungen zu einer Ganzkörperübung.', 'burpee'],
+  ['Worauf landest du beim Seilspringen?', ['Auf den Fußballen', 'Auf den Fersen', 'Auf den Knien', 'Mit gestreckten Beinen auf der ganzen Sohle'], 'Die Ballen federn die Landung weich ab.', 'seilspringen'],
+  ['Wofür steht „HF max“?', ['Maximale Herzfrequenz', 'Hohe Fitness maximal', 'Hantel-Faktor', 'Halte-Frequenz'], 'HF max ist die höchste Herzfrequenz, die du erreichen kannst.', 'puls'],
+  ['Was stärkt Schulterdrücken vor allem?', ['Schultern und Trizeps', 'Die Waden', 'Die hinteren Oberschenkel', 'Den Po'], 'Beim Drücken über Kopf arbeiten Schultern und Trizeps.', 'schulterdruecken'],
+  ['Wie ziehst du beim Mountain Climber die Knie?', ['Abwechselnd Richtung Brust', 'Beide gleichzeitig zum Kopf', 'Gar nicht', 'Seitlich weg vom Körper'], 'Abwechselnd und zügig – wie beim Bergsteigen.', 'mountain'],
+  ['Was ist beim Crunch wichtig?', ['Nur die Schulterblätter abheben, nicht am Nacken ziehen', 'Mit viel Schwung ganz hochreißen', 'Fest am Nacken ziehen', 'Die Beine gestreckt in die Luft halten'], 'Kleine, kontrollierte Bewegung – der untere Rücken bleibt unten.', 'crunch'],
+  ['Was trainierst du beim Seitstütz besonders?', ['Die seitlichen Bauchmuskeln', 'Den Bizeps', 'Die Waden', 'Die Brust'], 'Die schrägen Bauchmuskeln halten die Hüfte oben.', 'seitstuetz'],
+  ['Wie bewegst du dich beim Wadenheben?', ['Langsam auf die Zehenspitzen und zurück', 'Auf die Fersen kippen', 'Mit einem großen Sprung', 'Auf die Knie gehen'], 'Langsam hoch, oben halten, langsam runter.', 'wadenheben'],
+  ['Wo ist beim Ausfallschritt unten das hintere Knie?', ['Knapp über dem Boden', 'Hoch vor dem Körper', 'Es schlägt hart auf dem Boden auf', 'Neben dem vorderen Fuß'], 'Das hintere Knie schwebt knapp über dem Boden.', 'ausfallschritt'],
+  ['Was ist ein Zirkeltraining?', ['Mehrere Übungen nacheinander, dann wieder von vorn', 'Eine einzige Übung sehr lange', 'Training auf einem Kreisel', 'Laufen im Kreis'], 'Mehrere Stationen hintereinander ergeben eine Runde.', 'ganzkoerper'],
+  ['Was bringt der Hampelmann vor allem?', ['Er bringt den Puls schnell nach oben', 'Er dehnt den Nacken', 'Er trainiert nur die Finger', 'Gar nichts'], 'Der Hampelmann ist ideal zum Aufwärmen und für den Kreislauf.', 'hampelmann']
+];
+
+/* ===== Paket 2 ===== */
+AREAS.splice(5, 0, { id: 'buero', t: 'Rücken & Büro', ic: '🪑', c: '#14b8a6', d: 'Mobilisieren und dehnen gegen langes Sitzen' });
+
+const HINGE = { x: 180, y: 160, t: 115, a1: [0, 0], a2: [2, 0], l1: ik(198, G), l2: ik(204, G) };
+const ALL4 = { x: 170, y: 200, t: 114, a1: [0, 0], a2: [2, 0], l1: [0, -90], l2: [2, -90], ft1: -90, ft2: -90 };
+const PRONE = { x: 200, y: 238, t: 90, a1: [90, 90], a2: [91, 90], l1: [-90, -90], l2: [-91, -90], ft1: -90, ft2: -90 };
+
+LESSONS.push(
+/* ---------- Oberkörper ---------- */
+{ id: 'rudern', b: 'ober', t: 'Rudern vorgebeugt', s: 'Kurzhantel-Rudern für den Rücken', m: 'Oberer Rücken, Latissimus, Bizeps', lvl: 'Einsteiger',
+  props: { db: 1, mat: [120, 290] },
+  poses: { S: ST(200, { a1: [0, 0], a2: [2, 0] }), A: HINGE, B: Object.assign({}, HINGE, { a1: [-100, 0], a2: [-98, 0] }) },
+  steps: [
+    { p: ['S', 'A'], seg: 1.6, txt: 'Kurzhanteln greifen, Knie leicht beugen und mit geradem Rücken aus der Hüfte nach vorn neigen.', lab: [['Rücken gerade', 'mid', 0, -45]] },
+    { p: ['A', 'B'], pt: ['ZIEHEN', 'ABLASSEN'], txt: 'Die Ellbogen eng am Körper nach hinten oben ziehen – als würdest du ein Ruderboot ziehen.', arr: [[275, 215, 230, 160, 12]] },
+    { p: ['B'], hi: ['ar1', 'ar2', 'tr'], txt: 'Oben die Schulterblätter zusammendrücken. Jetzt arbeitet der ganze obere Rücken.', lab: [['Schulterblätter zusammen', 'shd', 30, -45]] },
+    { p: ['A', 'B'], pt: ['ZIEHEN · AUSATMEN', 'ABLASSEN · EINATMEN'], txt: 'Langsam ablassen, ohne Schwung. 3 × 12 Wiederholungen sind ein guter Start.' }
+  ],
+  info: ['Rudern ist eine Zugübung für den Rücken – das Gegenstück zum Liegestütz.',
+         'Vorbeugen mit geradem Rücken, Ellbogen eng nach hinten ziehen, oben Schulterblätter zusammen.',
+         'Ein starker oberer Rücken richtet die Haltung auf – ideal gegen runde Schultern vom Sitzen.',
+         'Keine Hanteln? Ein Rucksack mit Büchern oder zwei volle Wasserflaschen gehen auch.'] },
+
+{ id: 'curls', b: 'ober', t: 'Bizeps-Curls', s: 'Starke Arme mit Kurzhanteln', m: 'Bizeps, Unterarme', lvl: 'Einsteiger',
+  props: { db: 1, mat: [120, 290] },
+  poses: { A: ST(200, { a1: [0, 4], a2: [2, 6] }), B: ST(200, { a1: [0, 158], a2: [4, 160] }) },
+  steps: [
+    { p: ['A'], txt: 'Aufrecht stehen, Hanteln in den Händen, die Handflächen zeigen nach vorn.', lab: [['Handflächen nach vorn', 'hnd2', 70, 0]] },
+    { p: ['A', 'B'], pt: ['HOCH', 'RUNTER'], txt: 'Die Unterarme nach oben beugen. Die Ellbogen bleiben dabei fest am Körper.', arr: [[260, 210, 255, 140, -20]], lab: [['Ellbogen bleibt', 'elb2', 60, 10]] },
+    { p: ['B'], hi: ['ar1', 'ar2'], ang: ['elb2'], txt: 'Oben kurz halten und den Bizeps anspannen.' },
+    { p: ['A', 'B'], pt: ['HOCH · AUSATMEN', 'RUNTER · EINATMEN'], txt: 'Langsam ablassen – das Runtergehen trainiert genauso. Kein Schwung aus dem Rücken.' }
+  ],
+  info: ['Curls sind die klassische Übung für den Bizeps an der Vorderseite des Oberarms.',
+         'Ellbogen am Körper, Unterarme hochbeugen, oben halten, langsam ablassen.',
+         'Kräftigt die Arme fürs Tragen und Heben im Alltag – Einkaufstaschen, Kisten, Kinder.',
+         'Wenn du schwingen musst, ist das Gewicht zu schwer. Lieber leichter und sauber.'] },
+
+{ id: 'seitheben', b: 'ober', t: 'Seitheben', s: 'Breite Schultern', m: 'Seitliche Schulter', lvl: 'Einsteiger', view: 'Ansicht von vorn',
+  props: { db: 1 },
+  poses: { A: { fv: 1, x: 200, y: 153, t: 180, a1: [-8, -6], a2: [8, 6], l1: [-3, -3], l2: [3, 3] },
+           B: { fv: 1, x: 200, y: 153, t: 180, a1: [-86, -84], a2: [86, 84], l1: [-3, -3], l2: [3, 3] } },
+  steps: [
+    { p: ['A'], txt: 'Aufrecht stehen, leichte Hanteln seitlich neben dem Körper. Die Ellbogen sind minimal gebeugt.', lab: [['Leichte Hanteln', 'hnd2', 60, 0]] },
+    { p: ['A', 'B'], pt: ['HOCH', 'RUNTER'], txt: 'Die Arme seitlich anheben, bis sie etwa waagerecht sind – wie ein Flugzeug.', arr: [[260, 160, 300, 95, 15], [140, 160, 100, 95, -15]] },
+    { p: ['B'], hi: ['ar1', 'ar2'], txt: 'Nicht höher als die Schultern. Die Schultern bleiben unten, nicht hochziehen.', lab: [['Schultern unten', 'shd2', 50, -40]] },
+    { p: ['A', 'B'], pt: ['HOCH · AUSATMEN', 'RUNTER · EINATMEN'], txt: 'Langsam ablassen. Schon 2–3 kg reichen für den Anfang völlig aus.' }
+  ],
+  info: ['Seitheben trainiert gezielt den seitlichen Teil des Schultermuskels.',
+         'Arme seitlich bis Schulterhöhe heben, Ellbogen leicht gebeugt, langsam ablassen.',
+         'Formt breitere Schultern und stabilisiert das Schultergelenk.',
+         'Stell dir vor, du gießt mit den Hanteln Wasser aus – die kleinen Finger zeigen leicht nach oben.'] },
+
+{ id: 'pike', b: 'ober', t: 'Pike-Liegestütz', s: 'Schulterdrücken ohne Gewichte', m: 'Schultern, Trizeps', lvl: 'Fortgeschritten',
+  props: { mat: [100, 300] },
+  poses: { A: { x: 165, y: 145, t: 69, a1: ik(228, G, 1), a2: ik(232, G, 1), l1: ik(136, 236), l2: ik(140, 236), ft1: 25, ft2: 25 },
+           B: { x: 170, y: 150, t: 28, a1: ik(228, G, 1), a2: ik(232, G, 1), l1: ik(136, 236), l2: ik(140, 236), ft1: 25, ft2: 25 } },
+  steps: [
+    { p: ['A'], txt: 'Aus dem Liegestütz die Hüfte weit nach oben schieben – der Körper bildet ein umgedrehtes V.', lab: [['Hüfte hoch', 'hip', -40, -40], ['Umgedrehtes V', 'shd', 50, -30]] },
+    { p: ['A', 'B'], pt: ['RUNTER', 'HOCH'], txt: 'Die Ellbogen beugen und den Kopf Richtung Boden zwischen die Hände senken.', arr: [[290, 150, 270, 215, -10]] },
+    { p: ['B'], hi: ['ar1', 'ar2'], txt: 'Kurz vor dem Boden stoppen und kräftig zurückdrücken. Jetzt arbeiten vor allem die Schultern.', lab: [['Schultern', 'shd', 55, -20]] },
+    { p: ['A', 'B'], pt: ['RUNTER · EINATMEN', 'HOCH · AUSATMEN'], txt: 'Je näher die Füße an den Händen stehen, desto schwerer wird es.' }
+  ],
+  info: ['Der Pike-Liegestütz ist ein Liegestütz in der umgedrehten V-Position.',
+         'Hüfte hoch, Kopf zwischen den Händen Richtung Boden senken, zurückdrücken.',
+         'Trainiert die Schultern ganz ohne Hanteln – die Vorstufe zum Handstand-Liegestütz.',
+         'Leg ein Kissen unter den Kopf, dann weißt du genau, wie tief du gehen darfst.'] },
+
+/* ---------- Beine & Po ---------- */
+{ id: 'sumo', b: 'beine', t: 'Sumo-Kniebeuge', s: 'Breiter Stand für Po und Innenseite', m: 'Po, Innenseite der Oberschenkel', lvl: 'Einsteiger', view: 'Ansicht von vorn',
+  props: { mat: [110, 290] },
+  poses: { A: { fv: 1, x: 200, y: 156, t: 180, a1: [-20, 80], a2: [20, -80], l1: ik(158, G, -1), l2: ik(242, G, 1) },
+           B: { fv: 1, x: 200, y: 196, t: 180, a1: [-20, 80], a2: [20, -80], l1: ik(158, G, -1), l2: ik(242, G, 1) } },
+  steps: [
+    { p: ['A'], txt: 'Füße deutlich breiter als schulterbreit, die Fußspitzen zeigen schräg nach außen.', lab: [['Breiter Stand', 'ank2', 30, -40], ['Fußspitzen außen', 'toe1', -20, -30]] },
+    { p: ['A', 'B'], pt: ['RUNTER', 'HOCH'], txt: 'Gerade nach unten sinken. Die Knie schieben dabei nach außen – in Richtung der Fußspitzen.', arr: [[200, 120, 200, 165, 0]] },
+    { p: ['B'], hi: ['th1', 'th2'], txt: 'Oberkörper bleibt aufrecht. Es arbeiten Po und die Innenseite der Oberschenkel.', lab: [['Knie nach außen', 'kne2', 40, -20]] },
+    { p: ['A', 'B'], pt: ['RUNTER · EINATMEN', 'HOCH · AUSATMEN'], txt: 'Aus den Fersen hochdrücken und oben den Po anspannen.' }
+  ],
+  info: ['Die Sumo-Kniebeuge ist eine Kniebeuge mit sehr breitem Stand.',
+         'Breiter Stand, Fußspitzen nach außen, Knie nach außen schieben, Oberkörper aufrecht.',
+         'Trainiert Po und die Innenseite der Oberschenkel stärker als die normale Kniebeuge.',
+         'Mit einer Hantel zwischen den Beinen kannst du die Übung später schwerer machen.'] },
+
+{ id: 'kreuzheben', b: 'beine', t: 'Rumänisches Kreuzheben', s: 'Hintere Oberschenkel und Po', m: 'Hintere Oberschenkel, Po, unterer Rücken', lvl: 'Mittel',
+  props: { db: 1, mat: [120, 290] },
+  poses: { A: ST(200, { a1: [0, 0], a2: [2, 0] }), B: { x: 172, y: 158, t: 105, a1: [0, 0], a2: [2, 0], l1: ik(198, G), l2: ik(204, G) } },
+  seg: 1.5,
+  steps: [
+    { p: ['A'], txt: 'Aufrecht stehen, Hanteln vor den Oberschenkeln. Die Knie sind ganz leicht gebeugt.', lab: [['Hanteln vor dem Körper', 'hnd2', 70, 0]] },
+    { p: ['A', 'B'], pt: ['RUNTER', 'HOCH'], txt: 'Den Po weit nach hinten schieben. Die Hanteln gleiten nah an den Beinen nach unten.', arr: [[190, 140, 150, 160, -10]], lab: [['Po nach hinten', 'hip', -70, 10]] },
+    { p: ['B'], hi: ['th1', 'th2'], ln: [['head', 'hip']], ok: 1, txt: 'Runter, bis du hinten im Oberschenkel eine Spannung spürst. Der Rücken bleibt immer gerade.', lab: [['Spannung hinten', 'kne1', -70, -10]] },
+    { p: ['A', 'B'], pt: ['RUNTER · EINATMEN', 'HOCH · AUSATMEN'], txt: 'Die Hüfte kraftvoll nach vorn schieben und aufrichten. Oben den Po anspannen.' }
+  ],
+  info: ['Beim Rumänischen Kreuzheben klappst du mit fast gestreckten Beinen aus der Hüfte nach vorn.',
+         'Knie leicht gebeugt, Po nach hinten, Hanteln nah am Bein, Rücken gerade, dann Hüfte nach vorn.',
+         'Stärkt die gesamte Körperrückseite – das schützt beim Heben im Alltag.',
+         'Übe die Bewegung erst ohne Gewicht mit einem Besenstiel am Rücken (siehe „Neutrale Wirbelsäule“).'] },
+
+{ id: 'stepup', b: 'beine', t: 'Step-ups', s: 'Aufsteigen auf eine Stufe', m: 'Oberschenkel, Po, Gleichgewicht', lvl: 'Einsteiger',
+  props: { bench: [205, 208, 80] },
+  poses: { A: { x: 186, y: 153, t: 178, a1: [10, 20], a2: [-10, 10], l1: ik(184, G), l2: ik(228, 206) },
+           B: { x: 230, y: 112, t: 180, a1: [-10, 10], a2: [10, 20], l1: ik(236, 206), l2: ik(240, 206) } },
+  seg: 1.3,
+  steps: [
+    { p: ['A'], txt: 'Vor eine stabile Stufe oder Treppe stellen. Einen Fuß komplett auf die Stufe setzen.', lab: [['Ganzer Fuß auf der Stufe', 'ank2', 60, -40]] },
+    { p: ['A', 'B'], pt: ['HOCH', 'RUNTER'], txt: 'Über das vordere Bein nach oben drücken, bis du aufrecht auf der Stufe stehst.', arr: [[270, 150, 270, 90, 0]] },
+    { p: ['B'], hi: ['th1', 'th2'], txt: 'Die Kraft kommt aus dem oberen Bein – nicht mit dem hinteren Fuß abstoßen.', lab: [['Kraft aus dem Bein', 'kne2', 50, -20]] },
+    { p: ['A', 'B'], pt: ['HOCH · AUSATMEN', 'RUNTER · EINATMEN'], txt: 'Kontrolliert wieder absteigen. 10 Wiederholungen pro Bein, dann wechseln.' }
+  ],
+  info: ['Step-ups sind Aufsteige-Übungen auf eine Stufe, Bank oder Treppe.',
+         'Ganzer Fuß auf die Stufe, über das obere Bein hochdrücken, kontrolliert absteigen.',
+         'Trainiert jedes Bein einzeln und ist direkt alltagstauglich – Treppensteigen wird leichter.',
+         'Je höher die Stufe, desto schwerer. Starte mit einer normalen Treppenstufe.'] },
+
+{ id: 'seitausfall', b: 'beine', t: 'Seitlicher Ausfallschritt', s: 'Seitwärts für Beine und Hüfte', m: 'Oberschenkel, Innenseite, Po', lvl: 'Mittel', view: 'Ansicht von vorn',
+  props: { mat: [110, 290] },
+  poses: { A: { fv: 1, x: 200, y: 160, t: 180, a1: [-20, 80], a2: [20, -80], l1: ik(150, G, -1), l2: ik(250, G, 1) },
+           B: { fv: 1, x: 226, y: 196, t: 172, a1: [-20, 80], a2: [20, -80], l1: ik(150, G, -1), l2: ik(250, G, 1) } },
+  seg: 1.3,
+  steps: [
+    { p: ['A'], txt: 'Breiter Stand, etwa doppelt schulterbreit. Die Hände vor der Brust zusammen.', lab: [['Doppelt schulterbreit', 'ank2', 20, -40]] },
+    { p: ['A', 'B'], pt: ['ZUR SEITE', 'ZURÜCK'], txt: 'Das Gewicht auf ein Bein verlagern und dort in die Knie gehen. Das andere Bein bleibt gestreckt.', arr: [[200, 130, 245, 155, -10]] },
+    { p: ['B'], hi: ['th2', 'th1'], txt: 'Po nach hinten, Knie über dem Fuß. Im gestreckten Bein spürst du die Dehnung innen.', lab: [['Gebeugtes Bein', 'kne2', 50, -30], ['Gestreckt', 'kne1', -50, -20]] },
+    { p: ['A', 'B'], pt: ['RUNTER · EINATMEN', 'HOCH · AUSATMEN'], txt: 'Zurück in die Mitte drücken und die Seite wechseln.' }
+  ],
+  info: ['Der seitliche Ausfallschritt bewegt die Beine seitwärts statt nach vorn.',
+         'Breiter Stand, Gewicht auf ein Bein, dort beugen, das andere bleibt gestreckt.',
+         'Trainiert Beine und Po und dehnt gleichzeitig die Oberschenkel-Innenseite.',
+         'Halte dich anfangs an einer Stuhllehne fest, bis du sicher stehst.'] },
+
+{ id: 'donkey', b: 'beine', t: 'Donkey Kicks', s: 'Esel-Kicks für den Po', m: 'Großer Gesäßmuskel', lvl: 'Einsteiger',
+  props: { mat: [80, 320] },
+  poses: { A: ALL4, B: Object.assign({}, ALL4, { l1: [-100, 178], ft1: 90 }) },
+  seg: 1,
+  steps: [
+    { p: ['A'], txt: 'Vierfüßlerstand: Hände unter den Schultern, Knie unter der Hüfte, Rücken gerade.', lab: [['Rücken gerade', 'mid', 0, -45]] },
+    { p: ['A', 'B'], pt: ['HOCH', 'RUNTER'], txt: 'Ein Bein angewinkelt nach hinten oben drücken – die Fußsohle zeigt zur Decke.', arr: [[150, 190, 105, 150, -10]] },
+    { p: ['B'], hi: ['th1'], txt: 'Oben den Po fest anspannen. Nicht ins Hohlkreuz fallen, der Bauch bleibt fest.', lab: [['Fußsohle zur Decke', 'ank1', 40, -15], ['Po anspannen', 'hip', -30, -50]] },
+    { p: ['A', 'B'], pt: ['HOCH · AUSATMEN', 'RUNTER · EINATMEN'], txt: '15 Wiederholungen pro Seite. Langsam ausführen – Qualität vor Tempo.' }
+  ],
+  info: ['Donkey Kicks trainieren gezielt den großen Gesäßmuskel.',
+         'Vierfüßlerstand, Bein angewinkelt nach hinten oben drücken, oben Po anspannen.',
+         'Ein kräftiger Po stabilisiert Becken und Rücken.',
+         'Das Knie nur bis auf Hüfthöhe heben – höher zieht dich ins Hohlkreuz.'] },
+
+/* ---------- Rumpf ---------- */
+{ id: 'russian', b: 'rumpf', t: 'Russian Twist', s: 'Drehen für die schrägen Bauchmuskeln', m: 'Schräge Bauchmuskeln', lvl: 'Mittel',
+  props: { mat: [100, 320] },
+  poses: { C: { x: 200, y: 236, t: 205, a1: [110, 95], a2: [112, 95], l1: [125, 70], l2: [127, 70] },
+           R: { x: 200, y: 236, t: 202, a1: [60, 20], a2: [62, 20], l1: [125, 70], l2: [127, 70] } },
+  seg: .8,
+  steps: [
+    { p: ['C'], txt: 'Hinsetzen, Oberkörper leicht nach hinten lehnen, Füße vom Boden abheben. Der Rücken bleibt gerade.', lab: [['Rücken gerade', 'mid', -60, -20], ['Füße in der Luft', 'ank2', 30, -30]] },
+    { p: ['C', 'R'], pt: ['RECHTS', 'MITTE', 'LINKS', 'MITTE'], txt: 'Den Oberkörper abwechselnd nach rechts und links drehen und mit den Händen neben die Hüfte tippen.', arr: [[260, 160, 225, 225, -15]] },
+    { p: ['C', 'R'], hi: ['tr'], txt: 'Die Drehung kommt aus dem Oberkörper, nicht nur aus den Armen.', lab: [['Schräge Bauchmuskeln', 'mid', 40, -50]] },
+    { p: ['C', 'R'], hold: 30, pt: ['30 SEKUNDEN'], txt: 'Zu schwer? Lass die Füße auf dem Boden. Profis halten dabei eine Wasserflasche.' }
+  ],
+  info: ['Der Russian Twist ist eine Drehübung im Sitzen.',
+         'Leicht zurücklehnen, Füße anheben, Oberkörper abwechselnd nach rechts und links drehen.',
+         'Trainiert die schrägen Bauchmuskeln, die für jede Drehbewegung wichtig sind.',
+         'Lieber langsam und mit geradem Rücken als schnell mit rundem Rücken.'] },
+
+{ id: 'beinheben', b: 'rumpf', t: 'Beinheben', s: 'Der untere Bauch', m: 'Gerader Bauchmuskel, Hüftbeuger', lvl: 'Mittel',
+  props: { mat: [80, 320] },
+  poses: { A: { x: 200, y: 238, t: -90, a1: [90, 90], a2: [92, 90], l1: [95, 95], l2: [96, 95], ft1: 180, ft2: 180 },
+           B: { x: 200, y: 238, t: -90, a1: [90, 90], a2: [92, 90], l1: [178, 178], l2: [176, 176], ft1: 180, ft2: 180 } },
+  seg: 1.5,
+  steps: [
+    { p: ['A'], txt: 'Auf den Rücken legen, die Hände neben den Po oder darunter. Die Beine schweben knapp über dem Boden.', lab: [['Hände neben dem Po', 'hnd2', -10, -40]] },
+    { p: ['A', 'B'], pt: ['HOCH', 'RUNTER'], txt: 'Die gestreckten Beine langsam bis senkrecht nach oben heben.', arr: [[300, 220, 215, 140, 30]] },
+    { p: ['B'], hi: ['tr', 'th1', 'th2'], txt: 'Der untere Rücken bleibt fest am Boden. Wenn er abhebt, beuge die Knie ein wenig.', lab: [['Rücken am Boden', 'hip', -60, -30]] },
+    { p: ['A', 'B'], pt: ['HOCH · AUSATMEN', 'RUNTER · EINATMEN'], txt: 'Langsam ablassen, ohne die Füße abzulegen. 3 × 10 Wiederholungen.' }
+  ],
+  info: ['Beim Beinheben hebst du aus der Rückenlage die gestreckten Beine.',
+         'Hände neben dem Po, Beine langsam bis senkrecht heben, langsam ablassen.',
+         'Trainiert besonders den unteren Teil der Bauchmuskulatur.',
+         'Für Einsteiger: Knie anwinkeln – das macht die Übung deutlich leichter.'] },
+
+{ id: 'hollow', b: 'rumpf', t: 'Hollow Hold', s: 'Die Bananen-Haltung', m: 'Ganzer Bauch, Hüftbeuger', lvl: 'Fortgeschritten',
+  props: { mat: [80, 320] },
+  poses: { E: { x: 200, y: 238, t: -112, a1: [100, 100], a2: [101, 100], l1: [150, 60], l2: [151, 60] },
+           H: { x: 200, y: 238, t: -110, a1: [-112, -112], a2: [-110, -110], l1: [102, 102], l2: [103, 102], ft1: 102, ft2: 102 } },
+  seg: 1.6,
+  steps: [
+    { p: ['E'], hold: 20, txt: 'Einstieg: Rückenlage, Schultern und Füße leicht anheben, Knie angewinkelt, Arme nach vorn.', lab: [['Knie angewinkelt', 'kne2', 40, -30]] },
+    { p: ['E', 'H'], pt: ['STRECKEN'], txt: 'Dann Arme über den Kopf und Beine lang strecken – der Körper bildet eine flache Banane.', arr: [[150, 170, 95, 195, -10], [270, 180, 330, 205, 10]] },
+    { p: ['H'], hold: 20, hi: ['tr'], txt: 'Halten! Der untere Rücken drückt fest in den Boden. Ruhig atmen.', lab: [['Rücken in den Boden', 'hip', 0, -60]] },
+    { p: ['H'], hold: 20, pt: ['3 × 20 SEKUNDEN'], txt: 'Hebt sich der Rücken ab, Arme oder Beine etwas höher nehmen – das macht es leichter.' }
+  ],
+  info: ['Der Hollow Hold ist eine Halteübung aus dem Turnen.',
+         'Rückenlage, Schultern und gestreckte Beine knapp über dem Boden, Rücken bleibt unten.',
+         'Trainiert die ganze Körpermitte und macht dich stabil wie einen Turner.',
+         'Starte mit angewinkelten Knien und streck die Beine Woche für Woche weiter.'] },
+
+{ id: 'schulterklopfen', b: 'rumpf', t: 'Plank mit Schulterklopfen', s: 'Stabil bleiben auf drei Punkten', m: 'Bauch, Schultern, Koordination', lvl: 'Mittel',
+  props: { mat: [70, 320] },
+  poses: { T: PU_T, B: Object.assign({}, PU_T, { a2: [20, -120] }), C: Object.assign({}, PU_T, { a1: [20, -120] }) },
+  seg: .8,
+  steps: [
+    { p: ['T'], txt: 'Hohe Liegestützposition. Die Füße etwas breiter stellen – das gibt mehr Stabilität.', lab: [['Füße breiter', 'ank2', 20, -40]] },
+    { p: ['T', 'B', 'T', 'C'], pt: ['TIPPEN', '', 'TIPPEN', ''], txt: 'Abwechselnd eine Hand lösen und auf die gegenüberliegende Schulter tippen.', lab: [['Hand zur Schulter', 'hnd2', 60, -30]] },
+    { p: ['T', 'B', 'T', 'C'], hi: ['tr'], ln: [['shd', 'ank1']], txt: 'Die Hüfte darf dabei nicht hin und her wackeln. Bauch und Po fest anspannen.' },
+    { p: ['T', 'B', 'T', 'C'], hold: 30, txt: '3 × 30 Sekunden. Langsam ist hier schwerer als schnell.' }
+  ],
+  info: ['Eine Plank-Variante, bei der du abwechselnd eine Hand anhebst.',
+         'Hohe Liegestützposition, Füße breit, abwechselnd zur gegenüberliegenden Schulter tippen.',
+         'Trainiert die Rumpfstabilität gegen Drehbewegungen – sehr alltagsnah.',
+         'Stell dir ein Glas Wasser auf deinem unteren Rücken vor – es darf nicht kippen.'] },
+
+/* ---------- Ausdauer ---------- */
+{ id: 'kniehebelauf', b: 'cardio', t: 'Kniehebelauf', s: 'Laufen auf der Stelle', m: 'Herz-Kreislauf, Hüftbeuger, Waden', lvl: 'Einsteiger',
+  props: { mat: [120, 290] },
+  poses: { R1: ST(200, { y: 148, l1: ik(198, 242), l2: [92, 0], a1: [45, 120], a2: [-40, 40], ft1: 60 }),
+           R2: ST(200, { y: 148, l2: ik(204, 242), l1: [92, 0], a2: [45, 120], a1: [-40, 40], ft2: 60 }) },
+  seg: .28,
+  steps: [
+    { p: ['R1'], txt: 'Aufrecht stehen und locker auf den Fußballen laufen – auf der Stelle.', lab: [['Auf den Ballen', 'toe1', -60, -20]] },
+    { p: ['R1', 'R2'], seg: .6, pt: ['KNIE HOCH'], txt: 'Die Knie abwechselnd bis auf Hüfthöhe ziehen. Die Arme schwingen gegengleich mit.', lab: [['Knie auf Hüfthöhe', 'kne2', 50, -20]] },
+    { p: ['R1', 'R2'], hi: ['th1', 'th2'], pt: ['TEMPO!'], txt: 'Jetzt das Tempo erhöhen. Oberkörper aufrecht, nicht nach hinten lehnen.' },
+    { p: ['R1', 'R2'], hold: 30, pt: ['INTERVALL'], txt: 'Ideal als Intervall: 30 Sekunden Gas, 30 Sekunden locker gehen.' }
+  ],
+  info: ['Der Kniehebelauf ist Laufen auf der Stelle mit hohen Knien.',
+         'Auf den Ballen, Knie bis Hüfthöhe, Arme gegengleich, Oberkörper aufrecht.',
+         'Bringt den Puls schnell hoch – perfekt zum Aufwärmen und für Intervalle.',
+         'Leiser für die Nachbarn: Statt zu laufen die Knie nur zügig im Wechsel hochziehen.'] },
+
+{ id: 'hocksprung', b: 'cardio', t: 'Hocksprünge', s: 'Explosive Kraft aus den Beinen', m: 'Oberschenkel, Po, Waden, Herz-Kreislauf', lvl: 'Mittel',
+  props: { mat: [120, 290] },
+  poses: { Q: SQ_B, J: { x: 200, y: 138, t: 180, a1: [150, 160], a2: [146, 156], l1: [0, 0], l2: [2, 0], ft1: 55, ft2: 55 } },
+  seg: .55,
+  steps: [
+    { p: ['Q'], txt: 'In die Kniebeuge gehen: Po nach hinten, Arme nach vorn, Fersen am Boden.', lab: [['Tiefe Hocke', 'hip', -70, 0]] },
+    { p: ['Q', 'J'], pt: ['SPRUNG', 'LANDUNG'], txt: 'Explosiv nach oben abspringen und die Arme mit nach oben reißen.', arr: [[290, 200, 290, 110, 0]] },
+    { p: ['Q', 'J'], hi: ['th1', 'th2', 'sn1', 'sn2'], pt: ['WEICH LANDEN'], txt: 'Weich auf den Fußballen landen und direkt wieder in die Hocke abfedern.', lab: [['Abfedern', 'kne2', 50, -10]] },
+    { p: ['Q', 'J'], hold: 20, pt: ['10 SPRÜNGE'], txt: 'Starte mit 2 × 10 Sprüngen. Bei Knieproblemen lieber normale Kniebeugen machen.' }
+  ],
+  info: ['Hocksprünge verbinden die Kniebeuge mit einem Strecksprung.',
+         'Tief in die Hocke, explosiv hochspringen, weich auf den Ballen landen, abfedern.',
+         'Trainiert Schnellkraft und Ausdauer zugleich – die Beine werden spritziger.',
+         'Auf weichem Untergrund springen (Matte, Rasen) – das schont die Gelenke.'] },
+
+{ id: 'skater', b: 'cardio', t: 'Skater-Sprünge', s: 'Seitlich springen wie ein Eisschnellläufer', m: 'Beine, Po, Gleichgewicht, Herz-Kreislauf', lvl: 'Mittel', view: 'Ansicht von vorn',
+  props: { mat: [110, 290] },
+  poses: { A: { fv: 1, x: 240, y: 165, t: 166, a1: [40, 70], a2: [60, 40], l1: [22, 55], l2: ik(250, G, 1) },
+           J: { fv: 1, x: 200, y: 142, t: 180, a1: [-20, -10], a2: [20, 10], l1: [-8, -8], l2: [8, 8] },
+           C: { fv: 1, x: 160, y: 165, t: 194, a1: [-60, -40], a2: [-40, -70], l1: ik(150, G, -1), l2: [-22, -55] } },
+  seg: .45,
+  steps: [
+    { p: ['A'], txt: 'Auf einem Bein leicht in die Knie gehen. Das andere Bein ist hinter dem Standbein gekreuzt.', lab: [['Standbein', 'kne2', 50, -10]] },
+    { p: ['A', 'J', 'C', 'J'], pt: ['SPRUNG'], txt: 'Kräftig zur Seite abspringen und auf dem anderen Bein landen – wie ein Eisschnellläufer.', arr: [[230, 110, 170, 110, -20]] },
+    { p: ['A', 'J', 'C', 'J'], hi: ['th1', 'th2'], txt: 'Die Arme schwingen zur Gegenseite mit. Weich landen und kurz stabilisieren.', lab: [['Weich landen', 'ank2', 40, -20]] },
+    { p: ['A', 'J', 'C', 'J'], hold: 30, pt: ['30 SEKUNDEN'], txt: 'Je weiter der Sprung, desto anstrengender. Anfänger tippen nur mit dem Fuß zur Seite.' }
+  ],
+  info: ['Skater-Sprünge sind seitliche Sprünge von einem Bein aufs andere.',
+         'Auf einem Bein beugen, seitlich abspringen, auf dem anderen Bein weich landen.',
+         'Trainiert Beinkraft, Gleichgewicht und Ausdauer in einer Bewegung.',
+         'Achte darauf, dass das Knie beim Landen nicht nach innen knickt.'] },
+
+/* ---------- Rücken & Büro ---------- */
+{ id: 'katzekuh', b: 'buero', t: 'Katze-Kuh', s: 'Die Wirbelsäule sanft bewegen', m: 'Rücken, Wirbelsäule, Bauch', lvl: 'Einsteiger',
+  props: { mat: [80, 320] },
+  poses: { N: ALL4, K: Object.assign({}, ALL4, { cv: -14, hd: -45 }), U: Object.assign({}, ALL4, { cv: 12, hd: 30 }) },
+  seg: 1.8,
+  steps: [
+    { p: ['N'], txt: 'Vierfüßlerstand: Hände unter den Schultern, Knie unter der Hüfte. Der Rücken ist neutral.', lab: [['Hände unter Schultern', 'hnd2', 50, -30]] },
+    { p: ['N', 'K'], pt: ['KATZE'], txt: 'Katze: Den Rücken rund nach oben schieben und den Kopf hängen lassen – wie eine fauchende Katze.', lab: [['Rücken rund', 'mid', 0, -50]] },
+    { p: ['N', 'U'], pt: ['KUH'], txt: 'Kuh: Den Bauch locker nach unten sinken lassen und den Blick leicht nach vorn heben.', lab: [['Bauch sinkt', 'mid', 0, 40]] },
+    { p: ['K', 'U'], pt: ['KATZE · AUSATMEN', 'KUH · EINATMEN'], hi: ['tr'], txt: 'Fließend im Wechsel – im Rhythmus deiner Atmung. 8–10 Wiederholungen tun dem Rücken gut.' }
+  ],
+  info: ['Katze-Kuh ist eine sanfte Mobilisationsübung für die ganze Wirbelsäule.',
+         'Im Vierfüßlerstand den Rücken abwechselnd rund machen und locker durchhängen lassen.',
+         'Löst Verspannungen und versorgt die Bandscheiben mit Bewegung – ideal nach langem Sitzen.',
+         'Langsam und im Atemrhythmus bewegen – das ist keine Kraftübung.'] },
+
+{ id: 'superman', b: 'buero', t: 'Superman', s: 'Kräftiger unterer Rücken', m: 'Rückenstrecker, Po, hintere Schulter', lvl: 'Einsteiger',
+  props: { mat: [80, 340] },
+  poses: { A: PRONE, B: Object.assign({}, PRONE, { t: 100, a1: [100, 100], a2: [101, 100], l1: [-98, -98], l2: [-99, -98], ft1: -98, ft2: -98 }) },
+  seg: 1.4,
+  steps: [
+    { p: ['A'], txt: 'Auf den Bauch legen, Arme lang nach vorn strecken, Beine gestreckt. Die Stirn schaut zum Boden.', lab: [['Arme nach vorn', 'hnd2', 0, -40]] },
+    { p: ['A', 'B'], pt: ['HOCH', 'RUNTER'], txt: 'Arme, Brust und Beine gleichzeitig ein kleines Stück vom Boden abheben – wie Superman beim Fliegen.', arr: [[110, 220, 110, 195, 0], [330, 220, 330, 195, 0]] },
+    { p: ['B'], hold: 3, hi: ['tr', 'th1', 'th2'], txt: 'Oben 2–3 Sekunden halten. Der Blick bleibt zum Boden – den Kopf nicht in den Nacken legen.', lab: [['Blick zum Boden', 'head', 20, -40]] },
+    { p: ['A', 'B'], pt: ['HOCH · AUSATMEN', 'RUNTER · EINATMEN'], txt: 'Langsam ablegen. 3 × 10 Wiederholungen stärken den unteren Rücken.' }
+  ],
+  info: ['Beim Superman hebst du in Bauchlage Arme und Beine gleichzeitig an.',
+         'Bauchlage, Arme nach vorn, alles gleichzeitig leicht anheben, kurz halten, ablegen.',
+         'Stärkt die Rückenstrecker – das Gegengewicht zu Bauchübungen und langem Sitzen.',
+         'Nur ein kleines Stück abheben reicht. Höher heißt nicht besser.'] },
+
+{ id: 'brustdehnung', b: 'buero', t: 'Brustdehnung an der Wand', s: 'Gegen runde Schultern', m: 'Brustmuskel, vordere Schulter', lvl: 'Einsteiger',
+  props: { wall: 126 },
+  poses: { A: ST(200, { a1: ik(128, 86, -1), a2: [2, 0], l1: ik(196, G), l2: ik(232, G) }),
+           B: ST(200, { x: 204, y: 154, t: 176, a1: ik(128, 86, -1), a2: [6, 0], l1: ik(196, G), l2: ik(232, G) }) },
+  seg: 2,
+  steps: [
+    { p: ['A'], txt: 'Seitlich neben eine Wand stellen. Den Arm auf Schulterhöhe nach hinten an die Wand legen.', lab: [['Hand an der Wand', 'hnd1', 40, -30]] },
+    { p: ['A', 'B'], pt: ['LANGSAM NACH VORN'], txt: 'Einen kleinen Schritt nach vorn machen und den Oberkörper leicht von der Wand wegdrehen.', arr: [[215, 60, 245, 60, 0]] },
+    { p: ['B'], hold: 30, hi: ['ar1'], txt: 'Vorne an Brust und Schulter zieht es angenehm. 20–30 Sekunden halten.', lab: [['Hier zieht es', 'shd', -10, 45]] },
+    { p: ['B'], hold: 30, pt: ['SEITE WECHSELN'], txt: 'Danach die Seite wechseln. Perfekt für zwischendurch im Büro.' }
+  ],
+  info: ['Eine einfache Dehnung für den Brustmuskel an einer Wand oder einem Türrahmen.',
+         'Arm auf Schulterhöhe an die Wand, kleiner Schritt nach vorn, Oberkörper wegdrehen, halten.',
+         'Viel Sitzen am Computer zieht die Schultern nach vorn – diese Dehnung öffnet die Brust.',
+         'Probier verschiedene Armhöhen aus: etwas höher oder tiefer dehnt andere Fasern.'] },
+
+{ id: 'nacken', b: 'buero', t: 'Nackendehnung', s: 'Lockerer Nacken in 1 Minute', m: 'Nacken, oberer Trapezmuskel', lvl: 'Einsteiger', view: 'Ansicht von vorn',
+  poses: { N: { fv: 1, x: 200, y: 153, t: 180, a1: [-6, -4], a2: [6, 4], l1: [-3, -3], l2: [3, 3] },
+           L: { fv: 1, x: 200, y: 153, t: 180, hd: 28, a1: [-160, 62], a2: [10, 4], l1: [-3, -3], l2: [3, 3] },
+           R: { fv: 1, x: 200, y: 153, t: 180, hd: -28, a1: [-10, -4], a2: [160, -62], l1: [-3, -3], l2: [3, 3] } },
+  seg: 2,
+  steps: [
+    { p: ['N'], txt: 'Aufrecht sitzen oder stehen. Die Schultern locker nach unten sinken lassen.', lab: [['Schultern locker', 'shd2', 50, -10]] },
+    { p: ['N', 'L'], pt: ['KOPF ZUR SEITE'], txt: 'Den Kopf langsam zur Seite neigen – das Ohr wandert Richtung Schulter.', arr: [[215, 30, 180, 45, 10]] },
+    { p: ['L'], hold: 20, hi: ['tr'], txt: 'Die Hand liegt ganz leicht auf dem Kopf – nicht ziehen. Der andere Arm zieht sanft nach unten.', lab: [['Nicht ziehen', 'hnd1', -60, -10], ['Hier dehnt es', 'shd2', 50, -30]] },
+    { p: ['R'], hold: 20, pt: ['SEITE WECHSELN'], txt: 'Je Seite 20 Sekunden. Langsam zurück in die Mitte – niemals ruckartig.' }
+  ],
+  info: ['Eine sanfte Dehnung für die seitliche Nackenmuskulatur.',
+         'Kopf zur Seite neigen, Hand nur auflegen, andere Schulter sinken lassen, halten.',
+         'Löst Verspannungen, die durch Bildschirmarbeit und Stress entstehen.',
+         'Bei Schwindel, Kribbeln oder Schmerzen sofort aufhören und ärztlich abklären lassen.'] },
+
+{ id: 'kindhaltung', b: 'buero', t: 'Kindhaltung', s: 'Entspannung für den ganzen Rücken', m: 'Unterer Rücken, Schultern, Hüfte', lvl: 'Einsteiger',
+  props: { mat: [80, 340] },
+  poses: { A: ALL4, K: { x: 170, y: 226, t: 85, a1: [90, 90], a2: [91, 90], l1: [66, -90], l2: [66, -90], ft1: -90, ft2: -90 } },
+  seg: 2,
+  steps: [
+    { p: ['A'], txt: 'Starte im Vierfüßlerstand. Die Knie stehen etwa hüftbreit.', lab: [['Vierfüßlerstand', 'mid', 0, -45]] },
+    { p: ['A', 'K'], pt: ['PO ZU DEN FERSEN'], txt: 'Den Po langsam nach hinten auf die Fersen sinken lassen. Die Hände bleiben vorn am Boden.', arr: [[175, 175, 160, 210, -10]] },
+    { p: ['K'], hold: 30, hi: ['tr'], txt: 'Stirn ablegen, Arme lang nach vorn. Ruhig in den Rücken atmen und loslassen.', lab: [['Arme lang', 'hnd2', -10, -35], ['Rücken entspannt', 'mid', -10, -40]] },
+    { p: ['K'], hold: 30, pt: ['RUHIG ATMEN'], txt: '30–60 Sekunden halten. Ideal am Ende des Trainings oder vor dem Schlafen.' }
+  ],
+  info: ['Die Kindhaltung ist eine Entspannungsposition aus dem Yoga.',
+         'Aus dem Vierfüßlerstand den Po auf die Fersen sinken lassen, Arme nach vorn, Stirn ab.',
+         'Dehnt sanft den unteren Rücken und bringt Körper und Atmung zur Ruhe.',
+         'Ein Kissen zwischen Po und Fersen macht es bequemer, wenn die Knie zwicken.'] },
+
+/* ---------- Pläne ---------- */
+{ id: 'morgen', b: 'plan', t: '10-Minuten-Morgenprogramm', s: 'Wach und beweglich in den Tag', m: 'Ganzer Körper', lvl: 'Einsteiger', scene: 'circuit',
+  cfg: { ex: [['hampelmann', ['A', 'J', 'B', 'J'], .3, 'HAMPELMANN'], ['kniebeuge', ['A', 'B'], .7, 'KNIEBEUGE'], ['katzekuh', ['K', 'U'], 1, 'KATZE-KUH'], ['knieliegestuetz', ['A', 'B'], .7, 'KNIE-LIEGESTÜTZ'], ['plank', ['P'], 1, 'UNTERARMSTÜTZ']],
+         top: '5 ÜBUNGEN · KEINE GERÄTE', work: '45 s ÜBUNG', rest: '15 s WECHSEL', rounds: 2,
+         parts: [['RUNDE 1', 5, '#3b9eff'], ['RUNDE 2', 5, '#f5c542']], total: '10 MINUTEN' },
+  steps: [
+    { txt: 'Fünf einfache Übungen ohne Geräte – direkt nach dem Aufstehen, sogar im Schlafanzug.' },
+    { txt: 'Jede Übung 45 Sekunden, dann 15 Sekunden Zeit zum Wechseln.' },
+    { txt: 'Nach 5 Minuten ist eine Runde geschafft – dann das Ganze ein zweites Mal.' },
+    { txt: 'Zwei Runden ergeben genau 10 Minuten. Danach ein großes Glas Wasser trinken.' }
+  ],
+  info: ['Ein kurzes Ganzkörperprogramm für jeden Morgen.',
+         'Hampelmann, Kniebeuge, Katze-Kuh, Knie-Liegestütz, Unterarmstütz – je 45 s, 2 Runden.',
+         'Bringt den Kreislauf in Schwung, lockert den Rücken und macht wach – besser als jeder Kaffee.',
+         'Leg dir die Matte schon am Abend bereit – dann gibt es morgens keine Ausrede.'] },
+
+{ id: 'vierwochen', b: 'plan', t: '4-Wochen-Einsteigerplan', s: 'Vom Anfänger zur Routine', m: 'Trainingsplanung', lvl: 'Einsteiger', scene: 'weeks4',
+  steps: [
+    { txt: 'Ein Plan für die ersten vier Wochen: Jede Woche wird ein kleines bisschen mehr trainiert.' },
+    { txt: 'Woche 1 und 2: Gewöhnung. 2 Trainings pro Woche mit dem Ganzkörper-Zirkel, 2 Runden.' },
+    { txt: 'Woche 3 und 4: Steigerung. 3 Trainings pro Woche, 3 Runden, die Halteübungen werden länger.' },
+    { txt: 'Am Anfang und am Ende ein kleiner Test: Wie viele Kniebeugen schaffst du in einer Minute?' },
+    { txt: 'Nach 4 Wochen ist Training eine Gewohnheit. Dann weiter mit „Richtig steigern“.' }
+  ],
+  info: ['Ein einfacher Plan für den Einstieg ins regelmäßige Training.',
+         'Woche 1–2: 2 × pro Woche, 2 Runden. Woche 3–4: 3 × pro Woche, 3 Runden.',
+         'Langsames Steigern verhindert Überlastung – und du bleibst motiviert, weil du Fortschritte siehst.',
+         'Trag jedes Training in einen Kalender ein und hake es ab. Das motiviert enorm.'] }
+);
+
+/* Lektionen nach Bereich sortieren */
+LESSONS.sort((a, b) => AREAS.findIndex(x => x.id === a.b) - AREAS.findIndex(x => x.id === b.b));
+
+QUIZ.push(
+  ['Wohin ziehst du beim Rudern die Ellbogen?', ['Eng am Körper nach hinten oben', 'Weit nach vorn', 'Nach unten zum Boden', 'Über den Kopf'], 'Ellbogen nach hinten oben ziehen, Schulterblätter zusammen.', 'rudern'],
+  ['Was bleibt bei Bizeps-Curls fest am Körper?', ['Die Ellbogen', 'Die Hände', 'Die Knie', 'Der Kopf'], 'Nur die Unterarme bewegen sich – die Ellbogen bleiben am Körper.', 'curls'],
+  ['Wie hoch hebst du die Arme beim Seitheben?', ['Etwa bis Schulterhöhe', 'So hoch es geht über den Kopf', 'Nur bis zur Hüfte', 'Gar nicht'], 'Bis etwa waagerecht – höher bringt nichts und belastet die Schulter.', 'seitheben'],
+  ['Welche Form bildet der Körper beim Pike-Liegestütz?', ['Ein umgedrehtes V', 'Eine gerade Linie', 'Einen Kreis', 'Ein großes X'], 'Hüfte hoch – das umgedrehte V verlagert die Last auf die Schultern.', 'pike'],
+  ['Was ist das Besondere an der Sumo-Kniebeuge?', ['Ein sehr breiter Stand', 'Man steht auf einem Bein', 'Man springt dabei', 'Man liegt auf dem Rücken'], 'Breiter Stand mit Fußspitzen nach außen.', 'sumo'],
+  ['Welche Muskeln trainiert das Rumänische Kreuzheben vor allem?', ['Hintere Oberschenkel und Po', 'Bizeps', 'Brustmuskel', 'Nacken'], 'Durch das Vorklappen aus der Hüfte arbeitet die Körperrückseite.', 'kreuzheben'],
+  ['Woher kommt bei Step-ups die Kraft?', ['Aus dem Bein auf der Stufe', 'Vom Abstoßen mit dem hinteren Fuß', 'Aus den Armen', 'Aus dem Nacken'], 'Das obere Bein drückt dich hoch.', 'stepup'],
+  ['Was macht das zweite Bein beim seitlichen Ausfallschritt?', ['Es bleibt gestreckt', 'Es wird angehoben', 'Es kniet am Boden', 'Es springt'], 'Ein Bein beugt, das andere bleibt gestreckt und wird gedehnt.', 'seitausfall'],
+  ['Wohin zeigt bei Donkey Kicks die Fußsohle?', ['Zur Decke', 'Zum Boden', 'Zur Wand', 'Nach vorn zum Kopf'], 'Das Bein wird angewinkelt nach hinten oben gedrückt.', 'donkey'],
+  ['Welche Muskeln trainiert der Russian Twist?', ['Die schrägen Bauchmuskeln', 'Die Waden', 'Den Bizeps', 'Die Brust'], 'Die Drehbewegung fordert die seitlichen Bauchmuskeln.', 'russian'],
+  ['Was bleibt beim Beinheben am Boden?', ['Der untere Rücken', 'Die Füße', 'Die Knie', 'Der Kopf und die Beine'], 'Hebt sich der Rücken ab, die Knie leicht beugen.', 'beinheben'],
+  ['Wie sieht der Körper beim Hollow Hold aus?', ['Wie eine flache Banane', 'Wie ein umgedrehtes V', 'Wie ein Stuhl', 'Ganz zusammengerollt'], 'Schultern und Beine knapp über dem Boden – wie eine Banane.', 'hollow'],
+  ['Was soll beim Plank mit Schulterklopfen nicht passieren?', ['Die Hüfte wackelt hin und her', 'Die Hände berühren die Schultern', 'Der Bauch ist angespannt', 'Die Füße stehen breit'], 'Ziel ist ein ruhiges Becken – das trainiert die Rumpfstabilität.', 'schulterklopfen'],
+  ['Bis wohin ziehst du beim Kniehebelauf die Knie?', ['Etwa auf Hüfthöhe', 'Bis zum Kinn', 'Gar nicht', 'Nur ein paar Zentimeter'], 'Hüfthöhe ist das Ziel – mit aufrechtem Oberkörper.', 'kniehebelauf'],
+  ['Wie landest du bei Hocksprüngen?', ['Weich auf den Fußballen und abfedern', 'Mit gestreckten Beinen auf den Fersen', 'Auf den Knien', 'Auf einem Bein mit Schwung'], 'Weich landen schont Knie und Sprunggelenke.', 'hocksprung'],
+  ['Wie springst du bei Skater-Sprüngen?', ['Seitlich von einem Bein aufs andere', 'Senkrecht nach oben', 'Rückwärts', 'Mit beiden Beinen nach vorn'], 'Wie ein Eisschnellläufer – seitlich von Bein zu Bein.', 'skater'],
+  ['Was passiert bei der „Katze“ in der Übung Katze-Kuh?', ['Der Rücken wird rund nach oben geschoben', 'Der Bauch sinkt nach unten', 'Man springt hoch', 'Man legt sich auf den Bauch'], 'Bei der Katze wird der Rücken rund, bei der Kuh sinkt der Bauch.', 'katzekuh'],
+  ['Wohin schaust du beim Superman?', ['Zum Boden', 'Weit nach oben in den Nacken', 'Nach hinten zu den Füßen', 'Zur Seite'], 'Der Kopf bleibt in Verlängerung der Wirbelsäule.', 'superman'],
+  ['Wofür ist die Brustdehnung an der Wand besonders gut?', ['Gegen runde Schultern vom Sitzen', 'Für stärkere Waden', 'Für mehr Ausdauer', 'Gegen kalte Füße'], 'Sie öffnet die Brust, die beim Sitzen oft verkürzt.', 'brustdehnung'],
+  ['Was machst du bei der Nackendehnung mit der Hand auf dem Kopf?', ['Nur leicht auflegen, nicht ziehen', 'Kräftig ziehen', 'Den Kopf schnell drehen', 'Auf den Kopf drücken'], 'Sanft dehnen – niemals ruckartig am Kopf ziehen.', 'nacken'],
+  ['Wohin sinkt der Po bei der Kindhaltung?', ['Nach hinten auf die Fersen', 'Nach oben zur Decke', 'Zur Seite', 'Nach vorn zu den Händen'], 'Po auf die Fersen, Arme nach vorn, Stirn ab.', 'kindhaltung'],
+  ['Wie lange dauert das Morgenprogramm mit 2 Runden à 5 Übungen (45 s + 15 s)?', ['10 Minuten', '5 Minuten', '20 Minuten', '45 Minuten'], '5 × 60 s = 5 Minuten pro Runde, 2 Runden = 10 Minuten.', 'morgen'],
+  ['Wie oft trainierst du im 4-Wochen-Plan in Woche 3 und 4?', ['3-mal pro Woche', 'Jeden Tag zweimal', 'Einmal im Monat', 'Gar nicht'], 'Erst 2-mal, ab Woche 3 dann 3-mal pro Woche.', 'vierwochen']
+);
+
+/* ===== Bayazit Fitness-Schule – Engine ===== */
+const $ = (s, r) => (r || document).querySelector(s);
+const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+const LS = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { } }
+};
+const AREA = {}; AREAS.forEach(a => AREA[a.id] = a);
+const LES = {}; LESSONS.forEach(l => LES[l.id] = l);
+const lessonsOf = id => LESSONS.filter(l => l.b === id);
+let seen = new Set(LS.get('fit-seen', []));
+let best = LS.get('fit-best', 0);
+function markSeen(id) { if (!seen.has(id)) { seen.add(id); LS.set('fit-seen', [...seen]); refreshSide(); } }
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const fmt = n => n.toLocaleString('de-DE');
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+
+/* ---------- Theme ---------- */
+let C = {};
+let themeMode = LS.get('fit-theme', 'auto');
+const mq = window.matchMedia ? matchMedia('(prefers-color-scheme: dark)') : null;
+function applyTheme(m) {
+  themeMode = m; LS.set('fit-theme', m);
+  const dark = m === 'dark' || (m === 'auto' && (!mq || mq.matches));
+  document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+  $$('.theme button').forEach(b => b.classList.toggle('on', b.dataset.m === m));
+  readColors(); redrawAll();
+}
+function readColors() {
+  const cs = getComputedStyle(document.documentElement);
+  ['vid', 'card', 'line', 'line2', 'text', 'muted', 'fig', 'fig2', 'grid', 'ground'].forEach(k => C[k] = cs.getPropertyValue('--' + k).trim());
+  C.bad = '#ff4d6d'; C.ok = '#2fd27a';
+}
+if (mq && mq.addEventListener) mq.addEventListener('change', () => { if (themeMode === 'auto') applyTheme('auto'); });
+
+/* ---------- Geometrie ---------- */
+const RAD = Math.PI / 180;
+const V = a => ({ x: Math.sin(a * RAD), y: Math.cos(a * RAD) });
+const add = (a, b) => ({ x: a.x + b.x, y: a.y + b.y });
+const mul = (a, k) => ({ x: a.x * k, y: a.y * k });
+const lerp = (a, b, k) => a + (b - a) * k;
+const lerpA = (a, b, k) => a + ((((b - a) % 360) + 540) % 360 - 180) * k;
+const ang = (p, q) => Math.atan2(q.x - p.x, q.y - p.y) / RAD;
+const ease = k => k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+
+function IK(r, t, L1, L2, b) {
+  const dx = t.x - r.x, dy = t.y - r.y;
+  let d = Math.hypot(dx, dy);
+  const dc = clamp(d, Math.abs(L1 - L2) + .01, L1 + L2 - .01);
+  const base = Math.atan2(dy, dx);
+  const a = Math.acos(clamp((L1 * L1 + dc * dc - L2 * L2) / (2 * L1 * dc), -1, 1));
+  const ja = base - b * a;
+  const j = { x: r.x + Math.cos(ja) * L1, y: r.y + Math.sin(ja) * L1 };
+  const e = { x: r.x + Math.cos(base) * dc, y: r.y + Math.sin(base) * dc };
+  return [j, e];
+}
+function limb(root, spec, L1, L2) {
+  if (Array.isArray(spec)) { const j = add(root, mul(V(spec[0]), L1)); return [j, add(j, mul(V(spec[1]), L2))]; }
+  return IK(root, { x: spec.ik[0], y: spec.ik[1] }, L1, L2, spec.b);
+}
+function solve(p) {
+  const d = V(p.t), n = { x: -d.y, y: d.x };
+  const hip = { x: p.x, y: p.y }, shd = add(hip, mul(d, 70)), cv = p.cv || 0;
+  const m0 = add(hip, mul(d, 35));
+  const J = { hip, shd, ctrl: add(m0, mul(n, cv)), mid: add(m0, mul(n, cv / 2)), head: add(add(shd, mul(V(p.t + (p.hd || 0)), 22)), mul(n, cv * .25)), fv: !!p.fv };
+  J.shd1 = J.shd2 = shd; J.hip1 = J.hip2 = hip;
+  if (p.fv) { J.shd1 = add(shd, mul(n, -17)); J.shd2 = add(shd, mul(n, 17)); J.hip1 = add(hip, mul(n, -9)); J.hip2 = add(hip, mul(n, 9)); }
+  [J.elb1, J.hnd1] = limb(J.shd1, p.a1, 40, 38);
+  [J.elb2, J.hnd2] = limb(J.shd2, p.a2, 40, 38);
+  [J.kne1, J.ank1] = limb(J.hip1, p.l1, 48, 48);
+  [J.kne2, J.ank2] = limb(J.hip2, p.l2, 48, 48);
+  if (p.fv) { J.toe1 = add(J.ank1, { x: -9, y: 1 }); J.toe2 = add(J.ank2, { x: 9, y: 1 }); }
+  else { J.toe1 = add(J.ank1, mul(V(p.ft1 == null ? 90 : p.ft1), 15)); J.toe2 = add(J.ank2, mul(V(p.ft2 == null ? 90 : p.ft2), 15)); }
+  return J;
+}
+function prep(p) {
+  if (p._a) return;
+  const J = solve(p);
+  Object.defineProperty(p, '_a', { value: {
+    a1: [ang(J.shd1, J.elb1), ang(J.elb1, J.hnd1)], a2: [ang(J.shd2, J.elb2), ang(J.elb2, J.hnd2)],
+    l1: [ang(J.hip1, J.kne1), ang(J.kne1, J.ank1)], l2: [ang(J.hip2, J.kne2), ang(J.kne2, J.ank2)] }, enumerable: false });
+}
+function lerpPose(P, Q, k) {
+  prep(P); prep(Q);
+  const o = { fv: P.fv, x: lerp(P.x, Q.x, k), y: lerp(P.y, Q.y, k), t: lerpA(P.t, Q.t, k), cv: lerp(P.cv || 0, Q.cv || 0, k),
+    ft1: lerpA(P.ft1 == null ? 90 : P.ft1, Q.ft1 == null ? 90 : Q.ft1, k), ft2: lerpA(P.ft2 == null ? 90 : P.ft2, Q.ft2 == null ? 90 : Q.ft2, k), hd: lerp(P.hd || 0, Q.hd || 0, k) };
+  ['a1', 'a2', 'l1', 'l2'].forEach(L => {
+    const a = P[L], c = Q[L];
+    if (a.ik && c.ik) o[L] = { ik: [lerp(a.ik[0], c.ik[0], k), lerp(a.ik[1], c.ik[1], k)], b: a.b };
+    else o[L] = [lerpA(P._a[L][0], Q._a[L][0], k), lerpA(P._a[L][1], Q._a[L][1], k)];
+  });
+  return o;
+}
+function poseCycle(arr, t, seg) {
+  const n = arr.length;
+  if (n === 1) return { pose: arr[0], i: 0, k: 0 };
+  const u = (t / seg) % n, i = Math.floor(u), k = ease(u - i);
+  return { pose: lerpPose(arr[i], arr[(i + 1) % n], k), i, k: u - i };
+}
+const SEGS = { tr: ['hip', 'shd'], ar1: ['shd1', 'elb1'], fa1: ['elb1', 'hnd1'], ar2: ['shd2', 'elb2'], fa2: ['elb2', 'hnd2'],
+  th1: ['hip1', 'kne1'], sn1: ['kne1', 'ank1'], th2: ['hip2', 'kne2'], sn2: ['kne2', 'ank2'], ft1: ['ank1', 'toe1'], ft2: ['ank2', 'toe2'] };
+
+/* ---------- Zeichnen ---------- */
+function line(c, pts, col, w) { c.strokeStyle = col; c.lineWidth = w; c.lineCap = 'round'; c.lineJoin = 'round'; c.beginPath(); c.moveTo(pts[0].x, pts[0].y); for (let i = 1; i < pts.length; i++) c.lineTo(pts[i].x, pts[i].y); c.stroke(); }
+function hexA(hex, a) { const h = hex.replace('#', ''); const n = parseInt(h.length === 3 ? h.split('').map(x => x + x).join('') : h, 16); return `rgba(${n >> 16 & 255},${n >> 8 & 255},${n & 255},${a})`; }
+function rrect(c, x, y, w, h, r) { c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); }
+
+function drawFig(c, J, o) {
+  const col = o.col, col2 = J.fv ? o.col : o.col2, w = o.lw || 9;
+  const arm = (s, e, h, cl) => line(c, [J[s], J[e], J[h]], cl, w * .86);
+  const leg = (h, k, a, t, cl) => line(c, [J[h], J[k], J[a], J[t]], cl, w);
+  arm('shd1', 'elb1', 'hnd1', col2); leg('hip1', 'kne1', 'ank1', 'toe1', col2);
+  c.strokeStyle = col; c.lineWidth = w * 1.25; c.lineCap = 'round';
+  c.beginPath(); c.moveTo(J.hip.x, J.hip.y); c.quadraticCurveTo(J.ctrl.x, J.ctrl.y, J.shd.x, J.shd.y); c.stroke();
+  if (J.fv) { line(c, [J.shd1, J.shd2], col, w); line(c, [J.hip1, J.hip2], col, w); }
+  c.fillStyle = col; c.beginPath(); c.arc(J.head.x, J.head.y, 12, 0, 7); c.fill();
+  leg('hip2', 'kne2', 'ank2', 'toe2', col); arm('shd2', 'elb2', 'hnd2', col);
+  if (o.hi && o.hi.length) {
+    c.save(); c.shadowColor = o.hc; c.shadowBlur = 14 * (o.glow || 1);
+    o.hi.forEach(s => { const g = SEGS[s]; if (g) line(c, [J[g[0]], J[g[1]]], o.hc, w * .7); });
+    c.restore();
+  }
+  if (o.dots !== false) {
+    c.fillStyle = o.dotc || C.vid;
+    ['elb2', 'kne2', 'hip', 'shd'].forEach(k => { c.beginPath(); c.arc(J[k].x, J[k].y, 2.2, 0, 7); c.fill(); });
+  }
+  if (o.db) [J.hnd1, J.hnd2].forEach((h, i) => {
+    if (i === 0 && !J.fv && Math.abs(J.hnd1.x - J.hnd2.x) < 3) return;
+    c.fillStyle = o.dbc; rrect(c, h.x - 10, h.y - 4, 5, 8, 1.5); c.fill(); rrect(c, h.x + 5, h.y - 4, 5, 8, 1.5); c.fill();
+    line(c, [{ x: h.x - 6, y: h.y }, { x: h.x + 6, y: h.y }], o.dbc, 2.5);
+  });
+}
+function drawGrid(c) {
+  c.strokeStyle = C.grid; c.lineWidth = 1; c.beginPath();
+  for (let x = 0; x <= 400; x += 20) { c.moveTo(x, 0); c.lineTo(x, 280); }
+  for (let y = 0; y <= 280; y += 20) { c.moveTo(0, y); c.lineTo(400, y); }
+  c.stroke();
+}
+function drawProps(c, P, acc, J, t) {
+  P = P || {};
+  if (P.wall != null) {
+    c.fillStyle = hexA(C.ground.startsWith('#') ? C.ground : '#556677', .35); c.fillRect(P.wall - 12, 10, 12, 240);
+    line(c, [{ x: P.wall, y: 10 }, { x: P.wall, y: 250 }], C.ground, 2);
+    c.strokeStyle = C.ground; c.lineWidth = 1; c.beginPath();
+    for (let y = 18; y < 250; y += 12) { c.moveTo(P.wall - 12, y + 8); c.lineTo(P.wall, y); } c.stroke();
+  }
+  if (!P.noground) {
+    c.strokeStyle = C.ground; c.lineWidth = 1; c.beginPath();
+    for (let x = 4; x < 400; x += 12) { c.moveTo(x, 258); c.lineTo(x + 7, 251); } c.stroke();
+    line(c, [{ x: 0, y: 250 }, { x: 400, y: 250 }], C.ground, 2);
+  }
+  if (P.mat) { c.fillStyle = hexA(acc, .28); rrect(c, P.mat[0], 245, P.mat[1] - P.mat[0], 5, 2.5); c.fill(); }
+  if (P.bench) {
+    const [x, y, w] = P.bench;
+    line(c, [{ x: x + 6, y: y + 4 }, { x: x + 6, y: 250 }], C.ground, 4); line(c, [{ x: x + w - 6, y: y + 4 }, { x: x + w - 6, y: 250 }], C.ground, 4);
+    c.fillStyle = C.line2; rrect(c, x, y, w, 7, 2); c.fill();
+  }
+  if (P.bar != null) {
+    line(c, [{ x: 110, y: P.bar }, { x: 300, y: P.bar }], C.line2, 6);
+    line(c, [{ x: 110, y: 0 }, { x: 110, y: P.bar }], C.ground, 3); line(c, [{ x: 300, y: 0 }, { x: 300, y: P.bar }], C.ground, 3);
+  }
+  if (P.rope && J) {
+    const cx = J.hnd2.x - 18, cy = 140, rx = 46, ry = 116;
+    c.strokeStyle = hexA(acc, .25); c.lineWidth = 2; c.beginPath(); c.ellipse(cx, cy, rx, ry, 0, 0, 7); c.stroke();
+    const ph = (t / 0.64) * Math.PI * 2 + Math.PI / 2;
+    c.save(); c.shadowColor = acc; c.shadowBlur = 8; c.strokeStyle = acc; c.lineWidth = 3; c.beginPath(); c.ellipse(cx, cy, rx, ry, 0, ph - .7, ph + .7); c.stroke(); c.restore();
+  }
+}
+function pill(c, x, y, txt, col, o) {
+  o = o || {};
+  const fs = o.fs || 10;
+  c.font = `700 ${fs}px "JetBrains Mono", ui-monospace, monospace`;
+  const w = c.measureText(txt).width + 14, h = fs + 9;
+  let px = o.left ? x : x - w / 2; px = clamp(px, 4, 396 - w); let py = clamp(y - h / 2, 4, 276 - h);
+  if (o.fill) { c.fillStyle = col; } else { c.fillStyle = C.card; }
+  c.globalAlpha *= .96; rrect(c, px, py, w, h, h / 2); c.fill(); c.globalAlpha /= .96;
+  if (!o.fill) { c.strokeStyle = col; c.lineWidth = 1.4; c.stroke(); }
+  c.fillStyle = o.fill ? (o.tc || '#08111a') : C.text; c.textBaseline = 'middle'; c.textAlign = 'left';
+  c.fillText(txt, px + 7, py + h / 2 + .5);
+  return { x: px, y: py, w, h };
+}
+function arrow(c, x1, y1, x2, y2, cu, col, prog) {
+  if (prog <= 0) return;
+  const mx = (x1 + x2) / 2, my = (y1 + y2) / 2, dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy) || 1;
+  const cx = mx - dy / L * (cu || 0), cy = my + dx / L * (cu || 0);
+  const q = t => ({ x: (1 - t) * (1 - t) * x1 + 2 * (1 - t) * t * cx + t * t * x2, y: (1 - t) * (1 - t) * y1 + 2 * (1 - t) * t * cy + t * t * y2 });
+  const pts = []; const pe = Math.min(1, prog);
+  for (let i = 0; i <= 24; i++) pts.push(q(pe * i / 24));
+  c.save(); c.setLineDash([6, 5]); line(c, pts, col, 2.6); c.restore();
+  if (prog >= 1) {
+    const a = q(.94), b = q(1), an = Math.atan2(b.y - a.y, b.x - a.x);
+    c.fillStyle = col; c.beginPath(); c.moveTo(b.x + Math.cos(an) * 4, b.y + Math.sin(an) * 4);
+    c.lineTo(b.x + Math.cos(an + 2.5) * 10, b.y + Math.sin(an + 2.5) * 10); c.lineTo(b.x + Math.cos(an - 2.5) * 10, b.y + Math.sin(an - 2.5) * 10); c.fill();
+  }
+}
+const ANG = { kne1: ['hip1', 'kne1', 'ank1'], kne2: ['hip2', 'kne2', 'ank2'], elb1: ['shd1', 'elb1', 'hnd1'], elb2: ['shd2', 'elb2', 'hnd2'], hip: ['shd', 'hip', 'kne2'] };
+function angMark(c, J, name, col, a) {
+  const g = ANG[name]; if (!g) return;
+  const A = J[g[0]], P = J[g[1]], B = J[g[2]];
+  let a1 = Math.atan2(A.y - P.y, A.x - P.x), a2 = Math.atan2(B.y - P.y, B.x - P.x);
+  let d = a2 - a1; while (d > Math.PI) d -= 2 * Math.PI; while (d < -Math.PI) d += 2 * Math.PI;
+  c.globalAlpha = a; c.fillStyle = hexA(col, .22); c.beginPath(); c.moveTo(P.x, P.y); c.arc(P.x, P.y, 20, a1, a1 + d, d < 0); c.closePath(); c.fill();
+  c.strokeStyle = col; c.lineWidth = 2; c.beginPath(); c.arc(P.x, P.y, 20, a1, a1 + d, d < 0); c.stroke();
+  const bi = a1 + d / 2;
+  pill(c, P.x + Math.cos(bi) * 40, P.y + Math.sin(bi) * 40, Math.round(Math.abs(d) / RAD) + '°', col, { fill: 1, fs: 11 });
+  c.globalAlpha = 1;
+}
+function heart(c, x, y, s, col) {
+  c.save(); c.translate(x, y); c.scale(s, s); c.fillStyle = col; c.beginPath();
+  c.moveTo(0, 6); c.bezierCurveTo(-14, -4, -8, -16, 0, -8); c.bezierCurveTo(8, -16, 14, -4, 0, 6); c.fill(); c.restore();
+}
+function txt(c, s, x, y, o) {
+  o = o || {};
+  c.font = `${o.w || 700} ${o.fs || 12}px ${o.sans ? 'Inter, system-ui, sans-serif' : '"JetBrains Mono", ui-monospace, monospace'}`;
+  c.fillStyle = o.col || C.text; c.textAlign = o.al || 'left'; c.textBaseline = o.bl || 'middle'; c.fillText(s, x, y);
+}
+
+/* ---------- Szene einer Lektion ---------- */
+const DUR = L => L.D || 4.5;
+function stepPose(L, si, tl) {
+  const st = L.steps[si];
+  return poseCycle(st.p.map(k => L.poses[k]), tl, st.seg || L.seg || 1.2);
+}
+function drawLesson(c, L, tt) {
+  const D = DUR(L), N = L.steps.length;
+  const si = clamp(Math.floor(tt / D), 0, N - 1), tl = tt - si * D;
+  const acc = AREA[L.b].c;
+  c.fillStyle = C.vid; c.fillRect(0, 0, 400, 280); drawGrid(c);
+  if (L.scene) { SCENES[L.scene](c, si, tl, acc, D, L); return si; }
+  const st = L.steps[si];
+  let cy = stepPose(L, si, tl), pose = cy.pose;
+  if (si > 0 && tl < .45) pose = lerpPose(stepPose(L, si - 1, D - .001).pose, pose, ease(tl / .45));
+  const J = solve(pose);
+  const fa = k => clamp((tl - k) / .35, 0, 1);
+  drawProps(c, L.props, acc, J, tt);
+  if (st.ln) { c.save(); c.setLineDash([3, 6]); c.globalAlpha = fa(.3) * .9; st.ln.forEach(l => line(c, [J[l[0]], J[l[1]]], st.bad ? C.bad : C.ok, 2)); c.restore(); }
+  const figCol = st.bad ? C.bad : C.fig, figCol2 = st.bad ? hexA(C.bad, .55) : C.fig2;
+  const pulse = .7 + .3 * Math.sin(tt * 5);
+  drawFig(c, J, { col: figCol, col2: figCol2, hi: st.hi, hc: acc, glow: pulse, db: L.props && L.props.db, dbc: C.muted });
+  if (st.ang) st.ang.forEach(n => angMark(c, J, n, acc, fa(.6)));
+  if (st.arr) st.arr.forEach(a => arrow(c, a[0], a[1], a[2], a[3], a[4], acc, (tl - .5) / .6));
+  if (st.lab) st.lab.forEach((l, i) => {
+    const a = fa(.35 + i * .25); if (!a) return;
+    const p = J[l[1]] || J.hip, x = p.x + l[2], y = p.y + l[3];
+    c.globalAlpha = a; c.strokeStyle = st.bad ? C.bad : acc; c.lineWidth = 1.2; c.beginPath(); c.moveTo(p.x, p.y); c.lineTo(clamp(x, 10, 390), clamp(y, 12, 268)); c.stroke();
+    c.fillStyle = st.bad ? C.bad : acc; c.beginPath(); c.arc(p.x, p.y, 3.2, 0, 7); c.fill();
+    pill(c, x, y, l[0].toUpperCase(), st.bad ? C.bad : acc);
+    c.globalAlpha = 1;
+  });
+  if (st.pt) { const t = st.pt[cy.i % st.pt.length]; if (t) pill(c, 10, 22, t, acc, { fill: 1, left: 1, fs: 11 }); }
+  let ry = 22;
+  if (st.hold) { const s = Math.min(st.hold, Math.floor(tl / D * (st.hold + 1))); pill(c, 396, ry, '⏱ 00:' + String(s).padStart(2, '0') + ' / 00:' + String(st.hold).padStart(2, '0'), acc, { fs: 10, left: 1 }); ry += 26; }
+  if (st.bad) { pill(c, 396, ry, '✗ FALSCH', C.bad, { fill: 1, left: 1, fs: 11, tc: '#fff' }); ry += 26; }
+  if (st.ok) { pill(c, 396, ry, '✓ RICHTIG', C.ok, { fill: 1, left: 1, fs: 11 }); ry += 26; }
+  if (st.br) {
+    const inh = cy.i % 2 === 0, k = st.p.length > 1 ? (inh ? ease(cy.k) : 1 - ease(cy.k)) : .5 + .5 * Math.sin(tt * 1.6);
+    c.fillStyle = hexA(acc, .15); c.beginPath(); c.arc(366, ry + 22, 10 + 14 * k, 0, 7); c.fill();
+    c.strokeStyle = acc; c.lineWidth = 2; c.beginPath(); c.arc(366, ry + 22, 10 + 14 * k, 0, 7); c.stroke();
+    txt(c, 'LUFT', 366, ry + 22, { fs: 8, al: 'center', col: acc });
+  }
+  if (L.view) pill(c, 10, 266, L.view.toUpperCase(), C.muted, { left: 1, fs: 9 });
+  return si;
+}
+/* statisches Bild für Quiz/Vorschau */
+function keyPose(L) {
+  const st = L.steps.find(s => s.p && s.p.length > 1) || L.steps[0];
+  return L.poses[st.p[st.p.length > 1 ? 1 : 0]];
+}
+function drawStatic(c, L) {
+  c.fillStyle = C.vid; c.fillRect(0, 0, 400, 280); drawGrid(c);
+  const J = solve(keyPose(L)), acc = AREA[L.b].c;
+  drawProps(c, L.props, acc, J, 0);
+  drawFig(c, J, { col: C.fig, col2: C.fig2, db: L.props && L.props.db, dbc: C.muted });
+}
+function miniFig(c, id, keys, t, seg, cx, cy, s, col, col2) {
+  const L = LES[id]; const pose = poseCycle(keys.map(k => L.poses[k]), t, seg).pose;
+  const J = solve(pose);
+  c.save(); c.translate(cx - 200 * s, cy - 250 * s); c.scale(s, s);
+  line(c, [{ x: 60, y: 250 }, { x: 340, y: 250 }], C.ground, 3);
+  drawFig(c, J, { col: col || C.fig, col2: col2 || C.fig2, lw: 10, dots: false });
+  c.restore();
+}
+
+/* ---------- Spezial-Szenen (Grundlagen & Pläne) ---------- */
+const SCENES = {
+  sets(c, s, tl, acc, D) {
+    if (s <= 2) {
+      c.fillStyle = hexA(acc, .06); rrect(c, 12, 30, 116, 230, 14); c.fill();
+      miniFig(c, 'kniebeuge', ['A', 'B'], tl, .6, 70, 225, .62);
+      const rep = Math.floor(tl / 1.2) + 1;
+      txt(c, s === 0 ? 'WDH. ' + rep : 'RUNTER · HOCH', 70, 48, { fs: 10, al: 'center', col: acc });
+    }
+    if (s === 0) {
+      txt(c, '1 WIEDERHOLUNG', 270, 70, { fs: 18, al: 'center' });
+      txt(c, '= 1× runter + 1× hoch', 270, 96, { fs: 13, al: 'center', col: C.muted, sans: 1, w: 500 });
+      const k = (tl % 1.2) / 1.2;
+      c.strokeStyle = acc; c.lineWidth = 2; rrect(c, 230, 130, 80, 80, 12); c.stroke();
+      c.fillStyle = hexA(acc, .8); rrect(c, 230, 130 + 80 * (1 - k), 80, 80 * k, 12); c.fill();
+      txt(c, '1', 270, 170, { fs: 30, al: 'center', col: C.text });
+    } else if (s === 1) {
+      const n = Math.min(12, Math.floor(tl / .32) + 1);
+      txt(c, '12 WDH. = 1 SATZ', 265, 58, { fs: 16, al: 'center' });
+      for (let i = 0; i < 12; i++) {
+        const x = 160 + (i % 6) * 36, y = 92 + Math.floor(i / 6) * 40;
+        c.strokeStyle = C.line2; c.lineWidth = 1.5; rrect(c, x, y, 30, 30, 7); c.stroke();
+        if (i < n) { c.fillStyle = acc; rrect(c, x, y, 30, 30, 7); c.fill(); }
+        txt(c, String(i + 1), x + 15, y + 15, { fs: 11, al: 'center', col: i < n ? '#08111a' : C.muted });
+      }
+      txt(c, 'SATZ 1 · ' + n + ' / 12', 265, 200, { fs: 12, al: 'center', col: acc });
+    } else if (s === 2) {
+      const prog = tl / D * 50;
+      let u = 0;
+      for (let r = 0; r < 3; r++) {
+        const y = 52 + r * 72;
+        txt(c, 'SATZ ' + (r + 1), 148, y + 7, { fs: 10, col: C.muted });
+        for (let i = 0; i < 12; i++) {
+          const x = 200 + i * 15; u++;
+          c.fillStyle = u <= prog ? acc : C.line; rrect(c, x, y, 12, 14, 3); c.fill();
+        }
+        if (r < 2) { u += 7; const on = prog > u - 7 && prog <= u; pill(c, 290, y + 40, '⏸ PAUSE 60–90 s', on ? acc : C.muted, { fs: 9, fill: on ? 1 : 0 }); }
+      }
+    } else if (s === 3) {
+      const a = clamp(tl / .6, 0, 1);
+      c.globalAlpha = a; txt(c, '3 × 12', 200, 120, { fs: 64, al: 'center' });
+      c.globalAlpha = clamp((tl - .8) / .4, 0, 1);
+      pill(c, 120, 190, 'SÄTZE', acc, { fill: 1, fs: 12 }); pill(c, 270, 190, 'WIEDERHOLUNGEN', acc, { fill: 1, fs: 12 });
+      arrow(c, 120, 176, 128, 152, 0, acc, (tl - 1) / .5); arrow(c, 270, 176, 262, 152, 0, acc, (tl - 1) / .5);
+      c.globalAlpha = 1;
+    } else {
+      const rows = [['ZIEL', 'SÄTZE × WDH.'], ['Kraftausdauer', '2–3 × 15–20'], ['Muskelaufbau', '3–4 × 8–12'], ['Maximalkraft', '3–5 × 3–6']];
+      rows.forEach((r, i) => {
+        const a = clamp((tl - i * .45) / .35, 0, 1); if (!a) return;
+        c.globalAlpha = a; const y = 50 + i * 52;
+        if (i) { c.fillStyle = hexA(acc, .08 + (i === 1 ? .1 : 0)); rrect(c, 30, y - 20, 340, 40, 10); c.fill(); }
+        txt(c, r[0], 46, y, { fs: i ? 14 : 10, col: i ? C.text : C.muted, sans: !!i, w: i ? 600 : 700 });
+        txt(c, r[1], 354, y, { fs: i ? 15 : 10, al: 'right', col: i ? acc : C.muted });
+      });
+      c.globalAlpha = 1;
+      if (tl > 2) pill(c, 200, 262, 'EINSTEIGER: KRAFTAUSDAUER', acc, { fs: 9 });
+    }
+  },
+  superkomp(c, s, tl, acc, D) {
+    const X0 = 40, X1 = 384, BY = 150, Y0 = 32, Y1 = 250;
+    line(c, [{ x: X0, y: Y0 }, { x: X0, y: Y1 }, { x: X1, y: Y1 }], C.ground, 2);
+    txt(c, 'LEISTUNG', X0 + 6, Y0 + 2, { fs: 9, col: C.muted }); txt(c, 'ZEIT →', X1, Y1 + 14, { fs: 9, col: C.muted, al: 'right' });
+    c.save(); c.setLineDash([4, 5]); line(c, [{ x: X0, y: BY }, { x: X1, y: BY }], C.muted, 1.2); c.restore();
+    txt(c, 'AUSGANGSNIVEAU', X1 - 2, BY - 9, { fs: 8, col: C.muted, al: 'right' });
+    const g = u => u < .5 ? -52 * Math.sin(Math.PI * u / .5) : 30 * Math.sin(Math.PI * (u - .5) / .5);
+    const plot = (cyc, color, prog, sc) => {
+      sc = sc || 1;
+      const pts = []; const W = X1 - X0;
+      cyc.forEach(([x0, w, base, uEnd]) => { for (let i = 0; i <= 40; i++) { const u = uEnd * i / 40; pts.push({ x: X0 + (x0 + u * w) * W, y: base - g(u) * sc }); } });
+      const n = Math.max(2, Math.floor(pts.length * clamp(prog, 0, 1)));
+      c.save(); c.shadowColor = color; c.shadowBlur = 8; line(c, pts.slice(0, n), color, 3); c.restore();
+      return pts[n - 1];
+    };
+    const pr = clamp(tl / (D * .8), 0, 1);
+    if (s <= 2) {
+      const ends = [.5, .5, 1][s] , from = [0, .5, .5][s];
+      const p = plot([[0.04, .9, BY, from + (ends - from) * pr]], acc, 1);
+      c.fillStyle = acc; c.beginPath(); c.arc(p.x, p.y, 4, 0, 7); c.fill();
+      pill(c, X0 + .04 * 344, BY - 30, '⚡ TRAINING', acc, { fs: 9 });
+      if (s >= 0) pill(c, X0 + .26 * 344, 218, 'ERMÜDUNG', C.muted, { fs: 9 });
+      if (s >= 1) pill(c, X0 + .5 * 344, 185, 'ERHOLUNG', C.muted, { fs: 9 });
+      if (s >= 2 && pr > .6) pill(c, X0 + .72 * 344, 100, '★ SUPERKOMPENSATION', acc, { fill: 1, fs: 9 });
+    } else if (s === 3) {
+      const cyc = []; for (let i = 0; i < 4; i++) cyc.push([0.02 + i * .75 * .3, .3, BY + 18 - 30 * i, i < 3 ? .75 : 1]);
+      plot(cyc, C.ok, pr);
+      pill(c, 300, 52, '↗ LEISTUNG STEIGT', C.ok, { fill: 1, fs: 9 });
+    } else {
+      const cyc = []; for (let i = 0; i < 4; i++) cyc.push([0.02 + i * .3 * .3, .3, 128 + 47.6 * .56 * i, i < 3 ? .3 : 1]);
+      plot(cyc, C.bad, pr, .56);
+      pill(c, 290, 228, '↘ ZU FRÜH = ÜBERTRAINING', C.bad, { fill: 1, fs: 9, tc: '#fff' });
+    }
+  },
+  circuit(c, s, tl, acc, D, L) {
+    const cf = (L && L.cfg) || {};
+    const ex = cf.ex || [['kniebeuge', ['A', 'B'], .7, 'KNIEBEUGE'], ['knieliegestuetz', ['A', 'B'], .7, 'KNIE-LIEGESTÜTZ'], ['beckenheben', ['A', 'B'], .7, 'BECKENHEBEN'], ['plank', ['P'], 1, 'UNTERARMSTÜTZ'], ['hampelmann', ['A', 'J', 'B', 'J'], .3, 'HAMPELMANN']];
+    const rounds = cf.rounds || 3;
+    if (s === 3) {
+      const parts = cf.parts || [['AUFWÄRMEN', 5, '#3b9eff'], ['3 RUNDEN ZIRKEL', 15, acc], ['DEHNEN', 5, '#ff4d6d']];
+      let x = 30; const W = 340 / parts.reduce((a, p) => a + p[1], 0);
+      parts.forEach((p, i) => {
+        const a = clamp((tl - i * .6) / .4, 0, 1); c.globalAlpha = a;
+        const w = p[1] * W; c.fillStyle = hexA(p[2], .85); rrect(c, x, 120, w - 4, 46, 10); c.fill();
+        txt(c, p[0], x + (w - 4) / 2, 136, { fs: 9, al: 'center', col: '#08111a' });
+        txt(c, p[1] + ' MIN', x + (w - 4) / 2, 154, { fs: 11, al: 'center', col: '#08111a' });
+        x += w;
+      });
+      c.globalAlpha = clamp((tl - 2) / .5, 0, 1); txt(c, cf.total || '≈ 25 MINUTEN', 200, 210, { fs: 22, al: 'center' }); c.globalAlpha = 1;
+      txt(c, 'DEIN TRAINING', 200, 80, { fs: 11, al: 'center', col: C.muted });
+      return;
+    }
+    const active = s === 0 ? Math.floor(tl / .8) % 5 : Math.min(4, Math.floor(tl / D * 5));
+    const pos = [[70, 98], [200, 98], [330, 98], [135, 208], [265, 208]];
+    ex.forEach((e, i) => {
+      const [x, y] = pos[i], on = i === active;
+      c.fillStyle = on ? hexA(acc, .14) : hexA(C.muted.startsWith('#') ? C.muted : '#888888', .06);
+      rrect(c, x - 60, y - 54, 120, 100, 12); c.fill();
+      c.strokeStyle = on ? acc : C.line; c.lineWidth = on ? 2 : 1; rrect(c, x - 60, y - 54, 120, 100, 12); c.stroke();
+      c.save(); rrect(c, x - 60, y - 54, 120, 100, 12); c.clip();
+      miniFig(c, e[0], e[1], on ? tl : 0, e[2], x, y + 26, .34, on ? C.fig : C.fig2, C.fig2);
+      c.restore();
+      txt(c, (i + 1) + ' ' + e[3], x, y - 42, { fs: 8, al: 'center', col: on ? acc : C.muted });
+      if (s === 1 && on) { const k = (tl / D * 5) % 1; c.fillStyle = k < .67 ? acc : C.ok; rrect(c, x - 52, y + 36, 104 * (k < .67 ? k / .67 : (k - .67) / .33), 4, 2); c.fill(); }
+    });
+    if (s === 0) pill(c, 200, 22, cf.top || '5 ÜBUNGEN = 1 RUNDE', acc, { fill: 1, fs: 10 });
+    if (s === 1) { const k = (tl / D * 5) % 1; pill(c, 200, 22, k < .67 ? (cf.work || '40 s ÜBUNG') : (cf.rest || '20 s PAUSE'), k < .67 ? acc : C.ok, { fill: 1, fs: 10 }); }
+    if (s === 2) { const r = Math.min(rounds, Math.floor(tl / D * rounds) + 1); pill(c, 200, 22, 'RUNDE ' + r + ' / ' + rounds, acc, { fill: 1, fs: 10 }); for (let i = 0; i < rounds; i++) { c.fillStyle = i < r ? acc : C.line; c.beginPath(); c.arc(384 - (rounds - 1 - i) * 14, 22, 5, 0, 7); c.fill(); } }
+  },
+  intervals(c, s, tl, acc, D) {
+    const work = '#ff4d6d', rest = '#2fd27a';
+    if (s === 4) {
+      txt(c, 'EINSTEIGER-VARIANTE', 200, 50, { fs: 11, al: 'center', col: C.muted });
+      [['TABATA', 20, 10, work], ['EINSTEIGER', 20, 20, acc]].forEach((r, i) => {
+        const y = 100 + i * 70; txt(c, r[0], 30, y - 22, { fs: 10, col: C.muted });
+        let x = 30; for (let k = 0; k < 3; k++) { const w1 = r[1] * 2.2, w2 = r[2] * 2.2; c.fillStyle = r[3]; rrect(c, x, y - 12, w1 - 2, 24, 5); c.fill(); c.fillStyle = hexA(rest, .7); rrect(c, x + w1, y - 12, w2 - 2, 24, 5); c.fill(); x += w1 + w2; }
+        txt(c, r[1] + ' s / ' + r[2] + ' s', 370, y, { fs: 11, al: 'right' });
+      });
+      pill(c, 200, 250, 'BEI VORERKRANKUNGEN ERST ÄRZTLICH ABKLÄREN', C.muted, { fs: 8 });
+      return;
+    }
+    const rounds = s === 0 ? 1 : 8, total = rounds * 30;
+    const T = (tl / D) * (s === 0 ? 30 : total) * (s === 0 ? 1.2 : 1) % total;
+    const inR = T % 30, isW = inR < 20, left = isW ? 20 - inR : 30 - inR, rnd = Math.floor(T / 30) + 1;
+    txt(c, isW ? 'BELASTUNG' : 'PAUSE', 120, 50, { fs: 12, al: 'center', col: isW ? work : rest });
+    txt(c, '00:' + String(Math.ceil(left)).padStart(2, '0'), 120, 96, { fs: 44, al: 'center' });
+    txt(c, 'RUNDE ' + rnd + ' / ' + (s === 0 ? 1 : 8), 120, 134, { fs: 10, al: 'center', col: C.muted });
+    c.save(); rrect(c, 230, 22, 156, 140, 12); c.clip(); c.fillStyle = hexA(isW ? work : rest, .07); c.fillRect(230, 22, 156, 140);
+    if (s >= 2) miniFig(c, 'mountain', isW ? ['T', 'K1', 'T', 'K2'] : ['T'], tl, .35, 308, 150, .44, isW ? C.fig : C.fig2);
+    else miniFig(c, 'hampelmann', isW ? ['A', 'J', 'B', 'J'] : ['A'], tl, .3, 308, 150, .44, isW ? C.fig : C.fig2);
+    c.restore();
+    const X = 20, W = 360, y = 200;
+    for (let r = 0; r < rounds; r++) {
+      const x0 = X + r * W / rounds, w = W / rounds;
+      c.fillStyle = hexA(work, .85); rrect(c, x0, y, w * 2 / 3 - 2, 26, 4); c.fill();
+      c.fillStyle = hexA(rest, .75); rrect(c, x0 + w * 2 / 3, y, w / 3 - 2, 26, 4); c.fill();
+      if (s === 0) { txt(c, '20 s VOLLGAS', x0 + w / 3, y + 13, { fs: 11, al: 'center', col: '#fff' }); txt(c, '10 s', x0 + w * 5 / 6, y + 13, { fs: 11, al: 'center', col: '#08111a' }); }
+    }
+    const cx = X + T / total * W; line(c, [{ x: cx, y: y - 8 }, { x: cx, y: y + 34 }], C.text, 2.5);
+    txt(c, s === 0 ? '1 RUNDE = 30 s' : '8 RUNDEN × 30 s = 4 MINUTEN', 200, 252, { fs: 11, al: 'center', col: acc });
+  },
+  zones(c, s, tl, acc, D) {
+    const Z = [['ZONE 1', 50, 60, '#3b9eff', 'ERHOLUNG'], ['ZONE 2', 60, 70, '#2fd27a', 'GRUNDLAGE'], ['ZONE 3', 70, 80, '#f5c542', 'AUSDAUER'], ['ZONE 4', 80, 90, '#ff8a3d', 'INTENSIV'], ['ZONE 5', 90, 100, '#ff4d6d', 'MAXIMAL']];
+    if (s === 0) {
+      const b = 1 + .12 * Math.max(0, Math.sin(tl * 7));
+      heart(c, 200, 70, 2.6 * b, '#ff4d6d');
+      c.globalAlpha = clamp(tl / .5, 0, 1); txt(c, 'HF max ≈ 220 − Alter', 200, 140, { fs: 22, al: 'center' });
+      c.globalAlpha = clamp((tl - 1.2) / .5, 0, 1); txt(c, 'Beispiel: 40 Jahre', 200, 185, { fs: 14, al: 'center', col: C.muted, sans: 1, w: 500 });
+      txt(c, '220 − 40 = 180 Schläge/Min.', 200, 212, { fs: 15, al: 'center', col: acc });
+      c.globalAlpha = 1; return;
+    }
+    txt(c, 'BEISPIEL: 40 JAHRE · HF MAX 180', 200, 20, { fs: 10, al: 'center', col: C.muted });
+    Z.forEach((z, i) => {
+      const a = s === 1 ? clamp((tl - i * .4) / .3, 0, 1) : 1; if (!a) return;
+      let hl = true; if (s === 2 || s === 4) hl = i === 1; if (s === 3) hl = i >= 3;
+      c.globalAlpha = a * (hl ? 1 : .3);
+      const y = 44 + i * 42, w = (z[2] - 40) * 3.3;
+      txt(c, z[0], 16, y + 6, { fs: 9, col: C.muted }); txt(c, z[1] + '–' + z[2] + ' %', 16, y + 20, { fs: 10 });
+      c.fillStyle = z[3]; rrect(c, 96, y, w, 26, 6); c.fill();
+      txt(c, z[4], 104, y + 13, { fs: 9, col: '#08111a' });
+      txt(c, Math.round(1.8 * z[1]) + '–' + Math.round(1.8 * z[2]), 96 + w + 8, y + 13, { fs: 11, col: C.text });
+      c.globalAlpha = 1;
+    });
+    if (s >= 2) {
+      const tgt = s === 3 ? 160 : 118 + 6 * Math.sin(tl * 1.5);
+      const b = 1 + .12 * Math.max(0, Math.sin(tl * (s === 3 ? 11 : 7)));
+      heart(c, 360, 252, 1.3 * b, '#ff4d6d'); txt(c, Math.round(tgt) + ' bpm', 342, 252, { fs: 12, al: 'right' });
+    }
+    if (s === 4) pill(c, 200, 262, '💬 „ICH KANN MICH NOCH UNTERHALTEN“', '#2fd27a', { fs: 9 });
+  },
+  stairs(c, s, tl, acc, D) {
+    const lv = [['KNIE-LIEGESTÜTZ', '3 × 10', 'knieliegestuetz'], ['KNIE-LIEGESTÜTZ', '3 × 15', 'knieliegestuetz'], ['LIEGESTÜTZ', '3 × 6', 'liegestuetz'], ['LIEGESTÜTZ', '3 × 12', 'liegestuetz']];
+    const n = s === 0 ? 1 : s === 1 ? Math.min(4, Math.floor(tl / (D / 4.5)) + 1) : 4;
+    for (let i = 0; i < n; i++) {
+      const x = 20 + i * 92, top = 232 - i * 40;
+      c.globalAlpha = clamp((s === 1 ? tl - i * D / 4.5 : tl) / .35 + (s > 1 ? 1 : 0), 0, 1);
+      c.fillStyle = hexA(acc, .12 + i * .07); c.fillRect(x, top, 380 - x, 250 - top);
+      line(c, [{ x, y: 250 }, { x, y: top }, { x: x + 92, y: top }], acc, 2);
+      txt(c, 'STUFE ' + (i + 1), x + 6, top + 12, { fs: 8, col: acc });
+      txt(c, lv[i][0], x + 6, top - 60, { fs: 8, col: C.muted }); txt(c, lv[i][1], x + 6, top - 46, { fs: 13 });
+      c.save(); rrect(c, x, top - 40, 92, 40, 4); c.clip();
+      miniFig(c, lv[i][2], ['A', 'B'].filter(k => LES[lv[i][2]].poses[k]).length ? (LES[lv[i][2]].poses.T ? ['T', 'B'] : ['A', 'B']) : ['A'], tl + i, .7, x + 46, top - 1, .24);
+      c.restore(); c.globalAlpha = 1;
+    }
+    if (s === 2) {
+      [0, 1].forEach(i => { const a = clamp((tl - .5 - i * .7) / .3, 0, 1); c.globalAlpha = a; pill(c, 30, 30 + i * 24, '✓ TRAINING ' + (i + 1) + ': +2 WDH.', C.ok, { fill: 1, fs: 9, left: 1 }); });
+      c.globalAlpha = clamp((tl - 2.2) / .3, 0, 1); pill(c, 30, 80, '→ JETZT STEIGERN!', acc, { fill: 1, fs: 10, left: 1 }); c.globalAlpha = 1;
+    }
+    if (s >= 3) {
+      const ch = ['WDH. ↑', 'TEMPO ↓', 'PAUSE ↓', 'SÄTZE ↑', 'GEWICHT ↑'];
+      let x = 18;
+      ch.forEach((t, i) => {
+        const a = s === 3 ? clamp((tl - i * .45) / .3, 0, 1) : 1; c.globalAlpha = a * (s === 4 && i ? .3 : 1);
+        const r = pill(c, x, 24, t, acc, { fill: s === 4 ? i === 0 : 0, fs: 9, left: 1 }); x += r.w + 6; c.globalAlpha = 1;
+      });
+      if (s === 4) pill(c, 18, 52, '✓ NUR EINE SACHE · TECHNIK SAUBER', C.ok, { fs: 9, left: 1 });
+    }
+  },
+  weeks4(c, s, tl, acc, D) {
+    const rows = [['TRAININGS / WOCHE', [2, 2, 3, 3], 3], ['ZIRKEL-RUNDEN', [2, 2, 3, 3], 3], ['UNTERARMSTÜTZ', [20, 25, 30, 40], 40, ' s']];
+    const X = 120, W = 66, col = i => i < 2 ? '#3b9eff' : acc;
+    for (let w = 0; w < 4; w++) {
+      const on = s === 0 || (s === 1 && w < 2) || (s === 2 && w >= 2) || s >= 3;
+      c.globalAlpha = on ? 1 : .25;
+      txt(c, 'WOCHE ' + (w + 1), X + w * W + W / 2, 30, { fs: 10, al: 'center', col: on ? col(w) : C.muted });
+      rows.forEach((r, i) => {
+        const y = 58 + i * 52, v = r[1][w], k = clamp((tl - w * .25) / .5, 0, 1) * (s === 0 || s >= 3 ? 1 : on ? 1 : 1);
+        c.fillStyle = C.line; rrect(c, X + w * W + 6, y + 8, W - 12, 10, 5); c.fill();
+        c.fillStyle = col(w); rrect(c, X + w * W + 6, y + 8, (W - 12) * v / r[2] * k, 10, 5); c.fill();
+        txt(c, v + (r[3] || ''), X + w * W + W / 2, y + 32, { fs: 12, al: 'center' });
+      });
+      c.globalAlpha = 1;
+    }
+    rows.forEach((r, i) => txt(c, r[0], 14, 70 + i * 52, { fs: 8, col: C.muted }));
+    if (s === 1) pill(c, X + W, 232, 'GEWÖHNUNG', '#3b9eff', { fill: 1, fs: 10 });
+    if (s === 2) pill(c, X + 3 * W, 232, 'STEIGERUNG', acc, { fill: 1, fs: 10 });
+    if (s === 0) pill(c, 200, 232, 'JEDE WOCHE EIN BISSCHEN MEHR', acc, { fs: 10 });
+    if (s === 3) {
+      const n1 = Math.min(18, Math.floor(tl * 9)), n2 = Math.min(26, Math.floor(Math.max(0, tl - 1.5) * 13));
+      c.fillStyle = C.vid; c.globalAlpha = .92; c.fillRect(0, 196, 400, 84); c.globalAlpha = 1;
+      txt(c, 'TEST: KNIEBEUGEN IN 1 MINUTE', 200, 210, { fs: 10, al: 'center', col: C.muted });
+      pill(c, 120, 244, 'WOCHE 0: ' + n1, '#3b9eff', { fs: 12 });
+      if (tl > 1.5) pill(c, 280, 244, 'WOCHE 4: ' + n2, C.ok, { fill: 1, fs: 12 });
+      if (tl > 3.6) txt(c, '+8 💪', 200, 244, { fs: 14, al: 'center', col: C.ok });
+    }
+    if (s === 4) pill(c, 200, 232, '✓ GEWOHNHEIT · WEITER MIT „RICHTIG STEIGERN“', C.ok, { fill: 1, fs: 9 });
+  },
+  week(c, s, tl, acc, D) {
+    const days = ['MO', 'DI', 'MI', 'DO', 'FR', 'SA', 'SO'];
+    const B = [['KRAFT', 'GANZ-|KÖRPER', '#ff8a3d', 1], ['AUSDAUER', '45|MIN', '#ff4d6d', 2], ['LOCKER', '30 MIN|+DEHNEN', '#3b9eff', 3], ['KRAFT', 'GANZ-|KÖRPER', '#ff8a3d', 1], ['AUSDAUER', '45|MIN', '#ff4d6d', 2], ['RAD', '30|MIN', '#ff4d6d', 2], ['PAUSE', 'ERHOLEN', '#7d8a99', 3]];
+    const X = 22, W = 51;
+    days.forEach((d, i) => {
+      const x = X + i * W;
+      txt(c, d, x + W / 2 - 2, 34, { fs: 11, al: 'center', col: C.muted });
+      c.strokeStyle = C.line; c.lineWidth = 1; rrect(c, x, 48, W - 4, 168, 8); c.stroke();
+      const b = B[i]; if (b[3] > s) return;
+      const a = b[3] === s ? clamp((tl - i * .15) / .35, 0, 1) : 1; if (!a) return;
+      c.globalAlpha = a; const hgt = b[0] === 'PAUSE' ? 60 : b[0] === 'LOCKER' || b[0] === 'RAD' ? 90 : 130;
+      c.fillStyle = hexA(b[2], .85); rrect(c, x + 3, 213 - hgt, W - 10, hgt, 6); c.fill();
+      txt(c, b[0], x + W / 2 - 2, 213 - hgt + 14, { fs: 8.5, al: 'center', col: '#08111a' });
+      b[1].split('|').forEach((t, k) => txt(c, t, x + W / 2 - 2, 213 - hgt + 31 + k * 12, { fs: 8.5, al: 'center', col: '#08111a', w: 600 }));
+      c.globalAlpha = 1;
+    });
+    if (s === 4) {
+      const m = Math.min(150, Math.round(tl / 2 * 150));
+      c.fillStyle = C.line; rrect(c, 22, 232, 352, 10, 5); c.fill(); c.fillStyle = acc; rrect(c, 22, 232, 352 * m / 150, 10, 5); c.fill();
+      txt(c, 'AUSDAUER ' + m + ' / 150 MIN · 2× KRAFT', 200, 262, { fs: 10, al: 'center', col: acc });
+    } else txt(c, ['EINE WOCHE', '2× KRAFTTRAINING', '+ AUSDAUER', '+ LOCKER & PAUSE'][s], 200, 250, { fs: 11, al: 'center', col: acc });
+  }
+};
+
+/* ---------- Ansichten ---------- */
+const view = () => $('#view');
+let vid = null; // aktiver Player
+function stopVid() { if (vid) { vid.alive = false; vid = null; } }
+
+function progressOf(aid) { const ls = lessonsOf(aid); return [ls.filter(l => seen.has(l.id)).length, ls.length]; }
+
+function renderHome() {
+  stopVid();
+  const tot = LESSONS.length, done = LESSONS.filter(l => seen.has(l.id)).length;
+  view().innerHTML = `
+  <section class="hero">
+    <div class="kick">KOMPASS SCHULE // FITNESS</div>
+    <h1>Fitness-Schule</h1>
+    <p>Übungen verstehen statt nur nachmachen: Jede Lektion ist ein kleines Video, das die Bewegung Schritt für Schritt aufbaut – mit Technik, typischen Fehlern und Tipps.</p>
+    <div class="stats"><span><b>${tot}</b> Lektionen</span><span><b>${AREAS.length}</b> Bereiche</span><span><b>${done}</b> gesehen</span><span><b>${best}</b>/10 Quiz-Bestwert</span></div>
+    <div class="bar big"><i style="width:${tot ? done / tot * 100 : 0}%"></i></div>
+  </section>
+  <section class="bento">
+    ${AREAS.map((a, i) => { const [d, n] = progressOf(a.id); return `
+    <button class="tile${i === 0 ? ' wide' : ''}" style="--acc:${a.c}" data-go="b-${a.id}">
+      <span class="ic">${a.ic}</span>
+      <span class="tt">${esc(a.t.toUpperCase())}</span>
+      <span class="ds">${esc(a.d)}</span>
+      <span class="pr"><span class="bar"><i style="width:${d / n * 100}%"></i></span><span class="pn">${d}/${n}</span></span>
+    </button>`; }).join('')}
+    <button class="tile wide quiz" style="--acc:#22d3ee" data-go="quiz">
+      <span class="ic">🏆</span>
+      <span class="tt">QUIZ</span>
+      <span class="ds">10 zufällige Fragen: Bilder, Wissen und Rechenaufgaben. Bestwert: ${best}/10</span>
+      <span class="go">Quiz starten →</span>
+    </button>
+  </section>
+  <p class="note">Hinweis: Diese App ersetzt keine ärztliche Beratung. Bei Schmerzen, Verletzungen oder Vorerkrankungen vor dem Training ärztlich abklären lassen.</p>`;
+  setActive('');
+}
+function renderArea(aid) {
+  stopVid();
+  const a = AREA[aid]; if (!a) return renderHome();
+  const ls = lessonsOf(aid), [d, n] = progressOf(aid);
+  view().innerHTML = `
+  <div class="crumbs"><button class="back" data-go="">← Startseite</button></div>
+  <section class="ahead" style="--acc:${a.c}">
+    <span class="ic">${a.ic}</span>
+    <div><div class="kick">BEREICH · ${d}/${n} GESEHEN</div><h1>${esc(a.t)}</h1><p>${esc(a.d)}</p></div>
+  </section>
+  <section class="lessons" style="--acc:${a.c}">
+    ${ls.map((l, i) => `
+    <button class="lcard${seen.has(l.id) ? ' done' : ''}" data-go="l-${l.id}">
+      <canvas class="thumb" data-thumb="${l.id}" width="200" height="140"></canvas>
+      <span class="lk">LEKTION ${i + 1}${seen.has(l.id) ? ' <b>✓</b>' : ''}</span>
+      <span class="lt">${esc(l.t)}</span>
+      <span class="ls">${esc(l.s)}</span>
+      <span class="lv">${esc(l.lvl)}</span>
+    </button>`).join('')}
+  </section>`;
+  drawThumbs();
+  setActive('');
+}
+function drawThumbs() {
+  $$('canvas[data-thumb]').forEach(cv => {
+    const L = LES[cv.dataset.thumb], dpr = Math.min(2, window.devicePixelRatio || 1);
+    cv.width = 200 * dpr; cv.height = 140 * dpr;
+    const c = cv.getContext('2d'); c.setTransform(dpr / 2, 0, 0, dpr / 2, 0, 0);
+    if (L.scene) { c.fillStyle = C.vid; c.fillRect(0, 0, 400, 280); drawGrid(c); SCENES[L.scene](c, L.scene === 'sets' ? 3 : L.scene === 'zones' ? 1 : L.scene === 'week' ? 3 : L.scene === 'circuit' ? 0 : L.scene === 'weeks4' ? 2 : 1, 3, AREA[L.b].c, DUR(L), L); }
+    else drawStatic(c, L);
+  });
+}
+function renderLesson(id) {
+  stopVid();
+  const L = LES[id]; if (!L) return renderHome();
+  const a = AREA[L.b], ls = lessonsOf(L.b), idx = ls.indexOf(L), N = L.steps.length;
+  const all = LESSONS.indexOf(L), prev = LESSONS[all - 1], next = LESSONS[all + 1];
+  view().innerHTML = `
+  <div class="crumbs"><button class="back" data-go="b-${a.id}">← ${esc(a.t)}</button></div>
+  <section class="lhead" style="--acc:${a.c}">
+    <div class="kick">LEKTION ${idx + 1} · ${esc(a.t.toUpperCase())}</div>
+    <h1>${esc(L.t)}</h1><p>${esc(L.s)}</p>
+    <div class="chips"><span class="chip acc">${esc(L.lvl)}</span><span class="chip">Muskeln: ${esc(L.m)}</span></div>
+  </section>
+  <section class="player" style="--acc:${a.c}">
+    <div class="screen"><canvas id="cv"></canvas><button class="bigplay" id="bigplay" aria-label="Abspielen">▶</button></div>
+    <div class="ctrl">
+      <button class="cb" id="play" aria-label="Abspielen/Pause">▶</button>
+      <button class="cb" id="restart" aria-label="Neustart">↺</button>
+      <input type="range" id="scrub" min="0" max="1000" value="0" aria-label="Spulen">
+      <span class="time" id="time">0:00</span>
+      <span class="speed">${[.5, 1, 2].map(s => `<button data-sp="${s}" class="${s === 1 ? 'on' : ''}">${s === .5 ? '½' : s}×</button>`).join('')}</span>
+    </div>
+    <div class="stepbtns">${L.steps.map((_, i) => `<button data-st="${i}">${i + 1}</button>`).join('')}</div>
+    <div class="steptxt"><div class="sn" id="sn">SCHRITT 1 / ${N}</div><p id="stxt"></p></div>
+  </section>
+  <section class="boxes">
+    <div class="box b1"><h3>Was ist das?</h3><p>${esc(L.info[0])}</p></div>
+    <div class="box b2"><h3>So geht’s</h3><p>${esc(L.info[1])}</p></div>
+    <div class="box b3"><h3>Was bringt es?</h3><p>${esc(L.info[2])}</p></div>
+    <div class="box b4"><h3>Tipp</h3><p>${esc(L.info[3])}</p></div>
+  </section>
+  <nav class="pnav">
+    ${prev ? `<button data-go="l-${prev.id}"><small>← ZURÜCK</small>${esc(prev.t)}</button>` : '<span></span>'}
+    ${next ? `<button data-go="l-${next.id}" class="nx"><small>WEITER →</small>${esc(next.t)}</button>` : `<button data-go="quiz" class="nx"><small>GESCHAFFT →</small>Zum Quiz</button>`}
+  </nav>`;
+  setActive(id);
+  vid = { L, tt: 0, playing: false, speed: 1, alive: true, last: 0, si: -1 };
+  const v = vid, cv = $('#cv'), c = cv.getContext('2d'), total = DUR(L) * N;
+  const fit = () => { const w = cv.clientWidth || 360, dpr = Math.min(2.5, window.devicePixelRatio || 1); cv.width = Math.round(w * dpr); cv.height = Math.round(w * .7 * dpr); v.sc = cv.width / 400; };
+  fit(); v.fit = fit;
+  const setPlay = p => { v.playing = p; if (p && v.tt >= total - .01) v.tt = 0; $('#play').textContent = p ? '❚❚' : '▶'; $('#bigplay').style.display = p ? 'none' : ''; };
+  const ui = () => {
+    const si = clamp(Math.floor(v.tt / DUR(L)), 0, N - 1);
+    $('#scrub').value = Math.round(v.tt / total * 1000);
+    const s = Math.floor(v.tt), ts = Math.floor(total);
+    $('#time').textContent = `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')} / ${Math.floor(ts / 60)}:${String(ts % 60).padStart(2, '0')}`;
+    if (si !== v.si) {
+      v.si = si; $('#sn').textContent = `SCHRITT ${si + 1} / ${N}`; $('#stxt').textContent = L.steps[si].txt;
+      $$('.stepbtns button').forEach((b, i) => { b.classList.toggle('on', i === si); b.classList.toggle('past', i < si); });
+      if (si === N - 1) markSeen(L.id);
+    }
+  };
+  v.draw = () => { c.setTransform(v.sc, 0, 0, v.sc, 0, 0); drawLesson(c, L, v.tt); };
+  const loop = ts => {
+    if (!v.alive) return;
+    const dt = v.last ? Math.min(.1, (ts - v.last) / 1000) : 0; v.last = ts;
+    if (v.playing) { v.tt += dt * v.speed; if (v.tt >= total) { v.tt = total - .001; setPlay(false); } }
+    else v.idle = (v.idle || 0) + dt;
+    v.draw(); ui();
+    requestAnimationFrame(loop);
+  };
+  $('#play').onclick = () => setPlay(!v.playing);
+  $('#bigplay').onclick = () => setPlay(true);
+  cv.onclick = () => setPlay(!v.playing);
+  $('#restart').onclick = () => { v.tt = 0; setPlay(true); };
+  $('#scrub').oninput = e => { v.tt = e.target.value / 1000 * total * .9999; };
+  $$('.speed button').forEach(b => b.onclick = () => { v.speed = +b.dataset.sp; $$('.speed button').forEach(x => x.classList.toggle('on', x === b)); });
+  $$('.stepbtns button').forEach(b => b.onclick = () => { v.tt = +b.dataset.st * DUR(L) + .001; if (!v.playing) setPlay(true); });
+  setPlay(true);
+  requestAnimationFrame(loop);
+  window.scrollTo(0, 0);
+}
+
+/* ---------- Quiz ---------- */
+let Q = null;
+function rnd(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
+function numOpts(ans, gen, f) {
+  const set = new Set([ans]); let g = 0;
+  while (set.size < 4 && g++ < 50) { const v = gen(); if (v > 0) set.add(v); }
+  const opts = shuffle([...set]); return { opts: opts.map(f || fmt), c: opts.indexOf(ans) };
+}
+const CALC = [
+  () => { const a = rnd(25, 60), ans = 220 - a; const o = numOpts(ans, () => ans + [-20, -10, 10, 20, 5, -5][rnd(0, 5)], v => v + ' Schläge/Min.'); return { q: `Schätze die maximale Herzfrequenz (220 − Alter) für eine Person mit ${a} Jahren.`, ...o, e: `220 − ${a} = ${ans} Schläge pro Minute.`, l: 'puls' }; },
+  () => { const a = rnd(5, 12) * 5, mx = 220 - a, ans = Math.round(mx * .7); const o = numOpts(ans, () => ans + [-18, -9, 9, 18, 13][rnd(0, 4)], v => v + ' Schläge/Min.'); return { q: `Wie hoch sind 70 % der HF max bei ${a} Jahren? (HF max = 220 − Alter)`, ...o, e: `HF max = ${mx}. 70 % davon: ${mx} × 0,7 ≈ ${ans}.`, l: 'puls' }; },
+  () => { const r = rnd(6, 10), w = [20, 30, 40][rnd(0, 2)], p = [10, 15, 20][rnd(0, 2)], ans = r * (w + p); const f = v => `${Math.floor(v / 60)}:${String(v % 60).padStart(2, '0')} Min.`; const o = numOpts(ans, () => ans + [-30, 30, -60, 60, r * 5][rnd(0, 4)], f); return { q: `Du machst ${r} Runden mit je ${w} s Belastung und ${p} s Pause. Wie lange dauert das insgesamt?`, ...o, e: `${r} × (${w} + ${p}) s = ${ans} s = ${f(ans)}`, l: 'tabata' }; },
+  () => { const s = rnd(3, 4), w = rnd(8, 15), kg = rnd(1, 4) * 5, ans = s * w * kg; const o = numOpts(ans, () => ans + [-kg * w, kg * w, -kg * s, kg * s, 50][rnd(0, 4)], v => fmt(v) + ' kg'); return { q: `Du machst ${s} × ${w} Kniebeugen mit ${kg} kg. Wie viele Kilogramm bewegst du insgesamt?`, ...o, e: `${s} Sätze × ${w} Wdh. × ${kg} kg = ${fmt(ans)} kg.`, l: 'saetze' }; },
+  () => { const n = rnd(3, 8), ans = 20 + 5 * n; const o = numOpts(ans, () => ans + [-10, -5, 5, 10][rnd(0, 3)], v => v + ' Sekunden'); return { q: `Du hältst den Unterarmstütz 20 Sekunden und steigerst jede Woche um 5 Sekunden. Wie lange hältst du nach ${n} Wochen?`, ...o, e: `20 s + ${n} × 5 s = ${ans} s.`, l: 'progression' }; }
+];
+function buildQuiz() {
+  const figs = shuffle(LESSONS.filter(l => !l.scene)).slice(0, 4).map(L => {
+    const others = shuffle(LESSONS.filter(x => !x.scene && x.id !== L.id && x.t !== L.t)).slice(0, 3).map(x => x.t);
+    const opts = shuffle([L.t, ...others]);
+    return { pic: L.id, q: 'Welche Übung ist hier zu sehen?', opts, c: opts.indexOf(L.t), e: `Das ist „${L.t}“ – ${L.s}.`, l: L.id };
+  });
+  const know = shuffle(QUIZ).slice(0, 4).map(k => { const o = shuffle(k[1]); return { q: k[0], opts: o, c: o.indexOf(k[1][0]), e: k[2], l: k[3] }; });
+  const calc = shuffle(CALC).slice(0, 2).map(f => f());
+  return shuffle([...figs, ...know, ...calc]);
+}
+function renderQuiz() {
+  stopVid(); setActive('quiz');
+  Q = { qs: buildQuiz(), i: 0, score: 0, wrong: [], answered: false };
+  quizStep();
+}
+function quizStep() {
+  const q = Q.qs[Q.i];
+  view().innerHTML = `
+  <div class="crumbs"><button class="back" data-go="">← Startseite</button></div>
+  <section class="quizbox" style="--acc:#22d3ee">
+    <div class="qtop"><span class="kick">FRAGE ${Q.i + 1} / ${Q.qs.length}</span><span class="kick">PUNKTE ${Q.score}</span></div>
+    <div class="bar"><i style="width:${Q.i / Q.qs.length * 100}%"></i></div>
+    ${q.pic ? `<canvas id="qcv" class="qcv"></canvas>` : ''}
+    <h2>${esc(q.q)}</h2>
+    <div class="opts">${q.opts.map((o, i) => `<button data-o="${i}">${esc(o)}</button>`).join('')}</div>
+    <div id="fb"></div>
+  </section>`;
+  if (q.pic) {
+    const cv = $('#qcv'), w = cv.clientWidth || 340, dpr = Math.min(2.5, window.devicePixelRatio || 1);
+    cv.width = w * dpr; cv.height = w * .7 * dpr; const c = cv.getContext('2d'); c.setTransform(cv.width / 400, 0, 0, cv.width / 400, 0, 0);
+    Q.draw = () => drawStatic(c, LES[q.pic]); Q.draw();
+  } else Q.draw = null;
+  $$('.opts button').forEach(b => b.onclick = () => answer(+b.dataset.o));
+}
+function answer(i) {
+  const q = Q.qs[Q.i]; if (Q.answered) return; Q.answered = true;
+  const ok = i === q.c; if (ok) Q.score++; else Q.wrong.push(q.l);
+  $$('.opts button').forEach((b, k) => { b.disabled = true; if (k === q.c) b.classList.add('right'); else if (k === i) b.classList.add('wrong'); });
+  const L = LES[q.l];
+  $('#fb').innerHTML = `<div class="fb ${ok ? 'ok' : 'no'}"><b>${ok ? '✓ Richtig!' : '✗ Leider falsch.'}</b><p>${esc(q.e)}</p>
+    <div class="fbb">${L ? `<button class="ghost" data-go="l-${L.id}">Zur Lektion: ${esc(L.t)}</button>` : ''}<button class="primary" id="nextq">${Q.i < Q.qs.length - 1 ? 'Nächste Frage →' : 'Ergebnis anzeigen'}</button></div></div>`;
+  $('#nextq').onclick = () => { Q.answered = false; if (++Q.i < Q.qs.length) quizStep(); else quizEnd(); };
+  $('#nextq').scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+}
+function quizEnd() {
+  const nb = Q.score > best; if (nb) { best = Q.score; LS.set('fit-best', best); }
+  const rep = [...new Set(Q.wrong)].map(id => LES[id]).filter(Boolean);
+  const msg = Q.score >= 9 ? 'Spitzenklasse! 🏆' : Q.score >= 7 ? 'Stark gemacht! 💪' : Q.score >= 5 ? 'Gute Basis – weiter so!' : 'Dranbleiben – Übung macht den Meister.';
+  view().innerHTML = `
+  <div class="crumbs"><button class="back" data-go="">← Startseite</button></div>
+  <section class="quizbox end" style="--acc:#22d3ee">
+    <div class="kick">ERGEBNIS</div>
+    <div class="score">${Q.score}<small>/10</small></div>
+    <p class="msg">${msg}</p>
+    <p class="muted">${nb ? 'Neuer Bestwert!' : 'Bestwert: ' + best + '/10'}</p>
+    ${rep.length ? `<h3>Diese Lektionen solltest du wiederholen:</h3><div class="rep">${rep.map(l => `<button data-go="l-${l.id}" style="--acc:${AREA[l.b].c}"><span>${AREA[l.b].ic}</span>${esc(l.t)}</button>`).join('')}</div>` : '<p>Alles richtig – nichts zu wiederholen!</p>'}
+    <div class="fbb"><button class="primary" id="again">Nochmal spielen</button><button class="ghost" data-go="">Zur Startseite</button></div>
+  </section>`;
+  $('#again').onclick = renderQuiz;
+}
+
+/* ---------- Seitenleiste (PC) ---------- */
+function buildSide() {
+  const s = $('#side'); if (!s) return;
+  s.innerHTML = `<div class="search"><input id="q" type="search" placeholder="Übung suchen …" aria-label="Suchen"></div><div id="slist"></div>`;
+  $('#q').oninput = refreshSide; refreshSide();
+}
+function refreshSide() {
+  const box = $('#slist'); if (!box) return;
+  const q = ($('#q') && $('#q').value || '').toLowerCase().trim();
+  box.innerHTML = AREAS.map(a => {
+    const ls = lessonsOf(a.id).filter(l => !q || (l.t + ' ' + l.s + ' ' + l.m).toLowerCase().includes(q));
+    if (!ls.length) return '';
+    return `<div class="sg" style="--acc:${a.c}"><button class="sh" data-go="b-${a.id}">${a.ic} ${esc(a.t.toUpperCase())}</button>${ls.map(l => `<button class="si${seen.has(l.id) ? ' done' : ''}" data-go="l-${l.id}" data-id="${l.id}">${esc(l.t)}${seen.has(l.id) ? '<b>✓</b>' : ''}</button>`).join('')}</div>`;
+  }).join('') + `<div class="sg" style="--acc:#22d3ee"><button class="sh" data-go="quiz">🏆 QUIZ</button></div>`;
+  setActive(curId);
+}
+let curId = '';
+function setActive(id) { curId = id; $$('#slist .si').forEach(b => b.classList.toggle('on', b.dataset.id === id)); }
+
+/* ---------- Navigation ---------- */
+function route() {
+  const h = (location.hash || '').replace('#', '');
+  if (h.startsWith('b-')) renderArea(h.slice(2));
+  else if (h.startsWith('l-')) renderLesson(h.slice(2));
+  else if (h === 'quiz') renderQuiz();
+  else renderHome();
+  window.scrollTo(0, 0);
+}
+function go(h) { if (('#' + h) === location.hash || (!h && !location.hash)) route(); else location.hash = h; }
+document.addEventListener('click', e => { const b = e.target.closest('[data-go]'); if (b) { e.preventDefault(); go(b.dataset.go); } });
+window.addEventListener('hashchange', route);
+window.addEventListener('resize', () => { if (vid && vid.fit) vid.fit(); if (Q && Q.draw && $('#qcv')) { /* bleibt */ } });
+function redrawAll() { if (vid && vid.draw) vid.draw(); if (Q && Q.draw && $('#qcv')) Q.draw(); if ($('canvas[data-thumb]')) drawThumbs(); }
+
+$$('.theme button').forEach(b => b.onclick = () => applyTheme(b.dataset.m));
+applyTheme(themeMode);
+buildSide();
+route();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(redrawAll);
+
+</script>
+<script>if('serviceWorker' in navigator){addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));}</script>
+</body>
+</html>
