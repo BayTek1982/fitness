@@ -47,6 +47,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .tile:hover{transform:translateY(-2px);border-color:var(--acc)}
 .tile::after{content:"";position:absolute;right:-30px;top:-30px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--acc) 30%,transparent),transparent 70%)}
 .tile.wide{grid-column:span 2}
+@media (max-width:759px){.tile.widem{grid-column:span 2}}
 .tile .ic{font-size:34px;width:56px;height:56px;display:grid;place-items:center;border-radius:16px;background:color-mix(in srgb,var(--acc) 18%,transparent);border:1px solid color-mix(in srgb,var(--acc) 35%,transparent)}
 .tile .tt{font:800 14px var(--mono);letter-spacing:.06em;color:var(--acc)}
 .tile .ds{font-size:13px;line-height:1.45;color:var(--muted);flex:1}
@@ -129,6 +130,26 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .rep{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:14px}
 .rep button{display:flex;gap:6px;align-items:center;padding:9px 12px;border-radius:999px;border:1px solid var(--acc);font-weight:600;font-size:13px}
 .end .fbb{justify-content:center}
+.tool{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;box-shadow:var(--shadow);max-width:760px;margin-bottom:12px}
+.tool h2{font:700 19px var(--sans);margin:8px 0 12px}
+.presets{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.presets button{padding:9px 12px;border-radius:12px;border:1px solid var(--line2);background:var(--card2);font-weight:700;font-size:13px;text-align:left}
+.presets button small{display:block;font:600 10px var(--mono);color:var(--muted);margin-top:2px}
+.clock{text-align:center;padding:18px 10px;border-radius:16px;background:var(--vid);border:1px solid var(--line);margin-bottom:12px}
+.tph{font:800 14px var(--mono);letter-spacing:.14em;color:var(--acc)}
+.tcl{font:800 clamp(64px,20vw,110px)/1 var(--mono);margin:8px 0}
+.trd{font:600 12px var(--mono);color:var(--muted);margin-bottom:12px}
+.tset{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.tset.log{grid-template-columns:1fr 1fr}
+.tset label{display:flex;flex-direction:column;gap:4px;font:700 10.5px var(--mono);color:var(--muted);letter-spacing:.04em}
+.tset label.wide{grid-column:span 2}
+.tset input,.tset select{padding:10px;border-radius:10px;border:1px solid var(--line2);background:var(--card2);color:var(--text);font:600 15px var(--sans);width:100%}
+.small{font-size:12px}
+.lcv{display:block;width:100%;aspect-ratio:2/1;border-radius:12px;border:1px solid var(--line)}
+.llist{display:grid;gap:6px;margin-top:10px}
+.lrow{display:grid;grid-template-columns:auto 1fr auto auto;gap:10px;align-items:center;padding:9px 10px;border-radius:10px;background:var(--card2);border:1px solid var(--line);font-size:13px}
+.lrow span{font:600 11px var(--mono);color:var(--muted)}
+.lrow button{color:var(--muted);padding:2px 6px}
 @media (min-width:760px){
   .bento{grid-template-columns:repeat(3,1fr)}
   .tile{min-height:200px}
@@ -1084,6 +1105,561 @@ QUIZ.push(
   ['Wie oft trainierst du im 4-Wochen-Plan in Woche 3 und 4?', ['3-mal pro Woche', 'Jeden Tag zweimal', 'Einmal im Monat', 'Gar nicht'], 'Erst 2-mal, ab Woche 3 dann 3-mal pro Woche.', 'vierwochen']
 );
 
+/* ===== Paket 3 ===== */
+(function () {
+  const ins = (afterId, a) => { const i = AREAS.findIndex(x => x.id === afterId); AREAS.splice(i + 1, 0, a); };
+  ins('cardio', { id: 'laufen', t: 'Laufen lernen', ic: '🏃', c: '#a3e635', d: 'Lauftechnik, Atmung und dein Weg zu 5 km' });
+  ins('laufen', { id: 'balance', t: 'Gleichgewicht', ic: '⚖️', c: '#818cf8', d: 'Balance und Koordination für jedes Alter' });
+  ins('buero', { id: 'muskeln', t: 'Muskelkunde', ic: '🔬', c: '#f472b6', d: 'Wo sitzt welcher Muskel – und was trainiert ihn?' });
+  ins('muskeln', { id: 'familie', t: 'Familien-Fitness', ic: '👨‍👩‍👧', c: '#fb7185', d: 'Zu zweit und mit Kindern trainieren' });
+  ins('familie', { id: 'alltag', t: 'Fit im Alltag', ic: '🏠', c: '#94a3b8', d: 'Richtig heben, tragen und Bewegungspausen' });
+})();
+
+const RN1 = { x: 200, y: 150, t: 172, a1: [45, 120], a2: [-35, 40], l1: [-40, -95], l2: ik(212, 244), ft1: -100, ft2: 90 };
+const RN2 = { x: 200, y: 150, t: 172, a1: [-35, 40], a2: [45, 120], l1: ik(212, 244), l2: [-40, -95], ft1: 90, ft2: -100 };
+const WK = (o) => ({
+  A: Object.assign({ x: 200, y: 154, t: 178, a1: [18, 10], a2: [-18, -8], l1: ik(178, G), l2: ik(224, G) }, o),
+  M: Object.assign({ x: 200, y: 151, t: 178, a1: [0, 0], a2: [0, 0], l1: ik(199, G), l2: [25, -30] }, o),
+  B: Object.assign({ x: 200, y: 154, t: 178, a1: [-18, -8], a2: [18, 10], l1: ik(224, G), l2: ik(178, G) }, o),
+  N: Object.assign({ x: 200, y: 151, t: 178, a1: [0, 0], a2: [0, 0], l1: [25, -30], l2: ik(201, G) }, o)
+});
+const shiftP = (p, dx) => { const o = Object.assign({}, p); o.x += dx; ['a1', 'a2', 'l1', 'l2'].forEach(k => { if (o[k].ik) o[k] = { ik: [o[k].ik[0] + dx, o[k].ik[1]], b: o[k].b }; }); return o; };
+const WALK = WK({});
+const CARRY = WK({ a1: [2, 0], a2: [0, 0] });
+['A', 'M', 'B', 'N'].forEach(k => { CARRY[k].a1 = [2, 0]; CARRY[k].a2 = [0, 0]; });
+const ROPE = WK({});
+['A', 'M', 'B', 'N'].forEach(k => { ROPE[k].a1 = [25, 30]; ROPE[k].a2 = [28, 32]; ROPE[k].l1 = ROPE[k].l1.ik ? ik(ROPE[k].l1.ik[0] > 200 ? 210 : 192, G) : ROPE[k].l1; ROPE[k].l2 = ROPE[k].l2.ik ? ik(ROPE[k].l2.ik[0] > 200 ? 210 : 192, G) : ROPE[k].l2; });
+
+LESSONS.push(
+/* ---------- Grundlagen: Essen & Trinken ---------- */
+{ id: 'trinken', b: 'grund', t: 'Richtig trinken', s: 'Wasser ist dein Treibstoff', m: 'Ganzer Körper', lvl: 'Einsteiger', scene: 'water',
+  steps: [
+    { txt: 'Dein Körper besteht zu etwa 60 % aus Wasser. Erwachsene sollten täglich rund 1,5 Liter trinken – das sind etwa 6 Gläser.' },
+    { txt: 'Beim Sport verlierst du zusätzlich Wasser durch Schwitzen. Pro Stunde Training kommt grob ein halber bis ganzer Liter dazu.' },
+    { txt: 'Am besten trinkst du in kleinen Schlucken über den Tag verteilt – nicht alles auf einmal.' },
+    { txt: 'Die besten Durstlöscher: Wasser, ungesüßter Tee oder eine Saftschorle. Süße Limonaden lieber selten.' }
+  ],
+  info: ['Genug zu trinken ist die einfachste Grundlage für gutes Training.',
+         'Rund 1,5 Liter am Tag, beim Sport mehr – in kleinen Schlucken über den Tag verteilt.',
+         'Schon wenig Wassermangel senkt Konzentration und Leistung spürbar.',
+         'Stell dir eine Flasche sichtbar auf den Tisch – dann denkst du automatisch ans Trinken.'] },
+
+{ id: 'eiweiss', b: 'grund', t: 'Essen für Muskeln', s: 'Der einfache Teller-Trick', m: 'Ganzer Körper', lvl: 'Einsteiger', scene: 'plate',
+  steps: [
+    { txt: 'Ein einfacher Merksatz für eine ausgewogene Mahlzeit: Teile deinen Teller in drei Bereiche.' },
+    { txt: 'Die Hälfte Gemüse und Obst, ein Viertel Beilage wie Kartoffeln, Reis oder Vollkornbrot, ein Viertel Eiweiß.' },
+    { txt: 'Eiweiß ist der Baustoff für Muskeln. Gute Quellen: Joghurt, Quark, Eier, Fisch, Fleisch, Linsen, Bohnen, Tofu.' },
+    { txt: 'Für normales Training brauchst du keine Pulver oder Wundermittel – eine ausgewogene Ernährung reicht.' }
+  ],
+  info: ['Muskeln brauchen Baustoffe – vor allem Eiweiß – und Energie aus Kohlenhydraten.',
+         'Teller-Trick: ½ Gemüse & Obst, ¼ Beilage, ¼ Eiweiß.',
+         'Wer trainiert und ausgewogen isst, erholt sich schneller und baut besser Muskeln auf.',
+         'Bei besonderen Ernährungsfragen oder Erkrankungen hilft eine Ernährungsberatung oder der Hausarzt.'] },
+
+/* ---------- Oberkörper: Gummiband & Fortgeschrittene ---------- */
+{ id: 'bandrudern', b: 'ober', t: 'Rudern mit Gummiband', s: 'Rückentraining an der Tür', m: 'Oberer Rücken, Bizeps', lvl: 'Einsteiger',
+  props: { band: [342, 84], post: 342 },
+  poses: { A: ST(200, { a1: [88, 90], a2: [90, 90] }), B: ST(200, { a1: [-73, 90], a2: [-75, 90] }) },
+  steps: [
+    { p: ['A'], txt: 'Das Band auf Brusthöhe an einer Türklinke oder einem Pfosten befestigen. Arme nach vorn strecken.', lab: [['Band auf Brusthöhe', 'hnd2', 0, -40]] },
+    { p: ['A', 'B'], pt: ['ZIEHEN', 'NACHGEBEN'], txt: 'Die Ellbogen eng am Körper nach hinten ziehen, bis die Hände neben dem Bauch sind.', arr: [[300, 110, 230, 110, 0]] },
+    { p: ['B'], hi: ['ar1', 'ar2', 'tr'], txt: 'Hinten die Schulterblätter zusammendrücken und kurz halten.', lab: [['Schulterblätter zusammen', 'shd', -40, -40]] },
+    { p: ['A', 'B'], pt: ['ZIEHEN · AUSATMEN', 'NACHGEBEN · EINATMEN'], txt: 'Langsam nachgeben – das Band zieht dich nicht nach vorn. 3 × 15 Wiederholungen.' }
+  ],
+  info: ['Rudern mit dem Gummiband ist ein Rückentraining ganz ohne Hanteln.',
+         'Band auf Brusthöhe befestigen, Ellbogen eng nach hinten ziehen, Schulterblätter zusammen.',
+         'Das Band ist leicht, günstig und passt in jede Tasche – ideal auch im Urlaub.',
+         'Prüfe vor jedem Training, ob das Band fest sitzt und keine Risse hat.'] },
+
+{ id: 'facepull', b: 'ober', t: 'Face Pulls', s: 'Gesunde Schultern mit Band', m: 'Hintere Schulter, oberer Rücken', lvl: 'Mittel',
+  props: { band: [342, 40], post: 342 },
+  poses: { A: ST(200, { a1: [123, 125], a2: [125, 125] }), B: ST(200, { a1: [-128, 110], a2: [-130, 110] }) },
+  steps: [
+    { p: ['A'], txt: 'Das Band über Kopfhöhe befestigen. Mit gestreckten Armen schräg nach oben greifen.', lab: [['Band über Kopfhöhe', 'hnd2', 0, 30]] },
+    { p: ['A', 'B'], pt: ['ZIEHEN', 'NACHGEBEN'], txt: 'Das Band Richtung Gesicht ziehen. Die Ellbogen gehen dabei weit nach außen und oben.', arr: [[300, 60, 230, 60, 0]] },
+    { p: ['B'], hi: ['ar1', 'ar2'], txt: 'Hinten die Hände nach außen drehen – wie bei einer „Doppelbizeps“-Pose.', lab: [['Ellbogen hoch', 'elb2', -40, -20]] },
+    { p: ['A', 'B'], pt: ['ZIEHEN · AUSATMEN', 'NACHGEBEN · EINATMEN'], txt: 'Leichter Widerstand, viele Wiederholungen: 3 × 15–20.' }
+  ],
+  info: ['Face Pulls sind eine Zugübung zum Gesicht für die hintere Schulter.',
+         'Band hoch befestigen, zum Gesicht ziehen, Ellbogen hoch, Hände nach außen drehen.',
+         'Stärkt die oft vernachlässigte hintere Schulter – gut für die Haltung und gegen Schulterprobleme.',
+         'Diese Übung passt perfekt als Ausgleich zu Liegestütz und Schulterdrücken.'] },
+
+{ id: 'banddruecken', b: 'ober', t: 'Brustdrücken mit Band', s: 'Liegestütz im Stehen', m: 'Brust, Trizeps, vordere Schulter', lvl: 'Einsteiger',
+  props: { band: [58, 96], post: 58 },
+  poses: { A: ST(200, { a1: [-58, 95], a2: [-60, 95] }), B: ST(200, { a1: [90, 90], a2: [92, 90] }) },
+  steps: [
+    { p: ['A'], txt: 'Das Band hinter dir auf Brusthöhe befestigen. Die Hände sind neben der Brust.', lab: [['Band hinter dir', 'hnd1', -80, -40]] },
+    { p: ['A', 'B'], pt: ['DRÜCKEN', 'ZURÜCK'], txt: 'Die Arme kraftvoll nach vorn strecken – wie beim Liegestütz, nur im Stehen.', arr: [[230, 70, 290, 70, 0]] },
+    { p: ['B'], hi: ['ar1', 'ar2'], txt: 'Vorne kurz halten. Der Oberkörper bleibt stabil und kippt nicht nach vorn.', lab: [['Brust & Trizeps', 'shd', 20, -40]] },
+    { p: ['A', 'B'], pt: ['DRÜCKEN · AUSATMEN', 'ZURÜCK · EINATMEN'], txt: 'Kontrolliert zurück. Ein Schritt weiter nach vorn macht es schwerer.' }
+  ],
+  info: ['Beim Brustdrücken mit Band drückst du gegen den Widerstand nach vorn.',
+         'Band hinter dir auf Brusthöhe, Arme nach vorn strecken, kontrolliert zurück.',
+         'Eine gute Alternative, wenn Liegestütz noch zu schwer sind oder die Handgelenke schmerzen.',
+         'Mit einem Ausfallschritt stehst du stabiler.'] },
+
+{ id: 'diamant', b: 'ober', t: 'Diamant-Liegestütz', s: 'Extra für den Trizeps', m: 'Trizeps, Brust', lvl: 'Fortgeschritten',
+  props: { mat: [70, 310] },
+  poses: { T: Object.assign({}, PU_T, { a1: ik(240, G, -1), a2: ik(244, G, -1) }), B: Object.assign({}, PU_B, { a1: ik(240, G, -1), a2: ik(244, G, -1) }) },
+  steps: [
+    { p: ['T'], txt: 'Liegestützposition, aber die Hände eng zusammen unter der Brust – Daumen und Zeigefinger bilden einen Diamanten.', lab: [['Hände als Diamant', 'hnd2', 40, -40]] },
+    { p: ['T', 'B'], pt: ['RUNTER', 'HOCH'], txt: 'Langsam runter. Die Ellbogen bleiben dabei ganz nah am Körper.', arr: [[290, 150, 290, 210, 0]] },
+    { p: ['B'], hi: ['ar1', 'ar2'], txt: 'Durch die enge Handstellung muss vor allem der Trizeps arbeiten.', lab: [['Ellbogen eng', 'elb2', -20, -45]] },
+    { p: ['T', 'B'], pt: ['RUNTER · EINATMEN', 'HOCH · AUSATMEN'], txt: 'Zu schwer? Die Diamant-Variante funktioniert auch auf den Knien.' }
+  ],
+  info: ['Der Diamant-Liegestütz ist ein Liegestütz mit eng zusammengestellten Händen.',
+         'Hände als Diamant unter der Brust, Ellbogen eng am Körper, Körper gerade.',
+         'Trainiert den Trizeps deutlich stärker als der normale Liegestütz.',
+         'Schmerzen die Handgelenke, die Hände etwas weiter auseinander setzen.'] },
+
+{ id: 'handstand', b: 'ober', t: 'Handstand an der Wand', s: 'Kopfüber für Profis', m: 'Schultern, Trizeps, Rumpf', lvl: 'Fortgeschritten',
+  props: { wallR: 262, mat: [150, 300] },
+  poses: { E: { x: 170, y: 150, t: 60, a1: ik(234, G, 1), a2: ik(238, G, 1), l1: ik(140, 236), l2: ik(144, 236), ft1: 25, ft2: 25 },
+           H: { x: 240, y: 100, t: 0, a1: ik(234, G, 1), a2: ik(238, G, 1), l1: [178, 180], l2: [182, 180], ft1: 180, ft2: 180 } },
+  seg: 1.6,
+  steps: [
+    { p: ['E'], txt: 'Vor einer Wand die Hände etwa eine Handbreite entfernt schulterbreit aufsetzen. Arme gestreckt.', lab: [['Hände vor der Wand', 'hnd2', -50, -30]] },
+    { p: ['E', 'H'], pt: ['HOCHSCHWINGEN'], txt: 'Mit einem Bein kontrolliert hochschwingen, bis die Fersen die Wand berühren.', arr: [[150, 200, 230, 30, -40]] },
+    { p: ['H'], hold: 20, hi: ['ar1', 'ar2', 'tr'], txt: 'Arme durchgestreckt, Bauch fest, Blick zwischen die Hände. Anfangs 10–20 Sekunden halten.', lab: [['Arme gestreckt', 'elb2', -60, 0], ['Fersen an der Wand', 'ank2', -60, 20]] },
+    { p: ['H'], hold: 20, pt: ['SICHERHEIT'], txt: 'Nur mit freiem Platz und weicher Unterlage üben. Bei Bluthochdruck oder Augenproblemen vorher ärztlich abklären.' }
+  ],
+  info: ['Der Handstand an der Wand ist eine anspruchsvolle Halteübung kopfüber.',
+         'Hände vor der Wand, hochschwingen, Fersen an die Wand, Arme gestreckt, Bauch fest.',
+         'Trainiert Schultern und Rumpf enorm – und macht einfach Spaß, wenn er klappt.',
+         'Vorübung: Pike-Liegestütz mit den Füßen auf einem Stuhl. Erst die Kraft, dann der Handstand.'] },
+
+/* ---------- Beine: Gummiband & Fortgeschrittene ---------- */
+{ id: 'monsterwalk', b: 'beine', t: 'Monster Walk', s: 'Seitwärts mit Band um die Knie', m: 'Seitliche Hüfte, Po', lvl: 'Einsteiger', view: 'Ansicht von vorn',
+  props: { kband: 1, mat: [110, 290] },
+  poses: { A: { fv: 1, x: 200, y: 170, t: 180, a1: [-20, 80], a2: [20, -80], l1: ik(172, G, -1), l2: ik(230, G, 1) },
+           B: { fv: 1, x: 210, y: 172, t: 180, a1: [-20, 80], a2: [20, -80], l1: ik(172, G, -1), l2: ik(252, G, 1) },
+           C: { fv: 1, x: 222, y: 170, t: 180, a1: [-20, 80], a2: [20, -80], l1: ik(194, G, -1), l2: ik(252, G, 1) } },
+  seg: .7,
+  steps: [
+    { p: ['A'], txt: 'Ein Miniband oberhalb der Knie anlegen. Leicht in die Knie gehen, Füße hüftbreit.', lab: [['Band über den Knien', 'kne2', 60, -10]] },
+    { p: ['A', 'B', 'C', 'B'], pt: ['SCHRITT'], txt: 'Kleine Schritte zur Seite gehen. Das Band bleibt immer gespannt.', arr: [[230, 120, 290, 120, 0]] },
+    { p: ['A', 'B', 'C', 'B'], hi: ['th1', 'th2'], txt: 'Die Knie drücken nach außen und kippen nicht nach innen. Es brennt seitlich am Po – genau richtig.', lab: [['Knie nach außen', 'kne1', -60, -10]] },
+    { p: ['A', 'B', 'C', 'B'], hold: 30, pt: ['10 SCHRITTE JE SEITE'], txt: '10 Schritte nach rechts, 10 nach links – 3 Durchgänge.' }
+  ],
+  info: ['Der Monster Walk ist ein seitliches Gehen mit einem Miniband um die Knie.',
+         'Leicht in den Knien, kleine Seitschritte, Band immer gespannt, Knie nach außen.',
+         'Stärkt die seitliche Hüftmuskulatur – sie stabilisiert Knie und Becken beim Laufen.',
+         'Ohne Band geht es auch – dann einfach langsamer und tiefer gehen.'] },
+
+{ id: 'bulgarisch', b: 'beine', t: 'Bulgarische Kniebeuge', s: 'Ein Bein auf der Bank', m: 'Oberschenkel, Po, Gleichgewicht', lvl: 'Fortgeschritten',
+  props: { bench: [96, 205, 64] },
+  poses: { A: { x: 200, y: 162, t: 178, a1: [-15, 60], a2: [-15, 60], l1: ik(135, 203), l2: ik(240, G), ft1: -90 },
+           B: { x: 196, y: 200, t: 172, a1: [-15, 60], a2: [-15, 60], l1: ik(135, 203), l2: ik(240, G), ft1: -90 } },
+  steps: [
+    { p: ['A'], txt: 'Mit dem Rücken zu einer Bank stellen. Einen Fuß mit dem Spann hinten auf die Bank legen.', lab: [['Fuß hinten auf der Bank', 'ank1', -20, -40]] },
+    { p: ['A', 'B'], pt: ['RUNTER', 'HOCH'], txt: 'Senkrecht nach unten sinken, bis der vordere Oberschenkel etwa waagerecht ist.', arr: [[285, 140, 285, 195, 0]] },
+    { p: ['B'], ang: ['kne2'], hi: ['th2'], txt: 'Fast das ganze Gewicht liegt auf dem vorderen Bein. Das Knie bleibt über dem Fuß.' },
+    { p: ['A', 'B'], pt: ['RUNTER · EINATMEN', 'HOCH · AUSATMEN'], txt: 'Über die vordere Ferse hochdrücken. 8–10 pro Bein – das ist härter als es aussieht!' }
+  ],
+  info: ['Eine einbeinige Kniebeuge, bei der der hintere Fuß erhöht liegt.',
+         'Hinterer Fuß auf der Bank, senkrecht runter, vorderes Knie über dem Fuß, hochdrücken.',
+         'Sehr effektiv für Beine und Po – und eine große Herausforderung fürs Gleichgewicht.',
+         'Den Abstand zur Bank so wählen, dass das vordere Knie unten nicht weit über die Zehen schiebt.'] },
+
+{ id: 'pistol', b: 'beine', t: 'Pistol Squat', s: 'Die Einbeinkniebeuge', m: 'Oberschenkel, Po, Gleichgewicht, Rumpf', lvl: 'Fortgeschritten',
+  props: { mat: [120, 300] },
+  poses: { A: ST(200, { a1: [80, 90], a2: [82, 90], l1: [25, 15], l2: ik(205, G) }),
+           B: { x: 178, y: 212, t: 138, a1: [92, 92], a2: [94, 92], l1: [82, 88], l2: ik(205, G) } },
+  seg: 1.5,
+  steps: [
+    { p: ['A'], txt: 'Auf einem Bein stehen, das andere leicht nach vorn anheben. Die Arme zeigen nach vorn.', lab: [['Ein Bein', 'kne2', 50, 0]] },
+    { p: ['A', 'B'], pt: ['RUNTER', 'HOCH'], txt: 'Langsam auf einem Bein in die tiefe Hocke gehen. Das freie Bein bleibt gestreckt vor dir.', arr: [[150, 140, 140, 200, -10]] },
+    { p: ['B'], hi: ['th2', 'sn2'], txt: 'Ganz unten: Ferse bleibt am Boden, der Oberkörper neigt sich nach vorn als Gegengewicht.', lab: [['Ferse am Boden', 'ank2', 50, 0], ['Bein gestreckt', 'ank1', 30, -30]] },
+    { p: ['A', 'B'], pt: ['RUNTER · EINATMEN', 'HOCH · AUSATMEN'], txt: 'Vorübung: auf einen Stuhl setzen und auf einem Bein wieder aufstehen.' }
+  ],
+  info: ['Der Pistol Squat ist eine komplette Kniebeuge auf nur einem Bein.',
+         'Auf einem Bein runter in die tiefe Hocke, freies Bein gestreckt nach vorn, wieder hoch.',
+         'Höchste Anforderung an Kraft, Beweglichkeit und Gleichgewicht.',
+         'Halte dich am Anfang an einem Türrahmen fest – so lernst du die Bewegung sicher.'] },
+
+/* ---------- Laufen ---------- */
+{ id: 'lauftechnik', b: 'laufen', t: 'Lauftechnik', s: 'Leicht und locker laufen', m: 'Beine, Rumpf, Herz-Kreislauf', lvl: 'Einsteiger',
+  props: { mat: [0, 400] },
+  poses: { A: RN1, B: RN2 },
+  seg: .34,
+  steps: [
+    { p: ['A', 'B'], seg: .7, txt: 'Aufrecht laufen, der Oberkörper neigt sich nur ganz leicht nach vorn. Der Blick geht 10–20 Meter voraus.', lab: [['Aufrecht', 'shd', 50, -20]] },
+    { p: ['A', 'B'], seg: .7, txt: 'Der Fuß landet etwa unter dem Körper, nicht weit davor. Kleine, schnelle Schritte sind besser als große.', lab: [['Fuß unter dem Körper', 'ank2', 50, -10]] },
+    { p: ['A', 'B'], hi: ['ar1', 'ar2'], txt: 'Die Arme sind etwa 90° angewinkelt und schwingen locker vor und zurück – nicht quer vor dem Körper.', lab: [['Arme 90°', 'elb2', -60, 0]] },
+    { p: ['A', 'B'], pt: ['LOCKER BLEIBEN'], txt: 'Schultern locker, Hände entspannt, als hieltest du ein rohes Ei. Tempo so, dass du noch sprechen kannst.' }
+  ],
+  info: ['Eine gute Lauftechnik spart Kraft und schont die Gelenke.',
+         'Aufrecht, kleine schnelle Schritte, Fuß landet unter dem Körper, Arme 90° locker schwingen.',
+         'Wer locker läuft, hält länger durch und hat weniger Beschwerden.',
+         'Gute Laufschuhe passend zum Fuß machen einen großen Unterschied – lass dich im Fachgeschäft beraten.'] },
+
+{ id: 'laufatmung', b: 'laufen', t: 'Atmen beim Laufen', s: 'Im Rhythmus der Schritte', m: 'Zwerchfell, Herz-Kreislauf', lvl: 'Einsteiger',
+  props: { mat: [0, 400] },
+  poses: { A: RN1, B: RN2 },
+  seg: .5,
+  steps: [
+    { p: ['A', 'B'], br: 1, pt: ['EIN', 'EIN', 'AUS', 'AUS'], seg: .5, txt: 'Finde einen Rhythmus: zum Beispiel 2 Schritte einatmen, 2 Schritte ausatmen.' },
+    { p: ['A', 'B'], br: 1, hi: ['tr'], txt: 'Atme tief in den Bauch – Nase und Mund dürfen beide mithelfen.', lab: [['Bauchatmung', 'mid', 50, 0]] },
+    { p: ['A', 'B'], pt: ['SEITENSTECHEN?'], txt: 'Seitenstechen? Tempo raus, tief ausatmen und die Hand sanft auf die Stelle drücken.' },
+    { p: ['A', 'B'], pt: ['SPRECHTEST'], txt: 'Faustregel: Kannst du noch ganze Sätze sprechen, ist dein Tempo genau richtig.' }
+  ],
+  info: ['Die richtige Atmung macht das Laufen leichter und gleichmäßiger.',
+         'Atemrhythmus an die Schritte koppeln, tief in den Bauch atmen.',
+         'Ein ruhiger Rhythmus beruhigt den Puls und beugt Seitenstechen vor.',
+         'Nicht direkt vor dem Laufen viel essen – das ist eine häufige Ursache für Seitenstechen.'] },
+
+{ id: 'laufplan', b: 'laufen', t: 'In 8 Wochen zu 5 km', s: 'Vom Gehen zum Laufen', m: 'Herz-Kreislauf', lvl: 'Einsteiger', scene: 'run8',
+  steps: [
+    { txt: 'Der Plan startet ganz sanft: Woche 1 heißt 1 Minute laufen, 2 Minuten gehen – achtmal.' },
+    { txt: 'Woche für Woche werden die Laufabschnitte länger und die Gehpausen kürzer.' },
+    { txt: 'In Woche 8 läufst du 30 Minuten am Stück – das sind für viele Einsteiger etwa 5 Kilometer.' },
+    { txt: 'Dreimal pro Woche laufen, immer mit einem Ruhetag dazwischen.' },
+    { txt: 'Fällt eine Woche schwer, einfach wiederholen. Es ist kein Rennen – Hauptsache, du bleibst dran.' }
+  ],
+  info: ['Ein Trainingsplan, der dich in 8 Wochen vom Gehen zum Laufen bringt.',
+         'Laufen und Gehen im Wechsel, Laufanteil jede Woche steigern, 3 Einheiten pro Woche.',
+         'Der Körper – vor allem Sehnen und Gelenke – gewöhnt sich langsam und sicher an die Belastung.',
+         'Plane die Läufe fest im Kalender ein und lauf, wenn möglich, mit jemandem zusammen.'] },
+
+{ id: 'laufdehnen', b: 'laufen', t: 'Nach dem Laufen', s: 'Auslaufen und lockern', m: 'Waden, Oberschenkel, Hüfte', lvl: 'Einsteiger',
+  props: { wallR: 290 },
+  poses: { W: { x: 228, y: 160, t: 165, a1: ik(288, 96, -1), a2: ik(288, 101, -1), l1: ik(184, G), l2: ik(258, G), ft1: 90 },
+           Q: ST(240, { a1: ik(204, 162, 1), a2: ik(288, 110, -1), l1: [-10, -140] }) },
+  seg: 2,
+  steps: [
+    { p: ['W'], hold: 20, txt: 'Erst 5 Minuten locker gehen. Dann Waden dehnen: Hände vor dir an die Wand, hinteres Bein gestreckt, Ferse am Boden.', lab: [['Ferse am Boden', 'ank1', -10, -40]] },
+    { p: ['W'], hold: 20, hi: ['sn1'], txt: 'Die Hüfte leicht nach vorn schieben, bis es in der Wade zieht. 20–30 Sekunden halten.', lab: [['Wade', 'kne1', -60, 0]] },
+    { p: ['Q'], hold: 20, hi: ['th1'], txt: 'Oberschenkel vorn: Ferse zum Po ziehen, Knie zeigen nach unten. An der Wand festhalten ist erlaubt.', lab: [['Ferse zum Po', 'ank1', -60, -10]] },
+    { p: ['Q'], hold: 20, pt: ['SEITE WECHSELN'], txt: 'Jede Dehnung auf beiden Seiten. Danach trinken und die Beine kurz hochlegen.' }
+  ],
+  info: ['Nach dem Laufen helfen Auslaufen und leichtes Dehnen beim Runterkommen.',
+         '5 Minuten gehen, dann Waden und Oberschenkel je 20–30 Sekunden dehnen.',
+         'Der Puls beruhigt sich langsam und die Muskeln entspannen.',
+         'Sanft dehnen, nicht wippen – eine Dehnung soll angenehm ziehen, nicht wehtun.'] },
+
+/* ---------- Gleichgewicht ---------- */
+{ id: 'einbeinstand', b: 'balance', t: 'Einbeinstand', s: 'Der Storch-Test', m: 'Fuß, Waden, Hüfte, Rumpf', lvl: 'Einsteiger',
+  props: { mat: [130, 280] },
+  poses: { S: ST(200, { a1: [-15, 60], a2: [-15, 60] }), F: ST(200, { a1: [-15, 60], a2: [-15, 60], l1: [80, 0] }) },
+  seg: 1.4,
+  steps: [
+    { p: ['S'], txt: 'Aufrecht stehen, Hände an die Hüfte. Den Blick auf einen festen Punkt richten.', lab: [['Fester Blickpunkt', 'head', 70, 0]] },
+    { p: ['S', 'F'], pt: ['KNIE HOCH'], txt: 'Ein Knie langsam bis auf Hüfthöhe anheben – wie ein Storch.', lab: [['Knie auf Hüfthöhe', 'kne1', 60, -20]] },
+    { p: ['F'], hold: 30, hi: ['sn2'], txt: 'Halten! Das Standbein ist leicht gebeugt. Kleine Wackler im Fuß sind normal – so trainiert er.', lab: [['Fuß arbeitet', 'toe2', 50, -10]] },
+    { p: ['F'], hold: 30, pt: ['AUGEN ZU?'], txt: 'Profi-Stufe: 30 Sekunden mit geschlossenen Augen. Aber nur mit einer Wand in Reichweite!' }
+  ],
+  info: ['Der Einbeinstand ist die einfachste Übung für das Gleichgewicht.',
+         'Auf einem Bein stehen, Knie hoch, festen Punkt anschauen, 30 Sekunden halten.',
+         'Gutes Gleichgewicht beugt Stürzen vor – in jedem Alter wichtig.',
+         'Mach es beim Zähneputzen: 1 Minute pro Bein, jeden Tag.'] },
+
+{ id: 'standwaage', b: 'balance', t: 'Standwaage', s: 'Wie ein Flugzeug', m: 'Hintere Oberschenkel, Po, Rücken, Gleichgewicht', lvl: 'Mittel',
+  props: { mat: [130, 300] },
+  poses: { S: ST(200, { a1: [0, 0], a2: [2, 0] }), T: { x: 192, y: 158, t: 95, a1: [95, 95], a2: [96, 95], l1: [-88, -88], l2: ik(198, G), ft1: -88 } },
+  seg: 1.6,
+  steps: [
+    { p: ['S'], txt: 'Auf einem Bein stehen. Das Standbein ist ganz leicht gebeugt.', lab: [['Standbein locker', 'kne2', 50, 0]] },
+    { p: ['S', 'T'], pt: ['NACH VORN KIPPEN'], txt: 'Den Oberkörper nach vorn kippen und gleichzeitig das andere Bein nach hinten anheben.', arr: [[150, 180, 110, 150, 10]] },
+    { p: ['T'], hold: 15, ln: [['hnd2', 'ank1']], hi: ['th1', 'tr'], txt: 'Arme, Rücken und Bein bilden eine lange, waagerechte Linie – wie ein Flugzeug.', lab: [['Lange Linie', 'mid', 0, -40]] },
+    { p: ['S', 'T'], pt: ['5 PRO BEIN'], txt: 'Langsam zurück aufrichten. 5 Wiederholungen pro Bein, oben jeweils 3 Sekunden halten.' }
+  ],
+  info: ['Die Standwaage ist eine Gleichgewichtsübung auf einem Bein in Waagerechter.',
+         'Auf einem Bein nach vorn kippen, anderes Bein nach hinten heben, Körper bildet eine Linie.',
+         'Schult Gleichgewicht und stärkt gleichzeitig die ganze Körperrückseite.',
+         'Anfangs nur halb runtergehen und eine Hand an eine Stuhllehne legen.'] },
+
+{ id: 'seiltaenzer', b: 'balance', t: 'Seiltänzer-Gang', s: 'Ferse vor Zehen', m: 'Füße, Beine, Koordination', lvl: 'Einsteiger',
+  props: { tape: [20, 380] },
+  poses: ROPE,
+  seg: .7,
+  steps: [
+    { p: ['A'], txt: 'Eine Linie auf den Boden kleben oder eine Fuge nutzen. Die Arme zur Seite ausstrecken.', lab: [['Gerade Linie', 'toe2', 60, -10]] },
+    { p: ['A', 'M', 'B', 'N'], pt: ['FERSE VOR ZEHEN'], txt: 'Langsam auf der Linie gehen: Die Ferse wird direkt vor die Zehen des anderen Fußes gesetzt.', lab: [['Ferse an Zehen', 'ank2', 50, -20]] },
+    { p: ['A', 'M', 'B', 'N'], hi: ['sn1', 'sn2'], txt: 'Blick nach vorn, nicht auf die Füße. Der Bauch ist leicht angespannt.' },
+    { p: ['A', 'M', 'B', 'N'], pt: ['RÜCKWÄRTS?'], txt: '10 Schritte vor, dann umdrehen. Profis gehen die Linie auch rückwärts.' }
+  ],
+  info: ['Beim Seiltänzer-Gang gehst du auf einer Linie, Ferse direkt vor Zehen.',
+         'Arme zur Seite, langsam gehen, Ferse an die Zehen setzen, Blick nach vorn.',
+         'Schult Koordination und Gleichgewicht – macht auch Kindern viel Spaß.',
+         'Mach daraus ein Spiel: Wer schafft die meisten Schritte, ohne die Linie zu verlassen?'] },
+
+/* ---------- Rücken & Büro: Mobilität ---------- */
+{ id: 'schulterkreisen', b: 'buero', t: 'Armkreisen', s: 'Schultern mobilisieren', m: 'Schultern, oberer Rücken', lvl: 'Einsteiger',
+  poses: { A: ST(200), B: ST(200, { a1: [90, 90], a2: [92, 92] }), C: ST(200, { a1: [178, 178], a2: [180, 180] }), D: ST(200, { a1: [-90, -90], a2: [-88, -88] }) },
+  seg: .55,
+  steps: [
+    { p: ['A'], txt: 'Aufrecht stehen, Arme locker hängen lassen. Die Schultern sind entspannt.', lab: [['Schultern locker', 'shd', 60, -10]] },
+    { p: ['A', 'B', 'C', 'D'], pt: ['VORWÄRTS'], txt: 'Die gestreckten Arme in großen Kreisen vorwärts drehen – so groß wie möglich.', arr: [[260, 100, 220, 20, 30]] },
+    { p: ['D', 'C', 'B', 'A'], pt: ['RÜCKWÄRTS'], hi: ['ar1', 'ar2'], txt: 'Dann die Richtung wechseln und rückwärts kreisen. Das öffnet die Brust.' },
+    { p: ['A', 'B', 'C', 'D'], hold: 30, pt: ['10 × JE RICHTUNG'], txt: 'Je 10 Kreise vorwärts und rückwärts – perfekt für zwischendurch am Schreibtisch.' }
+  ],
+  info: ['Armkreisen ist eine einfache Mobilisation für die Schultergelenke.',
+         'Gestreckte Arme in großen Kreisen vor- und rückwärts drehen, Schultern locker.',
+         'Bringt die Schultern in Bewegung und löst Verspannungen vom Sitzen.',
+         'Auch gut zum Aufwärmen vor Liegestütz, Rudern oder Schulterdrücken.'] },
+
+{ id: 'hueftkreisen', b: 'buero', t: 'Hüftkreisen', s: 'Die Hüfte lockern', m: 'Hüfte, unterer Rücken', lvl: 'Einsteiger', view: 'Ansicht von vorn',
+  poses: { L: { fv: 1, x: 186, y: 154, t: 176, a1: [-30, 40], a2: [30, -40], l1: ik(184, G, -1), l2: ik(216, G, 1) },
+           C: { fv: 1, x: 200, y: 151, t: 180, a1: [-30, 40], a2: [30, -40], l1: ik(184, G, -1), l2: ik(216, G, 1) },
+           R: { fv: 1, x: 214, y: 154, t: 184, a1: [-30, 40], a2: [30, -40], l1: ik(184, G, -1), l2: ik(216, G, 1) } },
+  seg: .8,
+  steps: [
+    { p: ['C'], txt: 'Hüftbreit stehen, Hände an die Hüfte, Knie ganz leicht gebeugt.', lab: [['Hände an der Hüfte', 'hnd2', 60, 0]] },
+    { p: ['L', 'C', 'R', 'C'], pt: ['KREISEN'], txt: 'Die Hüfte in großen, langsamen Kreisen bewegen – wie beim Hula-Hoop.', arr: [[160, 175, 240, 175, -25]] },
+    { p: ['L', 'C', 'R', 'C'], hi: ['tr'], txt: 'Der Oberkörper bleibt möglichst ruhig, nur das Becken bewegt sich.' },
+    { p: ['R', 'C', 'L', 'C'], pt: ['RICHTUNG WECHSELN'], txt: 'Nach 10 Kreisen die Richtung wechseln. Gut gegen einen steifen unteren Rücken.' }
+  ],
+  info: ['Hüftkreisen ist eine sanfte Mobilisation für Hüfte und unteren Rücken.',
+         'Hände an die Hüfte, Becken in großen Kreisen bewegen, Oberkörper ruhig, Richtung wechseln.',
+         'Löst Steifheit nach langem Sitzen und wärmt die Hüftgelenke auf.',
+         'Langsam bewegen – je ruhiger, desto besser die Wirkung.'] },
+
+{ id: 'weltbeste', b: 'buero', t: 'Die weltbeste Dehnung', s: 'Alles in einer Bewegung', m: 'Hüfte, Oberschenkel, Brustwirbelsäule, Schultern', lvl: 'Mittel',
+  props: { mat: [80, 320] },
+  poses: { A: { x: 190, y: 200, t: 115, a1: ik(240, G, -1), a2: ik(244, G, -1), l1: ik(110, 240), l2: ik(258, G), ft1: 60 },
+           B: { x: 190, y: 200, t: 112, a1: ik(240, G, -1), a2: [176, 180], l1: ik(110, 240), l2: ik(258, G), ft1: 60 } },
+  seg: 1.6,
+  steps: [
+    { p: ['A'], txt: 'Großer Ausfallschritt nach vorn, beide Hände innen neben dem vorderen Fuß auf den Boden.', lab: [['Großer Schritt', 'ank2', 30, -40], ['Hinteres Bein lang', 'kne1', -40, -30]] },
+    { p: ['A'], hold: 10, hi: ['th1'], txt: 'Die Hüfte sinkt nach unten – vorne an der Hüfte des hinteren Beins zieht es.', lab: [['Hüfte sinkt', 'hip', -40, -40]] },
+    { p: ['A', 'B'], pt: ['AUFDREHEN'], txt: 'Jetzt den vorderen Arm zur Decke strecken und den Oberkörper aufdrehen. Der Blick folgt der Hand.', arr: [[270, 150, 255, 60, 15]] },
+    { p: ['A', 'B'], pt: ['5 × JE SEITE'], txt: '5 Wiederholungen pro Seite – ideal als Aufwärmen oder als Pause zwischendurch.' }
+  ],
+  info: ['Eine Kombination aus Ausfallschritt, Hüftdehnung und Oberkörperdrehung.',
+         'Großer Ausfallschritt, Hände am Boden, Hüfte sinken lassen, Arm zur Decke aufdrehen.',
+         'Bewegt in einer Übung Hüfte, Beine, Rücken und Schultern – daher der Name.',
+         'Hinteres Knie darf auf dem Boden abgelegt werden, wenn es zu anstrengend ist.'] },
+
+/* ---------- Muskelkunde ---------- */
+{ id: 'm_beine', b: 'muskeln', t: 'Muskeln der Beine', s: 'Oberschenkel und Waden', m: 'Quadrizeps, hintere Oberschenkel, Wade', lvl: 'Einsteiger',
+  poses: { S: ST(200), A: SQ_A, B: SQ_B },
+  steps: [
+    { p: ['S'], spot: [['th2m', 7, 0, 14]], txt: 'Vorn am Oberschenkel liegt der Quadrizeps – der größte und kräftigste Muskel des Körpers. Er streckt das Knie.', lab: [['Quadrizeps', 'th2m', 70, -10]] },
+    { p: ['S'], spot: [['th1m', -7, 0, 14]], txt: 'Hinten liegen die hinteren Oberschenkelmuskeln. Sie beugen das Knie und strecken die Hüfte.', lab: [['Hintere Oberschenkel', 'th1m', -80, -10]] },
+    { p: ['S'], spot: [['sn1m', -6, -8, 11]], txt: 'Die Wade hebt die Ferse an – bei jedem Schritt, Sprung und beim Treppensteigen.', lab: [['Wade', 'sn1m', -60, 0]] },
+    { p: ['A', 'B'], hi: ['th1', 'th2', 'sn1', 'sn2'], txt: 'Diese Übungen trainieren sie: Kniebeuge, Ausfallschritt, Wandsitzen, Kreuzheben und Wadenheben.' }
+  ],
+  info: ['Die Beinmuskeln sind die größten Muskeln des Körpers.',
+         'Vorn: Quadrizeps. Hinten: hintere Oberschenkel. Unten: Wade.',
+         'Starke Beine tragen dich durchs Leben – beim Gehen, Treppensteigen und Aufstehen.',
+         'Weil die Beinmuskeln so groß sind, verbraucht Beintraining besonders viel Energie.'] },
+
+{ id: 'm_po', b: 'muskeln', t: 'Po und Hüfte', s: 'Der stärkste Muskel', m: 'Großer Gesäßmuskel, Hüftbeuger', lvl: 'Einsteiger',
+  poses: { S: ST(200), A: BR_A, B: BR_B },
+  steps: [
+    { p: ['S'], spot: [['hip', -12, 6, 16]], txt: 'Der große Gesäßmuskel ist einer der kräftigsten Muskeln überhaupt. Er streckt die Hüfte – beim Aufstehen und Treppensteigen.', lab: [['Großer Gesäßmuskel', 'hip', -80, 10]] },
+    { p: ['S'], spot: [['hip', -6, -8, 10]], txt: 'Seitlich am Becken sitzen die kleinen Gesäßmuskeln. Sie halten das Becken beim Gehen gerade.', lab: [['Seitliche Hüfte', 'hip', -80, -40]] },
+    { p: ['S'], spot: [['hip', 10, 4, 10]], txt: 'Vorn liegt der Hüftbeuger. Er hebt das Bein nach vorn – und verkürzt sich durch langes Sitzen.', lab: [['Hüftbeuger', 'hip', 70, -10]] },
+    { p: ['A', 'B'], spot: [['hip', -10, 6, 14]], txt: 'Diese Übungen trainieren den Po: Beckenheben, Donkey Kicks, Kniebeuge, Monster Walk und Step-ups.' }
+  ],
+  info: ['Die Gesäß- und Hüftmuskeln verbinden Oberkörper und Beine.',
+         'Hinten: großer Gesäßmuskel. Seitlich: kleine Gesäßmuskeln. Vorn: Hüftbeuger.',
+         'Ein starker Po entlastet den unteren Rücken und stabilisiert die Knie.',
+         'Viel Sitzen „schaltet“ den Po ab – deshalb sind Bewegungspausen so wichtig.'] },
+
+{ id: 'm_bauch', b: 'muskeln', t: 'Bauchmuskeln', s: 'Das Sixpack und mehr', m: 'Gerader, schräger und tiefer Bauchmuskel', lvl: 'Einsteiger',
+  poses: { S: ST(200), A: { x: 200, y: 238, t: -90, a1: [95, 95], a2: [96, 95], l1: ik(242, G), l2: ik(246, G) }, B: { x: 200, y: 238, t: -115, a1: [112, 112], a2: [113, 112], l1: ik(242, G), l2: ik(246, G) } },
+  steps: [
+    { p: ['S'], spot: [['mid', 9, 6, 14]], txt: 'Der gerade Bauchmuskel verläuft vorn vom Brustkorb bis zum Becken – das bekannte „Sixpack“.', lab: [['Gerader Bauchmuskel', 'mid', 75, 0]] },
+    { p: ['S'], spot: [['mid', 4, 16, 11]], txt: 'Seitlich liegen die schrägen Bauchmuskeln. Sie drehen und neigen den Oberkörper.', lab: [['Schräge Bauchmuskeln', 'mid', 75, 30]] },
+    { p: ['S'], spot: [['mid', 2, 22, 9]], txt: 'Ganz innen liegt der quere Bauchmuskel – wie ein natürlicher Gürtel, der den Rücken stützt.', lab: [['Tiefer Bauchmuskel', 'mid', -80, 30]] },
+    { p: ['A', 'B'], hi: ['tr'], txt: 'Diese Übungen trainieren den Bauch: Unterarmstütz, Crunch, Dead Bug, Russian Twist und Hollow Hold.' }
+  ],
+  info: ['Die Bauchmuskeln bilden die Vorderseite deiner Körpermitte.',
+         'Gerader Bauchmuskel vorn, schräge an der Seite, tiefer Bauchmuskel innen.',
+         'Ein starker Bauch stabilisiert den Rücken bei jeder Bewegung.',
+         'Ein sichtbares Sixpack hängt vor allem vom Körperfett ab – trainiert ist der Bauch trotzdem.'] },
+
+{ id: 'm_ruecken', b: 'muskeln', t: 'Rückenmuskeln', s: 'Deine Stütze von hinten', m: 'Latissimus, Trapezmuskel, Rückenstrecker', lvl: 'Einsteiger',
+  poses: { S: ST(200), A: HINGE, B: Object.assign({}, HINGE, { a1: [-100, 0], a2: [-98, 0] }) },
+  props: { db: 0 },
+  steps: [
+    { p: ['S'], spot: [['mid', -10, -6, 14]], txt: 'Der große Rückenmuskel (Latissimus) ist der breiteste Muskel des Körpers. Er zieht die Arme nach unten und hinten.', lab: [['Latissimus', 'mid', -80, -10]] },
+    { p: ['S'], spot: [['shd', -8, 6, 11]], txt: 'Der Trapezmuskel liegt zwischen Nacken und Schulterblättern. Er hebt die Schultern und zieht sie zusammen.', lab: [['Trapezmuskel', 'shd', -80, -10]] },
+    { p: ['S'], spot: [['mid', -8, 20, 9]], txt: 'Die Rückenstrecker verlaufen links und rechts entlang der Wirbelsäule. Sie halten dich aufrecht.', lab: [['Rückenstrecker', 'mid', -80, 30]] },
+    { p: ['A', 'B'], hi: ['tr', 'ar1', 'ar2'], txt: 'Diese Übungen trainieren den Rücken: Rudern, Klimmzug, Face Pulls, Superman und Bird-Dog.' }
+  ],
+  info: ['Die Rückenmuskeln halten dich aufrecht und ziehen deine Arme.',
+         'Latissimus seitlich, Trapezmuskel oben, Rückenstrecker entlang der Wirbelsäule.',
+         'Ein starker Rücken beugt Rückenschmerzen vor und sorgt für eine gute Haltung.',
+         'Trainiere Rücken mindestens so viel wie Brust – das hält die Schultern im Gleichgewicht.'] },
+
+{ id: 'm_brust', b: 'muskeln', t: 'Brust und Schultern', s: 'Drücken und Heben', m: 'Brustmuskel, Deltamuskel', lvl: 'Einsteiger',
+  poses: { S: ST(200), A: PU_T, B: PU_B },
+  steps: [
+    { p: ['S'], spot: [['shd', 9, 14, 13]], txt: 'Der große Brustmuskel liegt vorn auf dem Brustkorb. Er drückt die Arme nach vorn und zieht sie zusammen.', lab: [['Brustmuskel', 'shd', 75, 20]] },
+    { p: ['S'], spot: [['shd', 0, 2, 12]], txt: 'Der Deltamuskel umhüllt das Schultergelenk wie eine Kappe. Er hebt den Arm nach vorn, zur Seite und nach hinten.', lab: [['Deltamuskel', 'shd', 75, -20]] },
+    { p: ['A', 'B'], hi: ['ar1', 'ar2'], spot: [['shd', 6, 8, 12]], txt: 'Brust und vordere Schulter arbeiten beim Drücken zusammen – zum Beispiel beim Liegestütz.' },
+    { p: ['A', 'B'], txt: 'Diese Übungen trainieren sie: Liegestütz, Dips, Brustdrücken mit Band, Schulterdrücken, Seitheben und Pike-Liegestütz.' }
+  ],
+  info: ['Brust- und Schultermuskeln bewegen deine Arme vor dem Körper und nach oben.',
+         'Brustmuskel vorn auf dem Brustkorb, Deltamuskel als Kappe um die Schulter.',
+         'Wichtig für Drücken, Schieben, Heben und Tragen über Kopf.',
+         'Die Schulter ist das beweglichste Gelenk – deshalb immer gut aufwärmen.'] },
+
+{ id: 'm_arme', b: 'muskeln', t: 'Armmuskeln', s: 'Bizeps, Trizeps und Unterarme', m: 'Bizeps, Trizeps, Unterarmmuskeln', lvl: 'Einsteiger',
+  poses: { S: ST(200), A: ST(200, { a1: [0, 4], a2: [2, 6] }), B: ST(200, { a1: [0, 158], a2: [4, 160] }) },
+  steps: [
+    { p: ['S'], spot: [['ar2m', 6, 0, 10]], txt: 'Vorn am Oberarm liegt der Bizeps. Er beugt den Ellbogen – zum Beispiel beim Heben einer Tasche.', lab: [['Bizeps', 'ar2m', 70, -10]] },
+    { p: ['S'], spot: [['ar2m', -6, 0, 10]], txt: 'Hinten liegt der Trizeps. Er streckt den Arm und ist sogar größer als der Bizeps.', lab: [['Trizeps', 'ar2m', -70, -10]] },
+    { p: ['S'], spot: [['fa2m', 0, 0, 9]], txt: 'Die Unterarmmuskeln bewegen Hand und Finger – sie sorgen für einen festen Griff.', lab: [['Unterarm', 'fa2m', 70, 10]] },
+    { p: ['A', 'B'], hi: ['ar1', 'ar2'], txt: 'Diese Übungen trainieren die Arme: Curls und Rudern (Bizeps), Dips und Diamant-Liegestütz (Trizeps), Klimmzug (Griff).' }
+  ],
+  info: ['Die Armmuskeln beugen und strecken den Ellbogen und bewegen die Hand.',
+         'Bizeps vorn, Trizeps hinten, Unterarmmuskeln für Hand und Griff.',
+         'Starke Arme helfen beim Tragen, Heben und Ziehen im Alltag.',
+         'Wer dickere Arme will, sollte vor allem den Trizeps trainieren – er macht den größeren Teil aus.'] },
+
+/* ---------- Familien-Fitness ---------- */
+{ id: 'partnersquat', b: 'familie', t: 'Partner-Kniebeuge', s: 'Gemeinsam runter und hoch', m: 'Beine, Po', lvl: 'Einsteiger', duo: 1,
+  props: { mat: [60, 340] },
+  poses: { A: ST(150, { a1: ik(197, 132, -1), a2: ik(199, 134, -1) }), B: { x: 130, y: 208, t: 165, a1: ik(197, 140, -1), a2: ik(199, 142, -1), l1: ik(148, G), l2: ik(154, G) } },
+  seg: 1.3,
+  steps: [
+    { p: ['A'], txt: 'Zu zweit gegenüber stellen und an den Händen fassen. Etwa eine Armlänge Abstand.', lab: [['An den Händen fassen', 'hnd2', 0, -40]] },
+    { p: ['A', 'B'], pt: ['RUNTER', 'HOCH'], txt: 'Gleichzeitig in die Kniebeuge gehen. Ihr haltet euch gegenseitig im Gleichgewicht.', arr: [[110, 130, 100, 190, -10]] },
+    { p: ['B'], hi: ['th1', 'th2'], txt: 'Unten lehnt ihr euch leicht nach hinten – so könnt ihr tiefer gehen als allein.', lab: [['Gemeinsam halten', 'hnd2', 0, -40]] },
+    { p: ['A', 'B'], pt: ['10 ZUSAMMEN'], txt: 'Zählt laut gemeinsam. Toll für Eltern und Kinder – auch mit unterschiedlicher Größe.' }
+  ],
+  info: ['Eine Kniebeuge zu zweit, bei der ihr euch an den Händen haltet.',
+         'Gegenüber stehen, Hände fassen, gleichzeitig runter und hoch, leicht nach hinten lehnen.',
+         'Gemeinsam macht Training mehr Spaß – und ihr motiviert euch gegenseitig.',
+         'Kinder machen gern mit, wenn Erwachsene mittrainieren. Macht ein Spiel daraus.'] },
+
+{ id: 'abklatsch', b: 'familie', t: 'Abklatsch-Liegestütz', s: 'Liegestütz mit High Five', m: 'Brust, Arme, Rumpf', lvl: 'Mittel', duo: 1,
+  props: { mat: [0, 400] },
+  poses: { T: shiftP(PU_T, -85), B: shiftP(PU_B, -85), C: Object.assign(shiftP(PU_T, -85), { a2: [45, 25] }) },
+  seg: .8,
+  steps: [
+    { p: ['T'], txt: 'Zu zweit in der Liegestützposition gegenüber, die Köpfe zeigen zueinander.', lab: [['Köpfe zueinander', 'head', 0, -40]] },
+    { p: ['T', 'B'], pt: ['RUNTER', 'HOCH'], txt: 'Gleichzeitig einen Liegestütz machen – wer kann, normal, sonst auf den Knien.' },
+    { p: ['T', 'B', 'T', 'C'], pt: ['', '', 'ABKLATSCHEN!', ''], txt: 'Oben angekommen klatscht ihr euch mit einer Hand ab – dann die Hand wechseln.', lab: [['High Five', 'hnd2', 0, -50]] },
+    { p: ['T', 'B', 'T', 'C'], hi: ['tr'], txt: 'Beim Abklatschen die Hüfte ruhig halten. Wer schafft zusammen 10?' }
+  ],
+  info: ['Liegestütz zu zweit, bei dem ihr euch zwischendurch abklatscht.',
+         'Gegenüber in der Liegestützposition, gleichzeitig runter und hoch, oben abklatschen.',
+         'Trainiert Brust, Arme und Rumpf – und das Abklatschen fordert die Stabilität.',
+         'Einer auf den Knien, einer normal – so passt die Übung für jedes Fitnesslevel.'] },
+
+{ id: 'baerengang', b: 'familie', t: 'Bärengang', s: 'Krabbeln wie ein Bär', m: 'Schultern, Rumpf, Beine, Koordination', lvl: 'Einsteiger',
+  props: { mat: [80, 340] },
+  poses: { A: { x: 175, y: 185, t: 102, a1: ik(240, G, -1), a2: ik(250, G, -1), l1: ik(150, 240), l2: ik(158, 240), ft1: 25, ft2: 25 },
+           B: { x: 185, y: 185, t: 102, a1: ik(258, G, -1), a2: ik(250, G, -1), l1: ik(170, 240), l2: ik(158, 240), ft1: 25, ft2: 25 } },
+  seg: .55,
+  steps: [
+    { p: ['A'], txt: 'Auf Hände und Füße gehen, die Knie schweben knapp über dem Boden. Der Rücken ist gerade.', lab: [['Knie schweben', 'kne2', 40, 20]] },
+    { p: ['A', 'B'], pt: ['KRABBELN'], txt: 'Jetzt vorwärts krabbeln: rechte Hand und linker Fuß gleichzeitig, dann die andere Seite.', arr: [[200, 140, 270, 140, 0]] },
+    { p: ['A', 'B'], hi: ['tr', 'ar1', 'ar2'], txt: 'Die Hüfte bleibt tief und ruhig. Langsam ist schwerer als schnell!' },
+    { p: ['A', 'B'], hold: 30, pt: ['WETTRENNEN?'], txt: 'Für Kinder ein Riesenspaß: Bären-Wettrennen durchs Wohnzimmer – 2 × 30 Sekunden.' }
+  ],
+  info: ['Beim Bärengang krabbelst du auf Händen und Füßen mit schwebenden Knien.',
+         'Knie knapp über dem Boden, Rücken gerade, diagonal Hand und Fuß bewegen.',
+         'Trainiert den ganzen Körper und die Koordination – ganz spielerisch.',
+         'Auch rückwärts oder seitwärts krabbeln – das ist eine neue Herausforderung.'] },
+
+{ id: 'froschsprung', b: 'familie', t: 'Froschsprünge', s: 'Hüpfen wie ein Frosch', m: 'Beine, Po, Herz-Kreislauf', lvl: 'Einsteiger',
+  props: { mat: [80, 340] },
+  poses: { Q: { x: 180, y: 215, t: 125, a1: ik(229, G, -1), a2: ik(233, G, -1), l1: ik(204, G), l2: ik(210, G) },
+           J: { x: 205, y: 142, t: 160, a1: [160, 170], a2: [155, 165], l1: [-10, -20], l2: [-5, -15], ft1: 40, ft2: 40 } },
+  seg: .6,
+  steps: [
+    { p: ['Q'], txt: 'Tief in die Hocke gehen, die Hände berühren zwischen den Füßen den Boden – wie ein Frosch.', lab: [['Hände am Boden', 'hnd2', 40, -30]] },
+    { p: ['Q', 'J'], pt: ['QUAAAK!'], txt: 'Kräftig nach vorn oben abspringen und die Arme nach oben strecken.', arr: [[200, 200, 260, 110, -25]] },
+    { p: ['Q', 'J'], hi: ['th1', 'th2'], pt: ['WEICH LANDEN'], txt: 'Weich wieder in der Hocke landen und direkt den nächsten Sprung machen.' },
+    { p: ['Q', 'J'], hold: 20, pt: ['10 SPRÜNGE'], txt: 'Wer springt am weitesten? 2 × 10 Sprünge – mit genug Platz und ohne Hindernisse.' }
+  ],
+  info: ['Froschsprünge sind Sprünge aus der tiefen Hocke nach vorn.',
+         'Tiefe Hocke, Hände am Boden, nach vorn oben springen, weich in der Hocke landen.',
+         'Trainiert Beinkraft und Ausdauer – und Kinder lieben es.',
+         'Auf rutschfestem Boden springen und vorher Platz schaffen.'] },
+
+/* ---------- Fit im Alltag ---------- */
+{ id: 'heben', b: 'alltag', t: 'Richtig heben', s: 'Kisten heben ohne Rückenschmerzen', m: 'Beine, Po, Rücken', lvl: 'Einsteiger',
+  props: { carry: 1 },
+  poses: { Q: { x: 175, y: 205, t: 135, a1: ik(226, 236, -1), a2: ik(230, 236, -1), l1: ik(200, G), l2: ik(206, G) },
+           S: ST(200, { a1: [5, 25], a2: [6, 26] }),
+           R: { x: 182, y: 158, t: 100, cv: -18, a1: [0, 0], a2: [2, 0], l1: ik(198, G), l2: ik(204, G) } },
+  seg: 1.5,
+  steps: [
+    { p: ['Q'], ok: 1, ln: [['head', 'hip']], txt: 'Nah an die Kiste herangehen, Füße schulterbreit. In die Knie gehen, der Rücken bleibt gerade.', lab: [['Rücken gerade', 'mid', -30, -45], ['Nah an der Kiste', 'hnd2', 50, -30]] },
+    { p: ['Q', 'S'], pt: ['HEBEN', 'ABSETZEN'], txt: 'Die Kiste fest greifen und mit der Kraft aus den Beinen aufstehen – nicht aus dem Rücken.', arr: [[290, 220, 290, 160, 0]] },
+    { p: ['S'], hi: ['th1', 'th2'], txt: 'Die Last nah am Körper tragen. Nicht mit der Last in den Armen den Oberkörper verdrehen – lieber mit den Füßen umdrehen.' },
+    { p: ['R'], bad: 1, txt: 'Falsch: mit gestreckten Beinen und rundem Rücken heben. Das belastet die Bandscheiben enorm.', lab: [['Runder Rücken', 'mid', -20, -50]] }
+  ],
+  info: ['Rückenschonendes Heben nutzt die Kraft der Beine statt des Rückens.',
+         'Nah ran, in die Knie, Rücken gerade, aus den Beinen hochdrücken, Last nah am Körper.',
+         'So beugst du Rückenschmerzen und Bandscheibenproblemen vor – bei der Arbeit und zu Hause.',
+         'Schwere Lasten lieber zu zweit tragen oder eine Sackkarre nutzen.'] },
+
+{ id: 'tragen', b: 'alltag', t: 'Richtig tragen', s: 'Einkäufe und Taschen', m: 'Rumpf, Schultern, Griff', lvl: 'Einsteiger',
+  props: { db: 1 },
+  poses: CARRY,
+  seg: .6,
+  steps: [
+    { p: ['A'], txt: 'Taschen möglichst gleichmäßig auf beide Hände verteilen. Das hält den Körper im Gleichgewicht.', lab: [['Links und rechts gleich', 'hnd2', 60, 0]] },
+    { p: ['A', 'M', 'B', 'N'], pt: ['AUFRECHT GEHEN'], txt: 'Aufrecht gehen, Schultern nach hinten unten, Bauch leicht fest.', lab: [['Schultern unten', 'shd', 60, -10]] },
+    { p: ['A', 'M', 'B', 'N'], hi: ['tr', 'ar1', 'ar2'], txt: 'Das ist sogar eine echte Übung: der „Farmer’s Walk“. Er trainiert Griff, Schultern und Rumpf.' },
+    { p: ['A', 'M', 'B', 'N'], pt: ['RUCKSACK'], txt: 'Für längere Wege ist ein Rucksack auf beiden Schultern besser als eine Tasche auf einer Seite.' }
+  ],
+  info: ['Richtiges Tragen verteilt die Last gleichmäßig und schont den Rücken.',
+         'Last auf beide Seiten verteilen, aufrecht gehen, Schultern unten, Bauch fest.',
+         'Einseitiges Tragen führt auf Dauer zu Verspannungen und schiefer Haltung.',
+         'Mach aus dem Einkauf ein Training: Die Taschen bewusst aufrecht und mit festem Griff tragen.'] },
+
+{ id: 'bewegtepause', b: 'alltag', t: 'Bewegte Pausen', s: 'Raus aus dem Dauersitzen', m: 'Ganzer Körper', lvl: 'Einsteiger', scene: 'day',
+  steps: [
+    { txt: 'Viele Menschen sitzen 8 Stunden und mehr am Tag. Langes Sitzen am Stück ist schlecht für Rücken, Kreislauf und Stoffwechsel.' },
+    { txt: 'Die einfache Regel: Etwa alle 30 bis 60 Minuten kurz aufstehen und bewegen.' },
+    { txt: 'Ideen: im Stehen telefonieren, Treppe statt Aufzug, Wasser selbst holen, zum Kollegen gehen statt mailen.' },
+    { txt: 'Mini-Pause mit 2 Minuten: 10 Kniebeugen, 10 Armkreise, einmal strecken – und weiter geht’s.' }
+  ],
+  info: ['Bewegungspausen unterbrechen das lange Sitzen im Alltag.',
+         'Alle 30–60 Minuten aufstehen, kurz bewegen, Treppe nehmen, im Stehen telefonieren.',
+         'Schon kurze Pausen fördern Durchblutung, Konzentration und einen gesunden Rücken.',
+         'Stell dir einen Wecker oder eine Erinnerung – nach ein paar Wochen wird es zur Gewohnheit.'] }
+);
+
+LESSONS.sort((a, b) => AREAS.findIndex(x => x.id === a.b) - AREAS.findIndex(x => x.id === b.b));
+
+QUIZ.push(
+  ['Wie viel sollten Erwachsene ungefähr pro Tag trinken?', ['Rund 1,5 Liter', 'Ein halbes Glas', '10 Liter', 'Nur beim Sport'], 'Etwa 1,5 Liter am Tag, beim Sport zusätzlich mehr.', 'trinken'],
+  ['Wie groß ist beim Teller-Trick der Gemüse- und Obstanteil?', ['Die Hälfte des Tellers', 'Ein Zehntel', 'Gar nichts', 'Der ganze Teller'], 'Die Hälfte Gemüse und Obst, je ein Viertel Beilage und Eiweiß.', 'eiweiss'],
+  ['Welches Lebensmittel ist eine gute Eiweißquelle?', ['Linsen', 'Limonade', 'Gummibärchen', 'Kartoffelchips'], 'Hülsenfrüchte wie Linsen enthalten viel Eiweiß.', 'eiweiss'],
+  ['Wo befestigst du das Band beim Rudern mit Gummiband?', ['Auf Brusthöhe vor dir', 'Am Fuß', 'Über dem Kopf hinter dir', 'Gar nicht'], 'Auf Brusthöhe vor dir – dann ziehst du die Ellbogen nach hinten.', 'bandrudern'],
+  ['Welche Muskeln trainieren Face Pulls vor allem?', ['Hintere Schulter und oberer Rücken', 'Waden', 'Bauch', 'Vordere Oberschenkel'], 'Face Pulls stärken die oft vernachlässigte hintere Schulter.', 'facepull'],
+  ['Was trainiert der Diamant-Liegestütz besonders?', ['Den Trizeps', 'Die Waden', 'Den Po', 'Den Nacken'], 'Durch die enge Handstellung arbeitet vor allem der Trizeps.', 'diamant'],
+  ['Was berührt beim Handstand an der Wand die Wand?', ['Die Fersen', 'Der Kopf', 'Die Hände', 'Der Bauch'], 'Die Hände stehen vor der Wand, die Fersen lehnen daran.', 'handstand'],
+  ['Wo sitzt das Miniband beim Monster Walk?', ['Oberhalb der Knie', 'Um den Hals', 'Um die Handgelenke', 'Um den Bauch'], 'Das Band liegt über den Knien und bleibt beim Seitwärtsgehen gespannt.', 'monsterwalk'],
+  ['Wo liegt bei der Bulgarischen Kniebeuge der hintere Fuß?', ['Erhöht auf einer Bank', 'Auf dem Knie des Partners', 'In der Luft vor dem Körper', 'Auf dem anderen Fuß'], 'Der hintere Fuß liegt mit dem Spann auf einer Bank.', 'bulgarisch'],
+  ['Was ist ein Pistol Squat?', ['Eine Kniebeuge auf einem Bein', 'Ein Liegestütz mit Sprung', 'Ein Sprint', 'Eine Dehnung im Sitzen'], 'Eine komplette Kniebeuge auf nur einem Bein.', 'pistol'],
+  ['Wo landet beim Laufen idealerweise der Fuß?', ['Etwa unter dem Körper', 'Weit vor dem Körper', 'Hinter dem Körper', 'Neben dem Körper'], 'Kleine, schnelle Schritte mit Landung unter dem Körper schonen die Gelenke.', 'lauftechnik'],
+  ['Woran erkennst du beim Laufen das richtige Tempo?', ['Du kannst noch ganze Sätze sprechen', 'Du bekommst kaum Luft', 'Dir wird schwindelig', 'Du musst stehen bleiben'], 'Der Sprechtest: Reden muss noch möglich sein.', 'laufatmung'],
+  ['Was hilft bei Seitenstechen?', ['Tempo raus, tief ausatmen, sanft auf die Stelle drücken', 'Schneller laufen', 'Viel trinken während des Sprints', 'Luft anhalten'], 'Tempo reduzieren und tief ausatmen hilft meistens.', 'laufatmung'],
+  ['Wie startet Woche 1 des 8-Wochen-Laufplans?', ['1 Minute laufen, 2 Minuten gehen', '30 Minuten am Stück laufen', '10 km joggen', 'Nur dehnen'], 'Ganz sanft mit Lauf-Geh-Wechseln.', 'laufplan'],
+  ['Wie oft pro Woche läufst du im 8-Wochen-Plan?', ['3-mal', 'Jeden Tag zweimal', 'Einmal im Monat', '7-mal'], 'Dreimal pro Woche mit Ruhetagen dazwischen.', 'laufplan'],
+  ['Was dehnst du nach dem Laufen an der Wand mit gestrecktem hinteren Bein?', ['Die Wade', 'Den Bizeps', 'Den Nacken', 'Die Brust'], 'Hinteres Bein gestreckt, Ferse am Boden – das dehnt die Wade.', 'laufdehnen'],
+  ['Wobei hilft gutes Gleichgewicht besonders?', ['Es beugt Stürzen vor', 'Es ersetzt das Trinken', 'Es macht größer', 'Bei gar nichts'], 'Gleichgewichtstraining senkt das Sturzrisiko in jedem Alter.', 'einbeinstand'],
+  ['Wie sieht der Körper bei der Standwaage aus?', ['Waagerecht wie ein Flugzeug', 'Wie eine Kugel', 'Senkrecht kopfüber', 'Wie ein V'], 'Arme, Rücken und Bein bilden eine waagerechte Linie.', 'standwaage'],
+  ['Wie setzt du beim Seiltänzer-Gang die Füße?', ['Ferse direkt vor die Zehen', 'Weit auseinander', 'Nur auf den Fersen', 'Mit Sprüngen'], 'Ferse an Zehen auf einer Linie.', 'seiltaenzer'],
+  ['Wofür ist Armkreisen gut?', ['Es mobilisiert die Schultern', 'Es trainiert die Waden', 'Es senkt den Blutzucker sofort', 'Es dehnt die Füße'], 'Große Armkreise bringen die Schultergelenke in Bewegung.', 'schulterkreisen'],
+  ['Was bewegt sich beim Hüftkreisen?', ['Vor allem das Becken', 'Nur der Kopf', 'Nur die Finger', 'Die Füße hüpfen'], 'Das Becken kreist, der Oberkörper bleibt ruhig.', 'hueftkreisen'],
+  ['Was passiert am Ende der „weltbesten Dehnung“?', ['Ein Arm wird zur Decke aufgedreht', 'Man springt hoch', 'Man legt sich auf den Bauch', 'Man rennt los'], 'Aus dem Ausfallschritt wird der Oberkörper zur Decke aufgedreht.', 'weltbeste'],
+  ['Welcher Muskel liegt vorn am Oberschenkel?', ['Der Quadrizeps', 'Der Bizeps', 'Der Latissimus', 'Der Trapezmuskel'], 'Der Quadrizeps ist der große Muskel vorn am Oberschenkel.', 'm_beine'],
+  ['Welcher Muskel streckt die Hüfte beim Aufstehen?', ['Der große Gesäßmuskel', 'Der Bizeps', 'Der Brustmuskel', 'Der Unterarm'], 'Der große Gesäßmuskel ist einer der kräftigsten Muskeln.', 'm_po'],
+  ['Wie heißt der Muskel, der das „Sixpack“ bildet?', ['Gerader Bauchmuskel', 'Trizeps', 'Wadenmuskel', 'Deltamuskel'], 'Der gerade Bauchmuskel verläuft vorn vom Brustkorb zum Becken.', 'm_bauch'],
+  ['Welcher ist der breiteste Muskel des Körpers?', ['Der Latissimus (großer Rückenmuskel)', 'Der Bizeps', 'Die Wade', 'Der Hüftbeuger'], 'Der Latissimus zieht sich breit über den Rücken.', 'm_ruecken'],
+  ['Welcher Muskel umhüllt das Schultergelenk wie eine Kappe?', ['Der Deltamuskel', 'Der Quadrizeps', 'Der gerade Bauchmuskel', 'Die Wade'], 'Der Deltamuskel hebt den Arm in alle Richtungen.', 'm_brust'],
+  ['Welcher Armmuskel streckt den Ellbogen?', ['Der Trizeps', 'Der Bizeps', 'Der Brustmuskel', 'Der Hüftbeuger'], 'Der Trizeps auf der Rückseite streckt den Arm.', 'm_arme'],
+  ['Was macht ihr bei der Partner-Kniebeuge?', ['An den Händen halten und gemeinsam in die Hocke gehen', 'Aufeinander springen', 'Rücken an Rücken rennen', 'Abwechselnd schlafen'], 'Gegenüber stehen, Hände fassen, gemeinsam runter und hoch.', 'partnersquat'],
+  ['Wann klatscht ihr beim Abklatsch-Liegestütz ab?', ['Oben in der Liegestützposition', 'Unten am Boden', 'Im Stehen nach dem Training', 'Gar nicht'], 'Oben angekommen klatscht ihr euch mit einer Hand ab.', 'abklatsch'],
+  ['Was ist beim Bärengang wichtig?', ['Die Knie schweben knapp über dem Boden', 'Die Knie liegen auf dem Boden', 'Man geht aufrecht', 'Man springt'], 'Schwebende Knie machen den Bärengang so effektiv.', 'baerengang'],
+  ['Wie landest du nach einem Froschsprung?', ['Weich in der Hocke', 'Mit gestreckten Beinen', 'Auf dem Bauch', 'Auf einem Bein'], 'Weich in der Hocke landen schont die Gelenke.', 'froschsprung'],
+  ['Woher kommt beim richtigen Heben die Kraft?', ['Aus den Beinen', 'Aus dem runden Rücken', 'Aus dem Nacken', 'Aus den Fingern allein'], 'In die Knie gehen und aus den Beinen hochdrücken.', 'heben'],
+  ['Wie trägst du Einkäufe am besten?', ['Gleichmäßig auf beide Hände verteilt', 'Alles in einer Hand', 'Auf dem Kopf', 'Mit krummem Rücken'], 'Gleichmäßig verteilt bleibt der Körper im Gleichgewicht.', 'tragen'],
+  ['Wie oft solltest du bei Sitzarbeit kurz aufstehen?', ['Etwa alle 30–60 Minuten', 'Einmal pro Woche', 'Nie', 'Nur nach Feierabend'], 'Regelmäßige kurze Pausen unterbrechen das Dauersitzen.', 'bewegtepause']
+);
+
 /* ===== Bayazit Fitness-Schule – Engine ===== */
 const $ = (s, r) => (r || document).querySelector(s);
 const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
@@ -1184,6 +1760,7 @@ function poseCycle(arr, t, seg) {
   const u = (t / seg) % n, i = Math.floor(u), k = ease(u - i);
   return { pose: lerpPose(arr[i], arr[(i + 1) % n], k), i, k: u - i };
 }
+function jp(J, n) { if (J[n]) return J[n]; const g = SEGS[n.slice(0, -1)]; if (g && n.endsWith('m')) return { x: (J[g[0]].x + J[g[1]].x) / 2, y: (J[g[0]].y + J[g[1]].y) / 2 }; return J.hip; }
 const SEGS = { tr: ['hip', 'shd'], ar1: ['shd1', 'elb1'], fa1: ['elb1', 'hnd1'], ar2: ['shd2', 'elb2'], fa2: ['elb2', 'hnd2'],
   th1: ['hip1', 'kne1'], sn1: ['kne1', 'ank1'], th2: ['hip2', 'kne2'], sn2: ['kne2', 'ank2'], ft1: ['ank1', 'toe1'], ft2: ['ank2', 'toe2'] };
 
@@ -1236,6 +1813,13 @@ function drawProps(c, P, acc, J, t) {
     for (let x = 4; x < 400; x += 12) { c.moveTo(x, 258); c.lineTo(x + 7, 251); } c.stroke();
     line(c, [{ x: 0, y: 250 }, { x: 400, y: 250 }], C.ground, 2);
   }
+  if (P.wallR != null) {
+    c.fillStyle = hexA(C.ground.startsWith('#') ? C.ground : '#556677', .35); c.fillRect(P.wallR, 10, 12, 240);
+    line(c, [{ x: P.wallR, y: 10 }, { x: P.wallR, y: 250 }], C.ground, 2);
+  }
+  if (P.tape) line(c, [{ x: P.tape[0], y: 249 }, { x: P.tape[1], y: 249 }], acc, 3);
+  if (P.post != null) { line(c, [{ x: P.post, y: 20 }, { x: P.post, y: 250 }], C.ground, 5); }
+  if (P.band && J) { c.save(); c.globalAlpha = .9; [J.hnd1, J.hnd2].forEach(h => line(c, [{ x: P.band[0], y: P.band[1] }, h], '#f59e0b', 2.5)); c.restore(); c.fillStyle = '#f59e0b'; c.beginPath(); c.arc(P.band[0], P.band[1], 4.5, 0, 7); c.fill(); }
   if (P.mat) { c.fillStyle = hexA(acc, .28); rrect(c, P.mat[0], 245, P.mat[1] - P.mat[0], 5, 2.5); c.fill(); }
   if (P.bench) {
     const [x, y, w] = P.bench;
@@ -1320,15 +1904,21 @@ function drawLesson(c, L, tt) {
   const J = solve(pose);
   const fa = k => clamp((tl - k) / .35, 0, 1);
   drawProps(c, L.props, acc, J, tt);
-  if (st.ln) { c.save(); c.setLineDash([3, 6]); c.globalAlpha = fa(.3) * .9; st.ln.forEach(l => line(c, [J[l[0]], J[l[1]]], st.bad ? C.bad : C.ok, 2)); c.restore(); }
+  if (st.ln) { c.save(); c.setLineDash([3, 6]); c.globalAlpha = fa(.3) * .9; st.ln.forEach(l => line(c, [jp(J, l[0]), jp(J, l[1])], st.bad ? C.bad : C.ok, 2)); c.restore(); }
   const figCol = st.bad ? C.bad : C.fig, figCol2 = st.bad ? hexA(C.bad, .55) : C.fig2;
   const pulse = .7 + .3 * Math.sin(tt * 5);
+  if (L.duo) { const M = mirrorJ(J); drawFig(c, M, { col: hexA(acc, .95), col2: hexA(acc, .5), dotc: C.vid }); }
   drawFig(c, J, { col: figCol, col2: figCol2, hi: st.hi, hc: acc, glow: pulse, db: L.props && L.props.db, dbc: C.muted });
+  if (L.props && L.props.kband) { const k1 = J.kne1, k2 = J.kne2; line(c, [{ x: k1.x, y: k1.y - 8 }, { x: k2.x, y: k2.y - 8 }], '#f59e0b', 4); }
+  if (L.props && L.props.carry) { const h = J.hnd2; c.fillStyle = '#c08a4a'; rrect(c, h.x - 16, h.y - 14, 44, 30, 3); c.fill(); c.strokeStyle = '#8a5a2b'; c.lineWidth = 1.5; c.stroke(); line(c, [{ x: h.x - 16, y: h.y - 6 }, { x: h.x + 28, y: h.y - 6 }], '#8a5a2b', 1.5); }
+  if (st.spot) st.spot.forEach(sp => { const p = jp(J, sp[0]), x = p.x + sp[1], y = p.y + sp[2], r = sp[3] * (1 + .12 * Math.sin(tt * 4));
+    const g = c.createRadialGradient(x, y, 0, x, y, r * 1.6); g.addColorStop(0, hexA(acc, .95)); g.addColorStop(.5, hexA(acc, .55)); g.addColorStop(1, hexA(acc, 0));
+    c.globalAlpha = fa(.2); c.fillStyle = g; c.beginPath(); c.arc(x, y, r * 1.6, 0, 7); c.fill(); c.globalAlpha = 1; });
   if (st.ang) st.ang.forEach(n => angMark(c, J, n, acc, fa(.6)));
   if (st.arr) st.arr.forEach(a => arrow(c, a[0], a[1], a[2], a[3], a[4], acc, (tl - .5) / .6));
   if (st.lab) st.lab.forEach((l, i) => {
     const a = fa(.35 + i * .25); if (!a) return;
-    const p = J[l[1]] || J.hip, x = p.x + l[2], y = p.y + l[3];
+    const p = jp(J, l[1]), x = p.x + l[2], y = p.y + l[3];
     c.globalAlpha = a; c.strokeStyle = st.bad ? C.bad : acc; c.lineWidth = 1.2; c.beginPath(); c.moveTo(p.x, p.y); c.lineTo(clamp(x, 10, 390), clamp(y, 12, 268)); c.stroke();
     c.fillStyle = st.bad ? C.bad : acc; c.beginPath(); c.arc(p.x, p.y, 3.2, 0, 7); c.fill();
     pill(c, x, y, l[0].toUpperCase(), st.bad ? C.bad : acc);
@@ -1349,6 +1939,7 @@ function drawLesson(c, L, tt) {
   return si;
 }
 /* statisches Bild für Quiz/Vorschau */
+function mirrorJ(J) { const M = {}; for (const k in J) { const v = J[k]; M[k] = v && typeof v === 'object' && 'x' in v ? { x: 400 - v.x, y: v.y } : v; } return M; }
 function keyPose(L) {
   const st = L.steps.find(s => s.p && s.p.length > 1) || L.steps[0];
   return L.poses[st.p[st.p.length > 1 ? 1 : 0]];
@@ -1357,7 +1948,9 @@ function drawStatic(c, L) {
   c.fillStyle = C.vid; c.fillRect(0, 0, 400, 280); drawGrid(c);
   const J = solve(keyPose(L)), acc = AREA[L.b].c;
   drawProps(c, L.props, acc, J, 0);
+  if (L.duo) drawFig(c, mirrorJ(J), { col: hexA(acc, .95), col2: hexA(acc, .5) });
   drawFig(c, J, { col: C.fig, col2: C.fig2, db: L.props && L.props.db, dbc: C.muted });
+  if (L.props && L.props.carry) { const h = J.hnd2; c.fillStyle = '#c08a4a'; rrect(c, h.x - 16, h.y - 14, 44, 30, 3); c.fill(); }
 }
 function miniFig(c, id, keys, t, seg, cx, cy, s, col, col2) {
   const L = LES[id]; const pose = poseCycle(keys.map(k => L.poses[k]), t, seg).pose;
@@ -1657,7 +2250,7 @@ function renderHome() {
   </section>
   <section class="bento">
     ${AREAS.map((a, i) => { const [d, n] = progressOf(a.id); return `
-    <button class="tile${i === 0 ? ' wide' : ''}" style="--acc:${a.c}" data-go="b-${a.id}">
+    <button class="tile${i === 0 ? ' wide' : ''}${i === AREAS.length - 1 && AREAS.length % 2 === 0 ? ' widem' : ''}" style="--acc:${a.c}" data-go="b-${a.id}">
       <span class="ic">${a.ic}</span>
       <span class="tt">${esc(a.t.toUpperCase())}</span>
       <span class="ds">${esc(a.d)}</span>
@@ -1668,6 +2261,16 @@ function renderHome() {
       <span class="tt">QUIZ</span>
       <span class="ds">10 zufällige Fragen: Bilder, Wissen und Rechenaufgaben. Bestwert: ${best}/10</span>
       <span class="go">Quiz starten →</span>
+    </button>
+    <button class="tile" style="--acc:#f97316" data-go="timer">
+      <span class="ic">⏱️</span><span class="tt">TIMER</span>
+      <span class="ds">Intervall-Timer für Tabata, Zirkel und Lauf-Geh-Training – mit Signalton.</span>
+      <span class="go">Timer öffnen →</span>
+    </button>
+    <button class="tile" style="--acc:#38bdf8" data-go="tagebuch">
+      <span class="ic">📒</span><span class="tt">TAGEBUCH</span>
+      <span class="ds">Trainings eintragen und den Fortschritt als Kurve sehen.</span>
+      <span class="go">${LS.get('fit-log', []).length} Einträge →</span>
     </button>
   </section>
   <p class="note">Hinweis: Diese App ersetzt keine ärztliche Beratung. Bei Schmerzen, Verletzungen oder Vorerkrankungen vor dem Training ärztlich abklären lassen.</p>`;
@@ -1853,6 +2456,228 @@ function quizEnd() {
   $('#again').onclick = renderQuiz;
 }
 
+/* ---------- Szenen Paket 3 ---------- */
+Object.assign(SCENES, {
+  water(c, s, tl, acc, D) {
+    const glass = (x, y, k, col) => {
+      c.strokeStyle = C.muted; c.lineWidth = 2; c.beginPath(); c.moveTo(x, y); c.lineTo(x + 4, y + 50); c.lineTo(x + 30, y + 50); c.lineTo(x + 34, y); c.stroke();
+      if (k > 0) { const h = 46 * k; c.fillStyle = hexA(col, .75); c.beginPath(); c.moveTo(x + 4 - 0 + (1 - k) * 0, y + 50 - h); c.lineTo(x + 4, y + 49); c.lineTo(x + 30, y + 49); c.lineTo(x + 30 + (k) * 0, y + 50 - h); c.closePath(); c.fill(); }
+    };
+    if (s === 0) {
+      for (let i = 0; i < 6; i++) glass(52 + i * 52, 90, clamp((tl - i * .45) / .4, 0, 1), '#3b9eff');
+      txt(c, '6 GLÄSER × 250 ml ≈ 1,5 LITER', 200, 180, { fs: 14, al: 'center' });
+      txt(c, 'PRO TAG', 200, 204, { fs: 10, al: 'center', col: C.muted });
+    } else if (s === 1) {
+      for (let i = 0; i < 6; i++) glass(30 + i * 44, 90, 1, '#3b9eff');
+      for (let i = 0; i < 2; i++) glass(300 + i * 44, 90, clamp((tl - .5 - i * .6) / .5, 0, 1), acc);
+      txt(c, 'GRUNDBEDARF', 140, 165, { fs: 10, al: 'center', col: '#3b9eff' });
+      txt(c, '+ SPORT', 340, 165, { fs: 10, al: 'center', col: acc });
+      pill(c, 200, 215, '≈ 0,5–1 LITER EXTRA PRO STUNDE TRAINING', acc, { fs: 10 });
+    } else if (s === 2) {
+      const hrs = ['7', '9', '11', '13', '15', '17', '19'];
+      line(c, [{ x: 30, y: 200 }, { x: 370, y: 200 }], C.ground, 2);
+      hrs.forEach((h, i) => { const x = 50 + i * 50, a = clamp((tl - i * .4) / .3, 0, 1); txt(c, h + ' UHR', x, 220, { fs: 9, al: 'center', col: C.muted }); c.globalAlpha = a; glass(x - 17, 130, .8, '#3b9eff'); c.globalAlpha = 1; });
+      txt(c, 'ÜBER DEN TAG VERTEILT', 200, 60, { fs: 14, al: 'center' });
+    } else {
+      const items = [['💧 WASSER', 1, C.ok], ['🍵 UNGESÜSSTER TEE', 1, C.ok], ['🍹 SAFTSCHORLE', .8, '#f5c542'], ['🥤 LIMONADE', .25, C.bad]];
+      items.forEach((it, i) => {
+        const y = 60 + i * 46, a = clamp((tl - i * .4) / .3, 0, 1); c.globalAlpha = a;
+        txt(c, it[0], 40, y, { fs: 12 }); c.fillStyle = C.line; rrect(c, 230, y - 6, 130, 12, 6); c.fill();
+        c.fillStyle = it[2]; rrect(c, 230, y - 6, 130 * it[1], 12, 6); c.fill(); c.globalAlpha = 1;
+      });
+      txt(c, 'GUTE WAHL ←→ LIEBER SELTEN', 295, 250, { fs: 8, al: 'center', col: C.muted });
+    }
+  },
+  plate(c, s, tl, acc, D) {
+    const cx = s >= 2 ? 120 : 200, cy = 140, r = 92;
+    c.fillStyle = C.card; c.beginPath(); c.arc(cx, cy, r + 10, 0, 7); c.fill(); c.strokeStyle = C.line2; c.lineWidth = 2; c.stroke();
+    const parts = [['GEMÜSE & OBST', .5, '#2fd27a', -Math.PI / 2], ['BEILAGE', .25, '#f5c542', Math.PI / 2], ['EIWEISS', .25, '#ff4d6d', Math.PI]];
+    parts.forEach((p, i) => {
+      const a = s === 0 ? clamp((tl - i * .6) / .5, 0, 1) : 1; if (!a) return;
+      const hl = s === 2 ? i === 2 : true; c.globalAlpha = hl ? 1 : .35;
+      c.fillStyle = hexA(p[2], .85); c.beginPath(); c.moveTo(cx, cy); c.arc(cx, cy, r, p[3], p[3] + p[1] * Math.PI * 2 * a); c.closePath(); c.fill();
+      const m = p[3] + p[1] * Math.PI; txt(c, p[0], cx + Math.cos(m) * r * .55, cy + Math.sin(m) * r * .55, { fs: 9, al: 'center', col: '#08111a' });
+      txt(c, p[1] === .5 ? '½' : '¼', cx + Math.cos(m) * r * .55, cy + Math.sin(m) * r * .55 + 14, { fs: 12, al: 'center', col: '#08111a' });
+      c.globalAlpha = 1;
+    });
+    if (s === 1) pill(c, 200, 262, 'EINFACH ZU MERKEN – OHNE KALORIEN ZÄHLEN', acc, { fs: 9 });
+    if (s >= 2) {
+      const L = s === 2 ? ['🥛 Joghurt, Quark', '🥚 Eier', '🐟 Fisch', '🍗 Fleisch', '🫘 Linsen, Bohnen', '🧈 Tofu'] : ['✓ Ausgewogen essen', '✓ Genug trinken', '✓ Ausreichend schlafen', '✗ Keine Wundermittel nötig'];
+      L.forEach((t, i) => { c.globalAlpha = clamp((tl - i * .35) / .3, 0, 1); txt(c, t, 240, 50 + i * 32, { fs: 13, sans: 1, w: 600, col: t.startsWith('✗') ? C.bad : C.text }); c.globalAlpha = 1; });
+      txt(c, s === 2 ? 'EIWEISS-QUELLEN' : 'DAS REICHT', 240, 24, { fs: 10, col: acc });
+    }
+  },
+  run8(c, s, tl, acc, D) {
+    const W = [[[1, 2], 8], [[2, 2], 6], [[3, 2], 5], [[5, 2], 4], [[8, 2], 3], [[12, 2], 2], [[20, 0], 1, [[2, 0]], [8, 0]], [[30, 0], 1]];
+    const rows = [[[1, 2, 8]], [[2, 2, 6]], [[3, 2, 5]], [[5, 2, 4]], [[8, 2, 3]], [[12, 2, 2]], [[20, 2, 1], [8, 0, 1]], [[30, 0, 1]]];
+    const X0 = 70, PX = 300 / 32;
+    rows.forEach((r, i) => {
+      const y = 24 + i * 27, on = s === 0 ? i < 2 : s === 1 ? i >= 2 && i < 6 : s === 2 ? i >= 6 : true;
+      const a = clamp((tl - i * .15) / .3, 0, 1); c.globalAlpha = a * (on ? 1 : .3);
+      txt(c, 'WOCHE ' + (i + 1), 12, y + 8, { fs: 9, col: on ? acc : C.muted });
+      let x = X0;
+      r.forEach(([run, walk, n]) => { for (let k = 0; k < n; k++) { c.fillStyle = acc; rrect(c, x, y, Math.max(2, run * PX - 1), 16, 3); c.fill(); x += run * PX; if (walk) { c.fillStyle = hexA(C.muted.startsWith('#') ? C.muted : '#8796a8', .5); rrect(c, x, y, walk * PX - 1, 16, 3); c.fill(); x += walk * PX; } } });
+      c.globalAlpha = 1;
+    });
+    c.fillStyle = acc; rrect(c, 70, 245, 12, 10, 2); c.fill(); txt(c, 'LAUFEN', 88, 250, { fs: 9, col: C.muted });
+    c.fillStyle = hexA('#8796a8', .5); rrect(c, 160, 245, 12, 10, 2); c.fill(); txt(c, 'GEHEN', 178, 250, { fs: 9, col: C.muted });
+    if (s === 2) pill(c, 330, 250, '🏁 30 MIN ≈ 5 KM', acc, { fill: 1, fs: 9 });
+    if (s === 3) pill(c, 330, 250, '3 × PRO WOCHE', acc, { fill: 1, fs: 9 });
+    if (s === 4) pill(c, 330, 250, '↺ WOCHE WIEDERHOLEN OK', C.ok, { fill: 1, fs: 9 });
+  },
+  day(c, s, tl, acc, D) {
+    const X0 = 30, X1 = 370, y = 120, H = 34, hours = 8, px = (X1 - X0) / (hours * 60);
+    for (let h = 0; h <= hours; h++) txt(c, (8 + h) + ':00', X0 + h * 60 * px, y + H + 16, { fs: 8, al: 'center', col: C.muted });
+    c.fillStyle = hexA('#8796a8', .45); rrect(c, X0, y, X1 - X0, H, 6); c.fill();
+    txt(c, 'SITZEN', X0 + 6, y - 10, { fs: 9, col: C.muted, al: 'left' });
+    if (s === 0) { c.fillStyle = C.bad; c.globalAlpha = .9; txt(c, '8 STUNDEN AM STÜCK?', 200, 60, { fs: 16, al: 'center', col: C.bad }); c.globalAlpha = 1; }
+    if (s >= 1) {
+      const prog = s === 1 ? clamp(tl / (D * .8), 0, 1) : 1;
+      for (let m = 45; m < hours * 60; m += 45) { if (m / (hours * 60) > prog) break; c.fillStyle = acc; rrect(c, X0 + m * px - 3, y - 6, 6, H + 12, 3); c.fill(); }
+      txt(c, 'ALLE 30–60 MIN AUFSTEHEN', 200, 60, { fs: 13, al: 'center', col: acc });
+    }
+    if (s === 2) {
+      const ideas = ['📞 IM STEHEN TELEFONIEREN', '🪜 TREPPE STATT AUFZUG', '💧 WASSER SELBST HOLEN', '🚶 ZUM KOLLEGEN GEHEN'];
+      ideas.forEach((t, i) => { c.globalAlpha = clamp((tl - i * .45) / .3, 0, 1); pill(c, i % 2 ? 290 : 110, 205 + Math.floor(i / 2) * 28, t, acc, { fs: 9 }); c.globalAlpha = 1; });
+    }
+    if (s === 3) {
+      [['kniebeuge', ['A', 'B'], .6, '10 KNIEBEUGEN'], ['schulterkreisen', ['A', 'B', 'C', 'D'], .4, '10 ARMKREISE'], ['hueftkreisen', ['L', 'C', 'R', 'C'], .6, 'STRECKEN']].forEach((e, i) => {
+        const x = 80 + i * 120; c.save(); rrect(c, x - 50, 178, 100, 92, 10); c.clip(); c.fillStyle = hexA(acc, .1); c.fillRect(x - 50, 178, 100, 92);
+        miniFig(c, e[0], e[1], tl, e[2], x, 266, .3); c.restore(); txt(c, e[3], x, 188, { fs: 8, al: 'center', col: acc });
+      });
+      pill(c, 200, 22, '⏱ 2 MINUTEN MINI-PAUSE', acc, { fill: 1, fs: 10 });
+    }
+  }
+});
+
+/* ---------- Trainings-Timer ---------- */
+const TPRE = [
+  { n: 'Tabata', w: 20, r: 10, k: 8 },
+  { n: 'Zirkel', w: 40, r: 20, k: 15 },
+  { n: 'Morgen', w: 45, r: 15, k: 10 },
+  { n: 'Einsteiger', w: 20, r: 20, k: 8 },
+  { n: 'Laufen W1', w: 60, r: 120, k: 8 }
+];
+let TM = null;
+let actx = null;
+function beep(f, d) { try { actx = actx || new (window.AudioContext || window.webkitAudioContext)(); const o = actx.createOscillator(), g = actx.createGain(); o.frequency.value = f; o.connect(g); g.connect(actx.destination); g.gain.setValueAtTime(.25, actx.currentTime); g.gain.exponentialRampToValueAtTime(.001, actx.currentTime + d); o.start(); o.stop(actx.currentTime + d); } catch (e) { } }
+function renderTimer() {
+  stopVid(); setActive('timer');
+  const cfg = LS.get('fit-timer', { w: 20, r: 10, k: 8 });
+  view().innerHTML = `
+  <div class="crumbs"><button class="back" data-go="">← Startseite</button></div>
+  <section class="tool" style="--acc:#f97316">
+    <div class="kick">TRAININGS-TIMER</div>
+    <div class="presets">${TPRE.map((p, i) => `<button data-p="${i}">${esc(p.n)}<small>${p.w}/${p.r} s · ${p.k}×</small></button>`).join('')}</div>
+    <div class="clock"><div id="tph" class="tph">BEREIT</div><div id="tcl" class="tcl">00:00</div><div id="trd" class="trd">Runde 0 / 0</div><div class="bar"><i id="tbar" style="width:0%"></i></div></div>
+    <div class="tset">
+      <label>Belastung (s)<input id="tw" type="number" min="5" max="600" value="${cfg.w}"></label>
+      <label>Pause (s)<input id="tr" type="number" min="0" max="600" value="${cfg.r}"></label>
+      <label>Runden<input id="tk" type="number" min="1" max="50" value="${cfg.k}"></label>
+    </div>
+    <div class="fbb"><button class="primary" id="tgo">▶ Start</button><button class="ghost" id="tstop">↺ Zurücksetzen</button></div>
+    <p class="muted small">Mit Signalton: 3 kurze Töne vor jedem Wechsel. Lass den Bildschirm beim Training an.</p>
+  </section>`;
+  const get = () => ({ w: Math.max(5, +$('#tw').value || 20), r: Math.max(0, +$('#tr').value || 0), k: Math.max(1, +$('#tk').value || 1) });
+  $$('.presets button').forEach(b => b.onclick = () => { const p = TPRE[+b.dataset.p]; $('#tw').value = p.w; $('#tr').value = p.r; $('#tk').value = p.k; reset(); });
+  const show = () => {
+    if (!TM) return;
+    const left = Math.max(0, Math.ceil(TM.left));
+    $('#tcl').textContent = String(Math.floor(left / 60)).padStart(2, '0') + ':' + String(left % 60).padStart(2, '0');
+    $('#tph').textContent = TM.done ? 'GESCHAFFT! 💪' : TM.ph === 'p' ? 'VORBEREITEN' : TM.ph === 'w' ? 'BELASTUNG' : 'PAUSE';
+    $('#tph').style.color = TM.ph === 'w' ? '#ff4d6d' : TM.ph === 'r' ? '#2fd27a' : '';
+    $('#trd').textContent = 'Runde ' + TM.rnd + ' / ' + TM.c.k;
+    const tot = TM.ph === 'w' ? TM.c.w : TM.ph === 'r' ? TM.c.r : 5;
+    $('#tbar').style.width = (100 - TM.left / tot * 100) + '%';
+  };
+  const reset = () => { if (TM && TM.iv) clearInterval(TM.iv); TM = { c: get(), ph: 'p', left: 5, rnd: 0, run: false }; $('#tgo').textContent = '▶ Start'; show(); };
+  const tick = () => {
+    if (!TM.run || !$('#tcl')) { if (!$('#tcl') && TM) clearInterval(TM.iv); return; }
+    const now = performance.now(), dt = (now - TM.last) / 1000; TM.last = now;
+    const before = Math.ceil(TM.left); TM.left -= dt; const after = Math.ceil(TM.left);
+    if (after !== before && after <= 3 && after > 0) beep(660, .12);
+    if (TM.left <= 0) {
+      if (TM.ph === 'p' || TM.ph === 'r') { if (TM.rnd >= TM.c.k) { TM.done = true; TM.run = false; beep(990, .6); show(); return; } TM.ph = 'w'; TM.rnd++; TM.left = TM.c.w; beep(990, .35); }
+      else if (TM.c.r > 0 && TM.rnd < TM.c.k) { TM.ph = 'r'; TM.left = TM.c.r; beep(440, .35); }
+      else if (TM.rnd >= TM.c.k) { TM.done = true; TM.run = false; TM.left = 0; beep(990, .6); show(); return; }
+      else { TM.rnd++; TM.left = TM.c.w; beep(990, .35); }
+    }
+    show();
+  };
+  $('#tgo').onclick = () => {
+    if (!TM || TM.done) reset();
+    LS.set('fit-timer', TM.c);
+    TM.run = !TM.run; TM.last = performance.now(); $('#tgo').textContent = TM.run ? '❚❚ Pause' : '▶ Weiter';
+    if (TM.run) { beep(520, .05); if (!TM.iv) TM.iv = setInterval(tick, 100); }
+  };
+  $('#tstop').onclick = reset;
+  ['#tw', '#tr', '#tk'].forEach(s => $(s).onchange = reset);
+  reset();
+}
+
+/* ---------- Trainingstagebuch ---------- */
+function renderLog() {
+  stopVid(); setActive('tagebuch');
+  const log = LS.get('fit-log', []);
+  const today = new Date(); const iso = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
+  const ex = LESSONS.filter(l => !l.scene && l.b !== 'muskeln');
+  const used = [...new Set(log.map(e => e.ex))];
+  const sel = LS.get('fit-logsel', used[0] || 'kniebeuge');
+  view().innerHTML = `
+  <div class="crumbs"><button class="back" data-go="">← Startseite</button></div>
+  <section class="tool" style="--acc:#38bdf8">
+    <div class="kick">TRAININGSTAGEBUCH</div>
+    <h2>Training eintragen</h2>
+    <div class="tset log">
+      <label>Datum<input id="ld" type="date" value="${iso}"></label>
+      <label class="wide">Übung<select id="lx">${AREAS.map(a => { const ls = ex.filter(l => l.b === a.id); return ls.length ? `<optgroup label="${esc(a.t)}">${ls.map(l => `<option value="${l.id}" ${l.id === sel ? 'selected' : ''}>${esc(l.t)}</option>`).join('')}</optgroup>` : ''; }).join('')}</select></label>
+      <label>Sätze<input id="ls" type="number" min="1" max="20" value="3"></label>
+      <label>Wdh. / Sek.<input id="lw" type="number" min="1" max="999" value="10"></label>
+      <label>Gewicht (kg)<input id="lk" type="number" min="0" max="500" step="0.5" placeholder="optional"></label>
+    </div>
+    <div class="fbb"><button class="primary" id="ladd">+ Eintragen</button></div>
+    <p id="lmsg" class="muted small"></p>
+  </section>
+  <section class="tool" style="--acc:#38bdf8">
+    <div class="kick">FORTSCHRITT</div>
+    <h2 id="lct">${esc((LES[sel] || {}).t || '')}</h2>
+    <canvas id="lcv" class="lcv"></canvas>
+    <p class="muted small">Die Kurve zeigt pro Tag: Sätze × Wiederholungen (bzw. Sekunden).</p>
+  </section>
+  <section class="tool" style="--acc:#38bdf8">
+    <div class="kick" id="lcount">LETZTE EINTRÄGE</div>
+    <div id="llist" class="llist"></div>
+    <p class="muted small">Die Einträge werden nur auf diesem Gerät im Browser gespeichert.</p>
+  </section>`;
+  const draw = () => {
+    const id = $('#lx').value; LS.set('fit-logsel', id); $('#lct').textContent = (LES[id] || {}).t || '';
+    const pts = {}; LS.get('fit-log', []).filter(e => e.ex === id).forEach(e => { pts[e.d] = (pts[e.d] || 0) + e.s * e.w; });
+    const days = Object.keys(pts).sort(), cv = $('#lcv'), w = cv.clientWidth || 340, dpr = Math.min(2.5, window.devicePixelRatio || 1);
+    cv.width = w * dpr; cv.height = w * .5 * dpr; const c = cv.getContext('2d'); c.setTransform(cv.width / 400, 0, 0, cv.width / 400, 0, 0);
+    c.fillStyle = C.vid; c.fillRect(0, 0, 400, 200);
+    if (!days.length) { txt(c, 'NOCH KEINE EINTRÄGE', 200, 100, { fs: 12, al: 'center', col: C.muted }); return; }
+    const mx = Math.max(...days.map(d => pts[d])) * 1.15, X0 = 40, X1 = 385, Y0 = 20, Y1 = 170;
+    c.strokeStyle = C.line; c.lineWidth = 1; for (let i = 0; i <= 4; i++) { const y = Y1 - (Y1 - Y0) * i / 4; c.beginPath(); c.moveTo(X0, y); c.lineTo(X1, y); c.stroke(); txt(c, String(Math.round(mx * i / 4)), X0 - 6, y, { fs: 8, al: 'right', col: C.muted }); }
+    const P = days.map((d, i) => ({ x: days.length === 1 ? (X0 + X1) / 2 : X0 + (X1 - X0) * i / (days.length - 1), y: Y1 - (Y1 - Y0) * pts[d] / mx, d }));
+    line(c, P, '#38bdf8', 3);
+    P.forEach((p, i) => { c.fillStyle = '#38bdf8'; c.beginPath(); c.arc(p.x, p.y, 4, 0, 7); c.fill(); if (days.length <= 8 || i % Math.ceil(days.length / 8) === 0) txt(c, p.d.slice(8, 10) + '.' + p.d.slice(5, 7) + '.', p.x, 186, { fs: 8, al: 'center', col: C.muted }); });
+  };
+  const list = () => {
+    const L = LS.get('fit-log', []).slice().reverse().slice(0, 30); $('#lcount').textContent = 'LETZTE EINTRÄGE · ' + LS.get('fit-log', []).length;
+    $('#llist').innerHTML = L.length ? L.map(e => `<div class="lrow"><span>${e.d.slice(8, 10)}.${e.d.slice(5, 7)}.${e.d.slice(0, 4)}</span><b>${esc((LES[e.ex] || {}).t || e.ex)}</b><span>${e.s} × ${e.w}${e.k ? ' · ' + String(e.k).replace('.', ',') + ' kg' : ''}</span><button data-del="${e.id}" aria-label="Löschen">✕</button></div>`).join('') : '<p class="muted small">Noch nichts eingetragen.</p>';
+    $$('[data-del]').forEach(b => b.onclick = () => { LS.set('fit-log', LS.get('fit-log', []).filter(x => String(x.id) !== b.dataset.del)); list(); draw(); });
+  };
+  $('#lx').onchange = draw;
+  $('#ladd').onclick = () => {
+    const e = { id: Date.now(), d: $('#ld').value || iso, ex: $('#lx').value, s: Math.max(1, +$('#ls').value || 1), w: Math.max(1, +$('#lw').value || 1), k: +$('#lk').value || 0 };
+    const all = LS.get('fit-log', []); all.push(e); all.sort((a, b) => a.d < b.d ? -1 : a.d > b.d ? 1 : a.id - b.id); LS.set('fit-log', all);
+    $('#lmsg').textContent = '✓ Gespeichert: ' + (LES[e.ex] || {}).t + ', ' + e.s + ' × ' + e.w; list(); draw();
+  };
+  list(); draw();
+  LOGDRAW = draw;
+}
+var LOGDRAW = null;
+
 /* ---------- Seitenleiste (PC) ---------- */
 function buildSide() {
   const s = $('#side'); if (!s) return;
@@ -1866,7 +2691,7 @@ function refreshSide() {
     const ls = lessonsOf(a.id).filter(l => !q || (l.t + ' ' + l.s + ' ' + l.m).toLowerCase().includes(q));
     if (!ls.length) return '';
     return `<div class="sg" style="--acc:${a.c}"><button class="sh" data-go="b-${a.id}">${a.ic} ${esc(a.t.toUpperCase())}</button>${ls.map(l => `<button class="si${seen.has(l.id) ? ' done' : ''}" data-go="l-${l.id}" data-id="${l.id}">${esc(l.t)}${seen.has(l.id) ? '<b>✓</b>' : ''}</button>`).join('')}</div>`;
-  }).join('') + `<div class="sg" style="--acc:#22d3ee"><button class="sh" data-go="quiz">🏆 QUIZ</button></div>`;
+  }).join('') + `<div class="sg" style="--acc:#22d3ee"><button class="sh" data-go="quiz">🏆 QUIZ</button></div><div class="sg" style="--acc:#f97316"><button class="sh" data-go="timer">⏱️ TIMER</button></div><div class="sg" style="--acc:#38bdf8"><button class="sh" data-go="tagebuch">📒 TAGEBUCH</button></div>`;
   setActive(curId);
 }
 let curId = '';
@@ -1878,6 +2703,8 @@ function route() {
   if (h.startsWith('b-')) renderArea(h.slice(2));
   else if (h.startsWith('l-')) renderLesson(h.slice(2));
   else if (h === 'quiz') renderQuiz();
+  else if (h === 'timer') renderTimer();
+  else if (h === 'tagebuch') renderLog();
   else renderHome();
   window.scrollTo(0, 0);
 }
@@ -1885,7 +2712,7 @@ function go(h) { if (('#' + h) === location.hash || (!h && !location.hash)) rout
 document.addEventListener('click', e => { const b = e.target.closest('[data-go]'); if (b) { e.preventDefault(); go(b.dataset.go); } });
 window.addEventListener('hashchange', route);
 window.addEventListener('resize', () => { if (vid && vid.fit) vid.fit(); if (Q && Q.draw && $('#qcv')) { /* bleibt */ } });
-function redrawAll() { if (vid && vid.draw) vid.draw(); if (Q && Q.draw && $('#qcv')) Q.draw(); if ($('canvas[data-thumb]')) drawThumbs(); }
+function redrawAll() { if (LOGDRAW && $('#lcv')) LOGDRAW(); if (vid && vid.draw) vid.draw(); if (Q && Q.draw && $('#qcv')) Q.draw(); if ($('canvas[data-thumb]')) drawThumbs(); }
 
 $$('.theme button').forEach(b => b.onclick = () => applyTheme(b.dataset.m));
 applyTheme(themeMode);
